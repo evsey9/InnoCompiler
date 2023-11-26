@@ -358,13 +358,13 @@ public class TupleElementNode : AstNode
 // Function literal node
 public class FunctionLiteralNode : ExpressionNode
 {
-    public List<string> Parameters { get; }
+    public List<StringNode> Parameters { get; }
     public List<StatementNode> Body { get; }
 
-    public FunctionLiteralNode(List<string> parameters, List<StatementNode> body)
+    public FunctionLiteralNode(StringNodeListNode parameters, StatementNodeListNode body)
     {
-        Parameters = parameters;
-        Body = body;
+        Parameters = parameters.GetList();
+        Body = body.GetList();
     }
 }
 

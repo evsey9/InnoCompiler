@@ -26,9 +26,9 @@ namespace LexicalAnalyzer
     {
         public List<T> NodeList = new List<T>();
         
-        public ListNode()
+        public ListNode(List<T> nodeList)
         {
-            NodeList = new List<T>();
+            NodeList = nodeList;
         }
         
         public ListNode(T node)
@@ -36,9 +36,9 @@ namespace LexicalAnalyzer
             NodeList.Add(node);
         }
         
-        public ListNode(List<T> nodeList)
+        public ListNode()
         {
-            NodeList = nodeList;
+            NodeList = new List<T>();
         }
 
         public List<T> GetList()
@@ -54,22 +54,92 @@ namespace LexicalAnalyzer
 
     public class ExpressionNodeListNode : ListNode<ExpressionNode>
     {
+        public ExpressionNodeListNode(List<ExpressionNode> nodeList)
+        {
+            NodeList = nodeList;
+        }
+        
+        public ExpressionNodeListNode(ExpressionNode node)
+        {
+            NodeList.Add(node);
+        }
+        
+        public ExpressionNodeListNode()
+        {
+            NodeList = new List<ExpressionNode>();
+        }
     };
 
     public class StringNodeListNode : ListNode<StringNode>
     {
+        public StringNodeListNode(List<StringNode> nodeList)
+        {
+            NodeList = nodeList;
+        }
+        
+        public ListNode(StringNode node)
+        {
+            NodeList.Add(node);
+        }
+        
+        public StringNodeListNode()
+        {
+            NodeList = new List<StringNode>();
+        }
     };
 
     public class TupleElementNodeListNode : ListNode<TupleElementNode>
     {
+        public TupleElementNodeListNode(List<TupleElementNode> nodeList)
+        {
+            NodeList = nodeList;
+        }
+        
+        public TupleElementNodeListNode(TupleElementNode node)
+        {
+            NodeList.Add(node);
+        }
+        
+        public TupleElementNodeListNode()
+        {
+            NodeList = new List<TupleElementNode>();
+        }
     };
     
     public class DeclarationNodeListNode : ListNode<DeclarationNode>
     {
+        public DeclarationNodeListNode(List<DeclarationNode> nodeList)
+        {
+            NodeList = nodeList;
+        }
+        
+        public DeclarationNodeListNode(DeclarationNode node)
+        {
+            NodeList.Add(node);
+        }
+        
+        public DeclarationNodeListNode()
+        {
+            NodeList = new List<DeclarationNode>();
+        }
     };
     
     public class StatementNodeListNode : ListNode<StatementNode>
     {
+        public StatementNodeListNode(List<StatementNode> nodeList)
+        {
+            NodeList = nodeList;
+        }
+        
+        public StatementNodeListNode(StatementNode node)
+        {
+            NodeList.Add(node);
+        }
+        
+        public StatementNodeListNode()
+        {
+            NodeList = new List<StatementNode>();
+        }
     };
 
 }

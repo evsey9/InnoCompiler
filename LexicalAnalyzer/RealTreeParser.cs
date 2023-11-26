@@ -3,8 +3,8 @@
 // (see accompanying GPPGcopyright.rtf)
 
 // GPPG version 1.5.2
-// DateTime: 26/11/2023 16:42:54
-// Input file <.\Grammar.y - 26/11/2023 15:44:54>
+// DateTime: 26/11/2023 23:00:10
+// Input file <.\Grammar.y - 26/11/2023 23:00:09>
 
 // options: lines report
 
@@ -341,12 +341,12 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 5: // Declaration -> VarKey, VarName
 #line 29 ".\Grammar.y"
-                            { CurrentSemanticValue = new DeclarationNode((string)ValueStack[ValueStack.Depth-1], null); }
+                            { CurrentSemanticValue = new DeclarationNode((StringNode)ValueStack[ValueStack.Depth-1], null); }
 #line default
         break;
       case 6: // Declaration -> VarKey, VarName, AssignOp, Expression, SemicolonSym
 #line 30 ".\Grammar.y"
-                                                            { CurrentSemanticValue = new DeclarationNode((string)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
+                                                            { CurrentSemanticValue = new DeclarationNode((StringNode)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 7: // Expression -> Relation, OrOp, Relation
@@ -456,7 +456,7 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 28: // Unary -> Primary, IsKey, TypeIndicator
 #line 62 ".\Grammar.y"
-                                   { CurrentSemanticValue = new TypeConversionNode(ValueStack[ValueStack.Depth-3], ValueStack[ValueStack.Depth-1]); }
+                                   { CurrentSemanticValue = new TypeConversionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], (TypeIndicator)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 29: // Unary -> Literal
@@ -466,7 +466,7 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 30: // Primary -> VarName
 #line 66 ".\Grammar.y"
-                 { CurrentSemanticValue = new VariableNode(ValueStack[ValueStack.Depth-1]); }
+                 { CurrentSemanticValue = new VariableNode((StringNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 31: // Primary -> VarName, Tail
@@ -496,32 +496,32 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 36: // Tail -> Dot, IntVar
 #line 74 ".\Grammar.y"
-                 { CurrentSemanticValue = new AccessNode(ValueStack[ValueStack.Depth-1]); }
+                 { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 37: // Tail -> Dot, VarName
 #line 75 ".\Grammar.y"
-                  { CurrentSemanticValue = new AccessNode(ValueStack[ValueStack.Depth-1]); }
+                  { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 38: // Tail -> OpenSquareBr, Expression, CloseSquareBr
 #line 76 ".\Grammar.y"
-                                            { CurrentSemanticValue = new AccessNode(ValueStack[ValueStack.Depth-2]); }
+                                            { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 39: // Tail -> OpenRoundBr, ExpressionList, CloseRoundBr
 #line 77 ".\Grammar.y"
-                                              { CurrentSemanticValue = new FunctionCallNode(ValueStack[ValueStack.Depth-2]); }
+                                              { CurrentSemanticValue = new FunctionCallNode((ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 40: // ExpressionList -> Expression
 #line 80 ".\Grammar.y"
-                           { CurrentSemanticValue = new List<ExpressionNode> { (ExpressionNode)ValueStack[ValueStack.Depth-1] }; }
+                           { CurrentSemanticValue = new ExpressionNodeListNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 41: // ExpressionList -> ExpressionList, CommaSym, Expression
 #line 81 ".\Grammar.y"
-                                                  { ValueStack[ValueStack.Depth-3].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
+                                                  { ((ExpressionNodeListNode)ValueStack[ValueStack.Depth-3]).Add((ExpressionNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
 #line default
         break;
       case 42: // Statement -> Assignment
@@ -551,12 +551,12 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 47: // Assignment -> VarName, AssignOp, Expression, SemicolonSym
 #line 91 ".\Grammar.y"
-                                                     { CurrentSemanticValue = new AssignmentNode((string)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
+                                                     { CurrentSemanticValue = new AssignmentNode((StringNode)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 48: // Print -> PrintKey, ExpressionList
 #line 94 ".\Grammar.y"
-                               { CurrentSemanticValue = new PrintNode(ValueStack[ValueStack.Depth-1]); }
+                               { CurrentSemanticValue = new PrintNode((ExpressionNodeListNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 49: // Return -> ReturnKey, Expression, SemicolonSym
@@ -571,22 +571,22 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 51: // If -> IfKey, Expression, ThenKey, Body, EndKey
 #line 101 ".\Grammar.y"
-                                         { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2], null); }
+                                         { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-4], (StatementNodeListNode)ValueStack[ValueStack.Depth-2], null); }
 #line default
         break;
       case 52: // If -> IfKey, Expression, ThenKey, Body, ElseKey, Body, EndKey
 #line 102 ".\Grammar.y"
-                                                       { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-6], ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2]); }
+                                                       { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-6], (StatementNodeListNode)ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 53: // Loop -> WhileKey, Expression, LoopBody
 #line 105 ".\Grammar.y"
-                                   { CurrentSemanticValue = new LoopNode((ExpressionNode)ValueStack[ValueStack.Depth-2], ValueStack[ValueStack.Depth-1]); }
+                                   { CurrentSemanticValue = new LoopNode((ExpressionNode)ValueStack[ValueStack.Depth-2], (StatementNodeListNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 54: // Loop -> ForKey, VarName, InKey, TypeIndicator, LoopBody
 #line 106 ".\Grammar.y"
-                                                  { CurrentSemanticValue = new ForLoopNode(ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2], ValueStack[ValueStack.Depth-1]); }
+                                                  { CurrentSemanticValue = new ForLoopNode((TypeIndicator)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2], (StatementNodeListNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 55: // LoopBody -> LoopKey, Body, EndKey
@@ -641,12 +641,12 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 65: // Literal -> IntVar
 #line 123 ".\Grammar.y"
-                { CurrentSemanticValue = new LiteralNode(int.Parse(ValueStack[ValueStack.Depth-1])); }
+                { CurrentSemanticValue = new LiteralNode(int.Parse(((StringNode)ValueStack[ValueStack.Depth-1]).GetString())); }
 #line default
         break;
       case 66: // Literal -> RealVar
 #line 124 ".\Grammar.y"
-                  { CurrentSemanticValue = new LiteralNode(double.Parse(ValueStack[ValueStack.Depth-1])); }
+                  { CurrentSemanticValue = new LiteralNode(double.Parse(((StringNode)ValueStack[ValueStack.Depth-1]).GetString())); }
 #line default
         break;
       case 67: // Literal -> TrueKey
@@ -661,32 +661,32 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 69: // Literal -> StringVar
 #line 127 ".\Grammar.y"
-                    { CurrentSemanticValue = new LiteralNode(ValueStack[ValueStack.Depth-1]); }
+                    { CurrentSemanticValue = new LiteralNode(((StringNode)ValueStack[ValueStack.Depth-1]).GetString()); }
 #line default
         break;
       case 70: // Literal -> ArrayLiteral
 #line 128 ".\Grammar.y"
-                       { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
+                       { CurrentSemanticValue = (ArrayLiteralNode)ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 71: // Literal -> TupleLiteral
 #line 129 ".\Grammar.y"
-                       { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
+                       { CurrentSemanticValue = (TupleLiteralNode)ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 72: // Literal -> FunctionLiteral
 #line 130 ".\Grammar.y"
-                          { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
+                          { CurrentSemanticValue = (FunctionLiteralNode)ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 73: // ArrayLiteral -> OpenSquareBr, ExpressionList, CloseSquareBr
 #line 133 ".\Grammar.y"
-                                                        { CurrentSemanticValue = new ArrayLiteralNode(ValueStack[ValueStack.Depth-2]); }
+                                                        { CurrentSemanticValue = new ArrayLiteralNode((ExpressionNodeListNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 74: // TupleLiteral -> OpenCurlBr, TupleContent, CloseCurlBr
 #line 136 ".\Grammar.y"
-                                                  { CurrentSemanticValue = new TupleLiteralNode(ValueStack[ValueStack.Depth-2]); }
+                                                  { CurrentSemanticValue = new TupleLiteralNode((TupleElementNodeListNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 75: // TupleContent -> OpenSquareBr, TupleElementList, CloseSquareBr
@@ -696,27 +696,27 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 76: // TupleContent -> /* empty */
 #line 140 ".\Grammar.y"
-                          { CurrentSemanticValue = new List<TupleElementNode>(); }
+                          { CurrentSemanticValue = new TupleElementNodeListNode(); }
 #line default
         break;
       case 77: // TupleElementList -> TupleElement
 #line 143 ".\Grammar.y"
-                               { CurrentSemanticValue = new List<TupleElementNode> { ValueStack[ValueStack.Depth-1] }; }
+                               { CurrentSemanticValue = new TupleElementNodeListNode((TupleElementNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 78: // TupleElementList -> TupleElementList, CommaSym, TupleElement
 #line 144 ".\Grammar.y"
-                                                        { ValueStack[ValueStack.Depth-3].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
+                                                        { ((TupleElementNodeListNode)ValueStack[ValueStack.Depth-3]).Add((TupleElementNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
 #line default
         break;
       case 79: // TupleElement -> OpenSquareBr, VarName, AssignOp, Expression, CloseSquareBr
 #line 147 ".\Grammar.y"
-                                                                     { CurrentSemanticValue = new TupleElementNode(ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2]); }
+                                                                     { CurrentSemanticValue = new TupleElementNode((StringNode)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 80: // FunctionLiteral -> FuncKey, Parameters, FunBody
 #line 150 ".\Grammar.y"
-                                            { CurrentSemanticValue = new FunctionLiteralNode(ValueStack[ValueStack.Depth-2], ValueStack[ValueStack.Depth-1]); }
+                                            { CurrentSemanticValue = new FunctionLiteralNode((StringNodeListNode)ValueStack[ValueStack.Depth-2], (StatementNodeListNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 81: // Parameters -> OpenRoundBr, VarNameList, CloseRoundBr
@@ -726,17 +726,17 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 82: // Parameters -> /* empty */
 #line 154 ".\Grammar.y"
-                        { CurrentSemanticValue = new List<string>(); }
+                        { CurrentSemanticValue = new StringNodeListNode(); }
 #line default
         break;
       case 83: // VarNameList -> VarName
 #line 157 ".\Grammar.y"
-                     { CurrentSemanticValue = new List<string> { ValueStack[ValueStack.Depth-1] }; }
+                     { CurrentSemanticValue = new StringNodeListNode((StringNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 84: // VarNameList -> VarNameList, CommaSym, VarName
 #line 158 ".\Grammar.y"
-                                         { ValueStack[ValueStack.Depth-3].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
+                                         { ((StringNodeListNode)ValueStack[ValueStack.Depth-3]).Add((StringNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
 #line default
         break;
       case 85: // FunBody -> IsKey, Body, EndKey
@@ -746,7 +746,7 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 86: // FunBody -> ArrowKey, Expression
 #line 162 ".\Grammar.y"
-                             { CurrentSemanticValue = new FunctionBodyNode(ValueStack[ValueStack.Depth-1]); }
+                             { CurrentSemanticValue = new FunctionBodyNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 87: // Body -> OpenCurlBr, DeclarationList, CloseCurlBr
@@ -766,22 +766,22 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 90: // DeclarationList -> Declaration
 #line 170 ".\Grammar.y"
-                             { CurrentSemanticValue = new List<DeclarationNode> { ValueStack[ValueStack.Depth-1] }; }
+                             { CurrentSemanticValue = new DeclarationNodeListNode((DeclarationNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 91: // DeclarationList -> DeclarationList, Declaration
 #line 171 ".\Grammar.y"
-                                            { ValueStack[ValueStack.Depth-2].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+                                            { ((DeclarationNodeListNode)ValueStack[ValueStack.Depth-2]).Add((DeclarationNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
       case 92: // StatementList -> Statement
 #line 174 ".\Grammar.y"
-                         { CurrentSemanticValue = new List<StatementNode> { ValueStack[ValueStack.Depth-1] }; }
+                         { CurrentSemanticValue = new StatementNodeListNode((StatementNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 93: // StatementList -> StatementList, Statement
 #line 175 ".\Grammar.y"
-                                      { ValueStack[ValueStack.Depth-2].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+                                      { ((StatementNodeListNode)ValueStack[ValueStack.Depth-2]).Add((StatementNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
     }

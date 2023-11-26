@@ -59,11 +59,11 @@ Unary: Primary { $$ = $1; }
      | Plus Primary { $$ = new UnaryExpressionNode(UnaryOperator.Plus, (ExpressionNode)$2); }
      | Minus Primary { $$ = new UnaryExpressionNode(UnaryOperator.Minus, (ExpressionNode)$2); }
      | Not Primary { $$ = new UnaryExpressionNode(UnaryOperator.Not, (ExpressionNode)$2); }
-     | Primary IsKey TypeIndicator { $$ = new TypeConversionNode($1, $3); }
+     | Primary IsKey TypeIndicator { $$ = new TypeConversionNode((ExpressionNode)$1, (TypeIndicator)$3); }
      | Literal { $$ = $1; }
      ;
 
-Primary: VarName { $$ = new VariableNode($1); }
+Primary: VarName { $$ = new VariableNode((StringNode)$1); }
        | VarName Tail { $$ = new AccessNode((ExpressionNode)$1, (AccessTailNode)$2); }
        | ReadInt { $$ = new ReadIntNode(); }
        | ReadReal { $$ = new ReadRealNode(); }
@@ -71,8 +71,8 @@ Primary: VarName { $$ = new VariableNode($1); }
        | OpenRoundBr Expression CloseRoundBr { $$ = $2; }
        ;
 
-Tail: Dot IntVar { $$ = new AccessNode($2); }
-    | Dot VarName { $$ = new AccessNode($2); }
+Tail: Dot IntVar { $$ = new AccessNode((ExpressionNode)$2); }
+    | Dot VarName { $$ = new AccessNode((ExpressionNode)$2); }
     | OpenSquareBr Expression CloseSquareBr { $$ = new AccessNode((ExpressionNode)$2); }
     | OpenRoundBr ExpressionList CloseRoundBr { $$ = new FunctionCallNode((ExpressionNode)$2); }
     ;
@@ -91,19 +91,19 @@ Statement: Assignment { $$ = $1; }
 Assignment: VarName AssignOp Expression SemicolonSym { $$ = new AssignmentNode((StringNode)$1, (ExpressionNode)$3); }
           ;
 
-Print: PrintKey ExpressionList { $$ = new PrintNode($2); }
+Print: PrintKey ExpressionList { $$ = new PrintNode((ExpressionNodeListNode)$2); }
      ;
 
 Return: ReturnKey Expression SemicolonSym { $$ = new ReturnNode((ExpressionNode)$2); }
       | ReturnKey SemicolonSym { $$ = new ReturnNode(null); }
       ;
 
-If: IfKey Expression ThenKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, $4, null); }
-   | IfKey Expression ThenKey Body ElseKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, $4, $6); }
+If: IfKey Expression ThenKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, null); }
+   | IfKey Expression ThenKey Body ElseKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, $6); }
    ;
 
-Loop: WhileKey Expression LoopBody { $$ = new LoopNode((ExpressionNode)$2, $3); }
-    | ForKey VarName InKey TypeIndicator LoopBody { $$ = new ForLoopNode($2, $4, $5); }
+Loop: WhileKey Expression LoopBody { $$ = new LoopNode((ExpressionNode)$2, (StatementNodeListNode)$3); }
+    | ForKey VarName InKey TypeIndicator LoopBody { $$ = new ForLoopNode((TypeIndicator)$2, (ExpressionNode)$4, (StatementNodeListNode)$5); }
     ;
 
 LoopBody: LoopKey Body EndKey { $$ = $2; }
@@ -120,46 +120,46 @@ TypeIndicator: IntKey { $$ = TypeIndicator.Int; }
              | Expression DotDot Expression { $$ = TypeIndicator.Range($1, $3); }
              ;
 
-Literal: IntVar { $$ = new LiteralNode(int.Parse($1)); }
-        | RealVar { $$ = new LiteralNode(double.Parse($1)); }
+Literal: IntVar { $$ = new LiteralNode(int.Parse(((StringNode)$1).GetString())); }
+        | RealVar { $$ = new LiteralNode(double.Parse(((StringNode)$1).GetString())); }
         | TrueKey { $$ = new LiteralNode(true); }
         | FalseKey { $$ = new LiteralNode(false); }
-        | StringVar { $$ = new LiteralNode($1); }
-        | ArrayLiteral { $$ = $1; }
-        | TupleLiteral { $$ = $1; }
-        | FunctionLiteral { $$ = $1; }
+        | StringVar { $$ = new LiteralNode(((StringNode)$1).GetString()); }
+        | ArrayLiteral { $$ = (ArrayLiteralNode)$1; }
+        | TupleLiteral { $$ = (TupleLiteralNode)$1; }
+        | FunctionLiteral { $$ = (FunctionLiteralNode)$1; }
         ;
 
-ArrayLiteral: OpenSquareBr ExpressionList CloseSquareBr { $$ = new ArrayLiteralNode($2); }
+ArrayLiteral: OpenSquareBr ExpressionList CloseSquareBr { $$ = new ArrayLiteralNode((ExpressionNodeListNode)$2); }
             ;
 
-TupleLiteral: OpenCurlBr TupleContent CloseCurlBr { $$ = new TupleLiteralNode($2); }
+TupleLiteral: OpenCurlBr TupleContent CloseCurlBr { $$ = new TupleLiteralNode((TupleElementNodeListNode)$2); }
             ;
 
 TupleContent: OpenSquareBr TupleElementList CloseSquareBr { $$ = $2; }
             | /* empty */ { $$ = new TupleElementNodeListNode(); }
             ;
 
-TupleElementList: TupleElement { $$ = new TupleElementNodeListNode($1); }
+TupleElementList: TupleElement { $$ = new TupleElementNodeListNode((TupleElementNode)$1); }
                | TupleElementList CommaSym TupleElement { ((TupleElementNodeListNode)$1).Add((TupleElementNode)$3); $$ = $1; }
                ;
 
-TupleElement: OpenSquareBr VarName AssignOp Expression CloseSquareBr { $$ = new TupleElementNode($2, $4); }
+TupleElement: OpenSquareBr VarName AssignOp Expression CloseSquareBr { $$ = new TupleElementNode((StringNode)$2, (ExpressionNode)$4); }
             ;
 
-FunctionLiteral: FuncKey Parameters FunBody { $$ = new FunctionLiteralNode($2, $3); }
+FunctionLiteral: FuncKey Parameters FunBody { $$ = new FunctionLiteralNode((StringNodeListNode)$2, (StatementNodeListNode)$3); }
               ;
 
 Parameters: OpenRoundBr VarNameList CloseRoundBr { $$ = $2; }
           | /* empty */ { $$ = new StringNodeListNode(); }
           ;
 
-VarNameList: VarName { $$ = new StringNodeListNode { $1 }; }
-          | VarNameList CommaSym VarName { $1.Add($3); $$ = $1; }
+VarNameList: VarName { $$ = new StringNodeListNode((StringNode)$1); }
+          | VarNameList CommaSym VarName { ((StringNodeListNode)$1).Add((StringNode)$3); $$ = $1; }
           ;
 
 FunBody: IsKey Body EndKey { $$ = $2; }
-       | ArrowKey Expression { $$ = new FunctionBodyNode($2); }
+       | ArrowKey Expression { $$ = new FunctionBodyNode((ExpressionNode)$2); }
        ;
 
 Body: OpenCurlBr DeclarationList CloseCurlBr { $$ = $2; }
@@ -167,11 +167,11 @@ Body: OpenCurlBr DeclarationList CloseCurlBr { $$ = $2; }
     | OpenCurlBr ExpressionList CloseCurlBr { $$ = $2; }
     ;
 
-DeclarationList: Declaration { $$ = new DeclarationNodeListNode { $1 }; }
+DeclarationList: Declaration { $$ = new DeclarationNodeListNode((DeclarationNode)$1); }
               | DeclarationList Declaration { ((DeclarationNodeListNode)$1).Add((DeclarationNode)$2); $$ = $1; }
               ;
 
-StatementList: Statement { $$ = new StatementNodeListNode { $1 }; }
+StatementList: Statement { $$ = new StatementNodeListNode((StatementNode)$1); }
             | StatementList Statement { ((StatementNodeListNode)$1).Add((StatementNode)$2); $$ = $1; }
             ;
 
