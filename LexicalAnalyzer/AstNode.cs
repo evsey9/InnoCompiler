@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LexicalAnalyzer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -83,8 +84,6 @@ namespace LexicalAnalyzer
         }
     }
 
-    // You can define other AST node classes based on your language's grammar
-
     // Define enumeration for binary operators
     public enum BinaryOperator
     {
@@ -101,7 +100,6 @@ namespace LexicalAnalyzer
         MoreOrEqual, // change to greater
         Equal,
         NotEqual
-        // Add other operators as needed
     }
 
     // Define enumeration for unary operators
@@ -110,6 +108,7 @@ namespace LexicalAnalyzer
         Plus,
         Minus,
         Not,
+        TypeConversion
     }
 
     // Statement node representing a statement in the program
@@ -190,12 +189,12 @@ namespace LexicalAnalyzer
     public class AccessNode : ExpressionNode
     {
         public ExpressionNode Target { get; }
-        public AccessTailNode Tail { get; }
+        //public AccessTailNode Tail { get; }
 
-        public AccessNode(ExpressionNode target, AccessTailNode tail)
+        public AccessNode(ExpressionNode target)
         {
             Target = target;
-            Tail = tail;
+            //Tail = tail;
         }
     }
 
@@ -235,3 +234,149 @@ namespace LexicalAnalyzer
         }
     }
 }
+
+// Type conversion node
+public class TypeConversionNode : UnaryExpressionNode
+{
+    public TypeIndicator TargetType { get; }
+
+    public TypeConversionNode(ExpressionNode operand, TypeIndicator targetType)
+        : base(UnaryOperator.TypeConversion, operand)
+    {
+        TargetType = targetType;
+    }
+}
+
+// Variable node
+public class VariableNode : ExpressionNode
+{
+    public string VariableName { get; }
+
+    public VariableNode(string variableName)
+    {
+        VariableName = variableName;
+    }
+}
+
+// ReadInt node
+public class ReadIntNode : ExpressionNode
+{
+    // You can add additional properties or methods if needed
+}
+
+// ReadReal node
+public class ReadRealNode : ExpressionNode
+{
+    // You can add additional properties or methods if needed
+}
+
+// ReadString node
+public class ReadStringNode : ExpressionNode
+{
+    // You can add additional properties or methods if needed
+}
+
+// Function call node
+public class FunctionCallNode : ExpressionNode
+{
+    public ExpressionNode Function { get; }
+    public List<ExpressionNode> Arguments { get; }
+
+    public FunctionCallNode(ExpressionNode function, List<ExpressionNode> arguments)
+    {
+        Function = function;
+        Arguments = arguments;
+    }
+}
+
+// For loop node
+public class ForLoopNode : StatementNode
+{
+    public string VariableName { get; }
+    public TypeIndicator VariableType { get; }
+    public ExpressionNode Collection { get; }
+    public List<StatementNode> LoopBody { get; }
+
+    public ForLoopNode(string variableName, TypeIndicator variableType, ExpressionNode collection, List<StatementNode> loopBody)
+    {
+        VariableName = variableName;
+        VariableType = variableType;
+        Collection = collection;
+        LoopBody = loopBody;
+    }
+}
+
+// Type indicator enumeration
+public enum TypeIndicator
+{
+    Int,
+    Real,
+    Bool,
+    String,
+    Empty,
+    Vector,
+    Tuple,
+    Function,
+    Range
+}
+
+// Array literal node
+public class ArrayLiteralNode : ExpressionNode
+{
+    public List<ExpressionNode> Elements { get; }
+
+    public ArrayLiteralNode(List<ExpressionNode> elements)
+    {
+        Elements = elements;
+    }
+}
+
+// Tuple literal node
+public class TupleLiteralNode : ExpressionNode
+{
+    public List<TupleElementNode> Elements { get; }
+
+    public TupleLiteralNode(List<TupleElementNode> elements)
+    {
+        Elements = elements;
+    }
+}
+
+// Tuple element node
+public class TupleElementNode : AstNode
+{
+    public string VariableName { get; }
+    public ExpressionNode Value { get; }
+
+    public TupleElementNode(string variableName, ExpressionNode value)
+    {
+        VariableName = variableName;
+        Value = value;
+    }
+}
+
+// Function literal node
+public class FunctionLiteralNode : ExpressionNode
+{
+    public List<string> Parameters { get; }
+    public List<StatementNode> Body { get; }
+
+    public FunctionLiteralNode(List<string> parameters, List<StatementNode> body)
+    {
+        Parameters = parameters;
+        Body = body;
+    }
+}
+
+// Function body node
+public class FunctionBodyNode : AstNode
+{
+    public ExpressionNode Expression { get; }
+
+    public FunctionBodyNode(ExpressionNode expression)
+    {
+        Expression = expression;
+    }
+}
+
+
