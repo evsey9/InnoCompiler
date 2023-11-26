@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexicalAnalyzer", "LexicalAnalyzer\LexicalAnalyzer.csproj", "{C5EA86BD-F8E9-4D98-8B62-E2895828945B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexicalAnalyzerExamples", "LexicalAnalyzerExamples\LexicalAnalyzerExamples.csproj", "{C3421D66-BE69-4BBF-B500-D6CEBBAEE179}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5EA86BD-F8E9-4D98-8B62-E2895828945B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5EA86BD-F8E9-4D98-8B62-E2895828945B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5EA86BD-F8E9-4D98-8B62-E2895828945B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5EA86BD-F8E9-4D98-8B62-E2895828945B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3421D66-BE69-4BBF-B500-D6CEBBAEE179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3421D66-BE69-4BBF-B500-D6CEBBAEE179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3421D66-BE69-4BBF-B500-D6CEBBAEE179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3421D66-BE69-4BBF-B500-D6CEBBAEE179}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
