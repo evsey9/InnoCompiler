@@ -35,9 +35,9 @@ namespace LexicalAnalyzer
         public string VariableName { get; }
         public ExpressionNode AssignedExpression { get; }
 
-        public DeclarationNode(string variableName, ExpressionNode assignedExpression)
+        public DeclarationNode(StringNode variableName, ExpressionNode assignedExpression)
         {
-            VariableName = variableName;
+            VariableName = variableName.GetString();
             AssignedExpression = assignedExpression;
         }
     }
@@ -120,9 +120,9 @@ namespace LexicalAnalyzer
         public string VariableName { get; }
         public ExpressionNode AssignedExpression { get; }
 
-        public AssignmentNode(string variableName, ExpressionNode assignedExpression)
+        public AssignmentNode(StringNode variableName, ExpressionNode assignedExpression)
         {
-            VariableName = variableName;
+            VariableName = variableName.GetString();
             AssignedExpression = assignedExpression;
         }
     }
@@ -132,9 +132,9 @@ namespace LexicalAnalyzer
     {
         public List<ExpressionNode> Expressions { get; }
 
-        public PrintNode(List<ExpressionNode> expressions)
+        public PrintNode(ExpressionNodeListNode expressions)
         {
-            Expressions = expressions;
+            Expressions = expressions.GetList();
         }
     }
 
@@ -164,11 +164,11 @@ namespace LexicalAnalyzer
             return falseBranch;
         }
 
-        public IfNode(ExpressionNode condition, List<StatementNode> trueBranch, List<StatementNode> falseBranch)
+        public IfNode(ExpressionNode condition, StatementNodeListNode trueBranch, StatementNodeListNode falseBranch)
         {
             Condition = condition ?? throw new ArgumentNullException(nameof(condition));
-            TrueBranch = trueBranch ?? throw new ArgumentNullException(nameof(trueBranch));
-            this.falseBranch = falseBranch;
+            TrueBranch = trueBranch.GetList() ?? throw new ArgumentNullException(nameof(trueBranch));
+            this.falseBranch = falseBranch.GetList();
         }
     }
 
@@ -178,10 +178,10 @@ namespace LexicalAnalyzer
         public ExpressionNode Condition { get; }
         public List<StatementNode> LoopBody { get; }
 
-        public LoopNode(ExpressionNode condition, List<StatementNode> loopBody)
+        public LoopNode(ExpressionNode condition, StatementNodeListNode loopBody)
         {
             Condition = condition;
-            LoopBody = loopBody;
+            LoopBody = loopBody.GetList();
         }
     }
 
@@ -228,9 +228,9 @@ namespace LexicalAnalyzer
     {
         public List<ExpressionNode> Arguments { get; }
 
-        public FunctionCallAccessNode(List<ExpressionNode> arguments)
+        public FunctionCallAccessNode(ExpressionNodeListNode arguments)
         {
-            Arguments = arguments;
+            Arguments = arguments.GetList();
         }
     }
 }
@@ -252,9 +252,9 @@ public class VariableNode : ExpressionNode
 {
     public string VariableName { get; }
 
-    public VariableNode(string variableName)
+    public VariableNode(StringNode variableName)
     {
-        VariableName = variableName;
+        VariableName = variableName.GetString();
     }
 }
 
@@ -282,10 +282,10 @@ public class FunctionCallNode : ExpressionNode
     public ExpressionNode Function { get; }
     public List<ExpressionNode> Arguments { get; }
 
-    public FunctionCallNode(ExpressionNode function, List<ExpressionNode> arguments)
+    public FunctionCallNode(ExpressionNode function, ExpressionNodeListNode arguments)
     {
         Function = function;
-        Arguments = arguments;
+        Arguments = arguments.GetList();
     }
 }
 
@@ -297,12 +297,12 @@ public class ForLoopNode : StatementNode
     public ExpressionNode Collection { get; }
     public List<StatementNode> LoopBody { get; }
 
-    public ForLoopNode(string variableName, TypeIndicator variableType, ExpressionNode collection, List<StatementNode> loopBody)
+    public ForLoopNode(string variableName, TypeIndicator variableType, ExpressionNode collection, StatementNodeListNode loopBody)
     {
         VariableName = variableName;
         VariableType = variableType;
         Collection = collection;
-        LoopBody = loopBody;
+        LoopBody = loopBody.GetList();
     }
 }
 
@@ -325,9 +325,9 @@ public class ArrayLiteralNode : ExpressionNode
 {
     public List<ExpressionNode> Elements { get; }
 
-    public ArrayLiteralNode(List<ExpressionNode> elements)
+    public ArrayLiteralNode(ExpressionNodeListNode elements)
     {
-        Elements = elements;
+        Elements = elements.GetList();
     }
 }
 
@@ -336,9 +336,9 @@ public class TupleLiteralNode : ExpressionNode
 {
     public List<TupleElementNode> Elements { get; }
 
-    public TupleLiteralNode(List<TupleElementNode> elements)
+    public TupleLiteralNode(TupleElementNodeListNode elements)
     {
-        Elements = elements;
+        Elements = elements.GetList();
     }
 }
 
@@ -348,9 +348,9 @@ public class TupleElementNode : AstNode
     public string VariableName { get; }
     public ExpressionNode Value { get; }
 
-    public TupleElementNode(string variableName, ExpressionNode value)
+    public TupleElementNode(StringNode variableName, ExpressionNode value)
     {
-        VariableName = variableName;
+        VariableName = variableName.GetString();
         Value = value;
     }
 }

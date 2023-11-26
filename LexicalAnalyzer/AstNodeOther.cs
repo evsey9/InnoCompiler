@@ -60,15 +60,15 @@ namespace LexicalAnalyzer
     {
     };
 
-    public class TupleNodeListNode : List<TupleElementNode>
+    public class TupleElementNodeListNode : ListNode<TupleElementNode>
     {
     };
     
-    public class DeclarationNodeListNode : List<DeclarationNode>
+    public class DeclarationNodeListNode : ListNode<DeclarationNode>
     {
     };
     
-    public class StatementNodeListNode : List<StatementNode>
+    public class StatementNodeListNode : ListNode<StatementNode>
     {
     };
 

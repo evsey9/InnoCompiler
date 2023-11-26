@@ -26,8 +26,8 @@ Program: Declaration { $$ = new ProgramNode((DeclarationNode)$1); } /* Доба�
        | /* empty */ { $$ = new ProgramNode(); }
        ;
 
-Declaration: VarKey VarName { $$ = new DeclarationNode((string)$2, null); }
-          | VarKey VarName AssignOp Expression SemicolonSym { $$ = new DeclarationNode((string)$2, (ExpressionNode)$4); }
+Declaration: VarKey VarName { $$ = new DeclarationNode((StringNode)$2, null); }
+          | VarKey VarName AssignOp Expression SemicolonSym { $$ = new DeclarationNode((StringNode)$2, (ExpressionNode)$4); }
           ;
 
 Expression: Relation OrOp Relation { $$ = new BinaryExpressionNode((ExpressionNode)$1, BinaryOperator.Or, (ExpressionNode)$3); }
@@ -73,12 +73,12 @@ Primary: VarName { $$ = new VariableNode($1); }
 
 Tail: Dot IntVar { $$ = new AccessNode($2); }
     | Dot VarName { $$ = new AccessNode($2); }
-    | OpenSquareBr Expression CloseSquareBr { $$ = new AccessNode($2); }
-    | OpenRoundBr ExpressionList CloseRoundBr { $$ = new FunctionCallNode($2); }
+    | OpenSquareBr Expression CloseSquareBr { $$ = new AccessNode((ExpressionNode)$2); }
+    | OpenRoundBr ExpressionList CloseRoundBr { $$ = new FunctionCallNode((ExpressionNode)$2); }
     ;
 
-ExpressionList: Expression { $$ = new List<ExpressionNode> { (ExpressionNode)$1 }; } /*Поменять в соответствии с созданием листа в C#*/
-             | ExpressionList CommaSym Expression { $1.Add($3); $$ = $1; }
+ExpressionList: Expression { $$ = new ExpressionNodeListNode((ExpressionNode)$1); } /*Поменять в соответствии с созданием листа в C#*/
+             | ExpressionList CommaSym Expression { ((ExpressionNodeListNode)$1).Add((ExpressionNode)$3); $$ = $1; }
              ;
 
 Statement: Assignment { $$ = $1; }
@@ -88,7 +88,7 @@ Statement: Assignment { $$ = $1; }
          | Loop { $$ = $1; }
          ;
 
-Assignment: VarName AssignOp Expression SemicolonSym { $$ = new AssignmentNode((string)$1, (ExpressionNode)$3); }
+Assignment: VarName AssignOp Expression SemicolonSym { $$ = new AssignmentNode((StringNode)$1, (ExpressionNode)$3); }
           ;
 
 Print: PrintKey ExpressionList { $$ = new PrintNode($2); }
@@ -137,11 +137,11 @@ TupleLiteral: OpenCurlBr TupleContent CloseCurlBr { $$ = new TupleLiteralNode($2
             ;
 
 TupleContent: OpenSquareBr TupleElementList CloseSquareBr { $$ = $2; }
-            | /* empty */ { $$ = new List<TupleElementNode>(); }
+            | /* empty */ { $$ = new TupleElementNodeListNode(); }
             ;
 
-TupleElementList: TupleElement { $$ = new List<TupleElementNode> { $1 }; }
-               | TupleElementList CommaSym TupleElement { $1.Add($3); $$ = $1; }
+TupleElementList: TupleElement { $$ = new TupleElementNodeListNode($1); }
+               | TupleElementList CommaSym TupleElement { ((TupleElementNodeListNode)$1).Add((TupleElementNode)$3); $$ = $1; }
                ;
 
 TupleElement: OpenSquareBr VarName AssignOp Expression CloseSquareBr { $$ = new TupleElementNode($2, $4); }
@@ -151,10 +151,10 @@ FunctionLiteral: FuncKey Parameters FunBody { $$ = new FunctionLiteralNode($2, $
               ;
 
 Parameters: OpenRoundBr VarNameList CloseRoundBr { $$ = $2; }
-          | /* empty */ { $$ = new List<string>(); }
+          | /* empty */ { $$ = new StringNodeListNode(); }
           ;
 
-VarNameList: VarName { $$ = new List<string> { $1 }; }
+VarNameList: VarName { $$ = new StringNodeListNode { $1 }; }
           | VarNameList CommaSym VarName { $1.Add($3); $$ = $1; }
           ;
 
@@ -167,12 +167,12 @@ Body: OpenCurlBr DeclarationList CloseCurlBr { $$ = $2; }
     | OpenCurlBr ExpressionList CloseCurlBr { $$ = $2; }
     ;
 
-DeclarationList: Declaration { $$ = new List<DeclarationNode> { $1 }; }
-              | DeclarationList Declaration { $1.Add($2); $$ = $1; }
+DeclarationList: Declaration { $$ = new DeclarationNodeListNode { $1 }; }
+              | DeclarationList Declaration { ((DeclarationNodeListNode)$1).Add((DeclarationNode)$2); $$ = $1; }
               ;
 
-StatementList: Statement { $$ = new List<StatementNode> { $1 }; }
-            | StatementList Statement { $1.Add($2); $$ = $1; }
+StatementList: Statement { $$ = new StatementNodeListNode { $1 }; }
+            | StatementList Statement { ((StatementNodeListNode)$1).Add((StatementNode)$2); $$ = $1; }
             ;
 
 
