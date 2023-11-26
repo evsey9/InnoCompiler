@@ -3,8 +3,8 @@
 // (see accompanying GPPGcopyright.rtf)
 
 // GPPG version 1.5.2
-// DateTime: 25/10/2023 08:44:28
-// Input file <.\Grammar.y - 25/10/2023 08:43:30>
+// DateTime: 26/11/2023 16:42:54
+// Input file <.\Grammar.y - 26/11/2023 15:44:54>
 
 // options: lines report
 
@@ -341,27 +341,27 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 5: // Declaration -> VarKey, VarName
 #line 29 ".\Grammar.y"
-                            { CurrentSemanticValue = new DeclarationNode(ValueStack[ValueStack.Depth-1], null); }
+                            { CurrentSemanticValue = new DeclarationNode((string)ValueStack[ValueStack.Depth-1], null); }
 #line default
         break;
       case 6: // Declaration -> VarKey, VarName, AssignOp, Expression, SemicolonSym
 #line 30 ".\Grammar.y"
-                                                            { CurrentSemanticValue = new DeclarationNode(ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2]); }
+                                                            { CurrentSemanticValue = new DeclarationNode((string)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 7: // Expression -> Relation, OrOp, Relation
 #line 33 ".\Grammar.y"
-                                   { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.Or, ValueStack[ValueStack.Depth-1]); }
+                                   { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Or, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 8: // Expression -> Relation, AndOp, Relation
 #line 34 ".\Grammar.y"
-                                    { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.And, ValueStack[ValueStack.Depth-1]); }
+                                    { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.And, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 9: // Expression -> Relation, XorOp, Relation
 #line 35 ".\Grammar.y"
-                                    { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.Xor, ValueStack[ValueStack.Depth-1]); }
+                                    { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Xor, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 10: // Expression -> Relation
@@ -376,32 +376,32 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 12: // Relation -> Factor, LessRel, Factor
 #line 40 ".\Grammar.y"
-                                { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.Less, ValueStack[ValueStack.Depth-1]); }
+                                { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Less, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 13: // Relation -> Factor, MoreRel, Factor
 #line 41 ".\Grammar.y"
-                                { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.More, ValueStack[ValueStack.Depth-1]); }
+                                { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.More, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 14: // Relation -> Factor, LessEqRel, Factor
 #line 42 ".\Grammar.y"
-                                  { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.LessOrEqual, ValueStack[ValueStack.Depth-1]); }
+                                  { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.LessOrEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 15: // Relation -> Factor, MoreEqRel, Factor
 #line 43 ".\Grammar.y"
-                                  { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.MoreOrEqual, ValueStack[ValueStack.Depth-1]); }
+                                  { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.MoreOrEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 16: // Relation -> Factor, EqualRel, Factor
 #line 44 ".\Grammar.y"
-                                 { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.Equal, ValueStack[ValueStack.Depth-1]); }
+                                 { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Equal, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 17: // Relation -> Factor, NotEqRel, Factor
 #line 45 ".\Grammar.y"
-                                 { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.NotEqual, ValueStack[ValueStack.Depth-1]); }
+                                 { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.NotEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 18: // Factor -> Term
@@ -411,12 +411,12 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 19: // Factor -> Term, Plus, Term
 #line 49 ".\Grammar.y"
-                       { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.Add, ValueStack[ValueStack.Depth-1]); }
+                       { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Add, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 20: // Factor -> Term, Minus, Term
 #line 50 ".\Grammar.y"
-                        { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.Subtract, ValueStack[ValueStack.Depth-1]); }
+                        { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Subtract, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 21: // Term -> Unary
@@ -426,12 +426,12 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 22: // Term -> Unary, Multiplication, Unary
 #line 54 ".\Grammar.y"
-                                 { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.Multiply, ValueStack[ValueStack.Depth-1]); }
+                                 { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Multiply, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 23: // Term -> Unary, Division, Unary
 #line 55 ".\Grammar.y"
-                           { CurrentSemanticValue = new BinaryExpressionNode(ValueStack[ValueStack.Depth-3], BinaryOperator.Divide, ValueStack[ValueStack.Depth-1]); }
+                           { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Divide, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 24: // Unary -> Primary
@@ -441,17 +441,17 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 25: // Unary -> Plus, Primary
 #line 59 ".\Grammar.y"
-                    { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Plus, ValueStack[ValueStack.Depth-1]); }
+                    { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Plus, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 26: // Unary -> Minus, Primary
 #line 60 ".\Grammar.y"
-                     { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Minus, ValueStack[ValueStack.Depth-1]); }
+                     { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Minus, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 27: // Unary -> Not, Primary
 #line 61 ".\Grammar.y"
-                   { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Not, ValueStack[ValueStack.Depth-1]); }
+                   { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Not, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 28: // Unary -> Primary, IsKey, TypeIndicator
@@ -471,7 +471,7 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 31: // Primary -> VarName, Tail
 #line 67 ".\Grammar.y"
-                      { CurrentSemanticValue = new AccessNode(ValueStack[ValueStack.Depth-2], ValueStack[ValueStack.Depth-1]); }
+                      { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-2], (AccessTailNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 32: // Primary -> ReadInt
@@ -516,7 +516,7 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 40: // ExpressionList -> Expression
 #line 80 ".\Grammar.y"
-                           { CurrentSemanticValue = new List<ExpressionNode> { ValueStack[ValueStack.Depth-1] }; }
+                           { CurrentSemanticValue = new List<ExpressionNode> { (ExpressionNode)ValueStack[ValueStack.Depth-1] }; }
 #line default
         break;
       case 41: // ExpressionList -> ExpressionList, CommaSym, Expression
@@ -551,7 +551,7 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 47: // Assignment -> VarName, AssignOp, Expression, SemicolonSym
 #line 91 ".\Grammar.y"
-                                                     { CurrentSemanticValue = new AssignmentNode(ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2]); }
+                                                     { CurrentSemanticValue = new AssignmentNode((string)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 48: // Print -> PrintKey, ExpressionList
@@ -561,7 +561,7 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 49: // Return -> ReturnKey, Expression, SemicolonSym
 #line 97 ".\Grammar.y"
-                                          { CurrentSemanticValue = new ReturnNode(ValueStack[ValueStack.Depth-2]); }
+                                          { CurrentSemanticValue = new ReturnNode((ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 50: // Return -> ReturnKey, SemicolonSym
@@ -571,17 +571,17 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         break;
       case 51: // If -> IfKey, Expression, ThenKey, Body, EndKey
 #line 101 ".\Grammar.y"
-                                         { CurrentSemanticValue = new IfNode(ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2], null); }
+                                         { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2], null); }
 #line default
         break;
       case 52: // If -> IfKey, Expression, ThenKey, Body, ElseKey, Body, EndKey
 #line 102 ".\Grammar.y"
-                                                       { CurrentSemanticValue = new IfNode(ValueStack[ValueStack.Depth-6], ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2]); }
+                                                       { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-6], ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 53: // Loop -> WhileKey, Expression, LoopBody
 #line 105 ".\Grammar.y"
-                                   { CurrentSemanticValue = new LoopNode(ValueStack[ValueStack.Depth-2], ValueStack[ValueStack.Depth-1]); }
+                                   { CurrentSemanticValue = new LoopNode((ExpressionNode)ValueStack[ValueStack.Depth-2], ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 54: // Loop -> ForKey, VarName, InKey, TypeIndicator, LoopBody

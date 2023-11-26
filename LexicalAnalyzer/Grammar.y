@@ -77,7 +77,7 @@ Tail: Dot IntVar { $$ = new AccessNode($2); }
     | OpenRoundBr ExpressionList CloseRoundBr { $$ = new FunctionCallNode($2); }
     ;
 
-ExpressionList: Expression { $$ = new List<ExpressionNode> { $1 }; } /*Поменять в соответствии с созданием листа в C#*/
+ExpressionList: Expression { $$ = new List<ExpressionNode> { (ExpressionNode)$1 }; } /*Поменять в соответствии с созданием листа в C#*/
              | ExpressionList CommaSym Expression { $1.Add($3); $$ = $1; }
              ;
 
@@ -88,21 +88,21 @@ Statement: Assignment { $$ = $1; }
          | Loop { $$ = $1; }
          ;
 
-Assignment: VarName AssignOp Expression SemicolonSym { $$ = new AssignmentNode($1, $3); }
+Assignment: VarName AssignOp Expression SemicolonSym { $$ = new AssignmentNode((string)$1, (ExpressionNode)$3); }
           ;
 
 Print: PrintKey ExpressionList { $$ = new PrintNode($2); }
      ;
 
-Return: ReturnKey Expression SemicolonSym { $$ = new ReturnNode($2); }
+Return: ReturnKey Expression SemicolonSym { $$ = new ReturnNode((ExpressionNode)$2); }
       | ReturnKey SemicolonSym { $$ = new ReturnNode(null); }
       ;
 
-If: IfKey Expression ThenKey Body EndKey { $$ = new IfNode($2, $4, null); }
-   | IfKey Expression ThenKey Body ElseKey Body EndKey { $$ = new IfNode($2, $4, $6); }
+If: IfKey Expression ThenKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, $4, null); }
+   | IfKey Expression ThenKey Body ElseKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, $4, $6); }
    ;
 
-Loop: WhileKey Expression LoopBody { $$ = new LoopNode($2, $3); }
+Loop: WhileKey Expression LoopBody { $$ = new LoopNode((ExpressionNode)$2, $3); }
     | ForKey VarName InKey TypeIndicator LoopBody { $$ = new ForLoopNode($2, $4, $5); }
     ;
 
