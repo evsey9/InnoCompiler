@@ -71,10 +71,12 @@ and 10-6
 
             Console.WriteLine("");
             Console.WriteLine("Process complete");
+			
+            ITokenizer Tokenizer = new PrecedenceBasedRegexTokenizer();
+            //var parser = new Parser();
+            //parser.Parse();
 
-            var parser = new ShiftReduceParser(AbstractScanner<>);
-
-            Console.ReadLine();
+            //Console.ReadLine();
         }
     }
 }
