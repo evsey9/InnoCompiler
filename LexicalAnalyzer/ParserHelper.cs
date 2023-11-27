@@ -1,4 +1,9 @@
-﻿namespace LexicalAnalyzer
+﻿namespace QUT.Gppg
+{
+    
+}
+
+namespace LexicalAnalyzer
 {
     public partial class Parser : ShiftReduceParser<AstNode, LexLocation>
     {

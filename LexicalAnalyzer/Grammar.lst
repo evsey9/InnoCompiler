@@ -1,17 +1,15 @@
 
 // ==========================================================================
-//  GPPG error listing for yacc source file <C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y - 27.11.2023 16:47:04>
+//  GPPG error listing for yacc source file <.\Grammar.y - 28/11/2023 00:46:53>
 // ==========================================================================
 //  Version:  1.5.2
-//  Machine:  ROSTISLAVPC
-//  DateTime: 27.11.2023 16:47:26
-//  UserName: zhuko
+//  DateTime: 28/11/2023 00:49:45
 // ==========================================================================
 
 
 %namespace LexicalAnalyzer
 %output=RealTreeParser.cs 
-//%partial 
+%partial 
 //%sharetokens
 
 //%visibility internal
@@ -31,8 +29,8 @@
 %start Program
 
 %%
-// Warning: NonTerminal symbol "VariableDefinition" is unreachable
 // Warning: NonTerminal symbol "VariableDefinitionList" is unreachable
+// Warning: NonTerminal symbol "VariableDefinition" is unreachable
 // -------------------------------------------------------------------
 
 Program: Statement SemicolonSym { $$ = new ProgramNode((StatementNode)$1); }
@@ -52,8 +50,8 @@ Declaration: VarKey VarName { $$ = new DeclarationNode((StringNode)$2, null); }
           | VarKey VarName AssignOp Expression SemicolonSym { $$ = new DeclarationNode((StringNode)$2, (ExpressionNode)$4); }
           ;
 
-VariableDefinitionList: VariableDefinition { $$ = new List<VariableDefinitionNode> { $1 }; }
-                    | VariableDefinitionList CommaSym VariableDefinition { $1.Add($3); $$ = $1; }
+VariableDefinitionList: VariableDefinition { $$ = new VariableDefinitionNodeListNode((VariableDefinitionNode)$1); }
+                    | VariableDefinitionList CommaSym VariableDefinition { ((VariableDefinitionNodeListNode)$1).Add((VariableDefinitionNode)$3); $$ = $1; }
                     ;
 
 VariableDefinition: VarName { $$ = new VariableDefinitionNode($1, null); }
@@ -122,7 +120,7 @@ Return: ReturnKey Expression SemicolonSym { $$ = new ReturnNode((ExpressionNode)
       ;
 
 If: IfKey Expression ThenKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, null); }
-   | IfKey Expression ThenKey Body ElseKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, $6); }
+   | IfKey Expression ThenKey Body ElseKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, (StatementNodeListNode)$6); }
    ;
 
 Loop: WhileKey Expression LoopBody { $$ = new LoopNode((ExpressionNode)$2, (StatementNodeListNode)$3); }

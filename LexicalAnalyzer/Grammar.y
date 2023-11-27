@@ -1,6 +1,6 @@
 %namespace LexicalAnalyzer
 %output=RealTreeParser.cs 
-//%partial 
+%partial 
 //%sharetokens
 
 //%visibility internal
@@ -38,8 +38,8 @@ Declaration: VarKey VarName { $$ = new DeclarationNode((StringNode)$2, null); }
           | VarKey VarName AssignOp Expression SemicolonSym { $$ = new DeclarationNode((StringNode)$2, (ExpressionNode)$4); }
           ;
 
-VariableDefinitionList: VariableDefinition { $$ = new List<VariableDefinitionNode> { $1 }; }
-                    | VariableDefinitionList CommaSym VariableDefinition { $1.Add($3); $$ = $1; }
+VariableDefinitionList: VariableDefinition { $$ = new VariableDefinitionNodeListNode((VariableDefinitionNode)$1); }
+                    | VariableDefinitionList CommaSym VariableDefinition { ((VariableDefinitionNodeListNode)$1).Add((VariableDefinitionNode)$3); $$ = $1; }
                     ;
 
 VariableDefinition: VarName { $$ = new VariableDefinitionNode($1, null); }
@@ -108,7 +108,7 @@ Return: ReturnKey Expression SemicolonSym { $$ = new ReturnNode((ExpressionNode)
       ;
 
 If: IfKey Expression ThenKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, null); }
-   | IfKey Expression ThenKey Body ElseKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, $6); }
+   | IfKey Expression ThenKey Body ElseKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, (StatementNodeListNode)$6); }
    ;
 
 Loop: WhileKey Expression LoopBody { $$ = new LoopNode((ExpressionNode)$2, (StatementNodeListNode)$3); }

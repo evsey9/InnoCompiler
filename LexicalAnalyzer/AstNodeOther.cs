@@ -77,7 +77,7 @@ namespace LexicalAnalyzer
             NodeList = nodeList;
         }
         
-        public ListNode(StringNode node)
+        public StringNodeListNode(StringNode node)
         {
             NodeList.Add(node);
         }
@@ -139,6 +139,24 @@ namespace LexicalAnalyzer
         public StatementNodeListNode()
         {
             NodeList = new List<StatementNode>();
+        }
+    };
+    
+    public class VariableDefinitionNodeListNode : ListNode<VariableDefinitionNode>
+    {
+        public VariableDefinitionNodeListNode(List<VariableDefinitionNode> nodeList)
+        {
+            NodeList = nodeList;
+        }
+        
+        public VariableDefinitionNodeListNode(VariableDefinitionNode node)
+        {
+            NodeList.Add(node);
+        }
+        
+        public VariableDefinitionNodeListNode()
+        {
+            NodeList = new List<VariableDefinitionNode>();
         }
     };
 
