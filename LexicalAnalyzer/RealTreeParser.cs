@@ -4,9 +4,9 @@
 
 // GPPG version 1.5.2
 // Machine:  ROSTISLAVPC
-// DateTime: 27.11.2023 15:48:38
+// DateTime: 27.11.2023 16:47:26
 // UserName: zhuko
-// Input file <C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y - 27.11.2023 15:36:05>
+// Input file <C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y - 27.11.2023 16:47:04>
 
 // options: lines
 
@@ -336,487 +336,487 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
     switch (action)
     {
       case 2: // Program -> Statement, SemicolonSym
-#line 24 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 24 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                 { CurrentSemanticValue = new ProgramNode((StatementNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 3: // Program -> Program, Statement, SemicolonSym
-#line 25 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 25 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                         { CurrentSemanticValue = ((ProgramNode)ValueStack[ValueStack.Depth-3]).AddStatement((StatementNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 4: // Program -> /* empty */
-#line 26 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 26 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                      { CurrentSemanticValue = new ProgramNode(); }
 #line default
         break;
       case 5: // Statement -> Declaration
-#line 29 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 29 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                        { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 6: // Statement -> Assignment
-#line 30 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 30 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                    { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 7: // Statement -> Print
-#line 31 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 31 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 8: // Statement -> Return
-#line 32 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 32 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                 { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 9: // Statement -> If
-#line 33 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 33 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
             { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 10: // Statement -> Loop
-#line 34 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 34 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
               { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 11: // Declaration -> VarKey, VarName
-#line 37 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 37 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                             { CurrentSemanticValue = new DeclarationNode((StringNode)ValueStack[ValueStack.Depth-1], null); }
 #line default
         break;
       case 12: // Declaration -> VarKey, VarName, AssignOp, Expression, SemicolonSym
-#line 38 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 38 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                             { CurrentSemanticValue = new DeclarationNode((StringNode)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 13: // VariableDefinitionList -> VariableDefinition
-#line 41 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 41 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                            { CurrentSemanticValue = new List<VariableDefinitionNode> { ValueStack[ValueStack.Depth-1] }; }
 #line default
         break;
       case 14: // VariableDefinitionList -> VariableDefinitionList, CommaSym, VariableDefinition
-#line 42 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 42 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                                          { ValueStack[ValueStack.Depth-3].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
 #line default
         break;
       case 15: // VariableDefinition -> VarName
-#line 45 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 45 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                             { CurrentSemanticValue = new VariableDefinitionNode(ValueStack[ValueStack.Depth-1], null); }
 #line default
         break;
       case 16: // VariableDefinition -> VarName, AssignOp, Expression
-#line 46 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 46 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                               { CurrentSemanticValue = new VariableDefinitionNode(ValueStack[ValueStack.Depth-3], ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 17: // Expression -> Relation, OrOp, Relation
-#line 49 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 49 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                    { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Or, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 18: // Expression -> Relation, AndOp, Relation
-#line 50 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 50 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                     { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.And, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 19: // Expression -> Relation, XorOp, Relation
-#line 51 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 51 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                     { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Xor, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 20: // Expression -> Relation
-#line 52 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 52 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                       { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 21: // Relation -> Factor
-#line 55 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 55 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                  { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 22: // Relation -> Factor, LessRel, Factor
-#line 56 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 56 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                 { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Less, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 23: // Relation -> Factor, MoreRel, Factor
-#line 57 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 57 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                 { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.More, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 24: // Relation -> Factor, LessEqRel, Factor
-#line 58 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 58 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                   { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.LessOrEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 25: // Relation -> Factor, MoreEqRel, Factor
-#line 59 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 59 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                   { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.MoreOrEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 26: // Relation -> Factor, EqualRel, Factor
-#line 60 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 60 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                  { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Equal, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 27: // Relation -> Factor, NotEqRel, Factor
-#line 61 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 61 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                  { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.NotEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 28: // Factor -> Term
-#line 64 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 64 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
              { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 29: // Factor -> Term, Plus, Term
-#line 65 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 65 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                        { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Add, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 30: // Factor -> Term, Minus, Term
-#line 66 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 66 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                         { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Subtract, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 31: // Term -> Unary
-#line 69 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 69 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
             { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 32: // Term -> Unary, Multiplication, Unary
-#line 70 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 70 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                  { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Multiply, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 33: // Term -> Unary, Division, Unary
-#line 71 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 71 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                            { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Divide, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 34: // Unary -> Primary
-#line 74 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 74 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 35: // Unary -> Plus, Primary
-#line 75 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 75 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                     { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Plus, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 36: // Unary -> Minus, Primary
-#line 76 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 76 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                      { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Minus, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 37: // Unary -> Not, Primary
-#line 77 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 77 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                    { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Not, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 38: // Unary -> Primary, IsKey, TypeIndicator
-#line 78 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 78 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                    { CurrentSemanticValue = new TypeConversionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], (TypeIndicator)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 39: // Unary -> Literal
-#line 79 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 79 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 40: // Primary -> VarName
-#line 82 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 82 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                  { CurrentSemanticValue = new VariableNode((StringNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 41: // Primary -> VarName, Tail
-#line 83 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 83 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                       { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-2], (AccessTailNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 42: // Primary -> ReadInt
-#line 84 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 84 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                  { CurrentSemanticValue = new ReadIntNode(); }
 #line default
         break;
       case 43: // Primary -> ReadReal
-#line 85 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 85 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                   { CurrentSemanticValue = new ReadRealNode(); }
 #line default
         break;
       case 44: // Primary -> ReadString
-#line 86 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 86 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                     { CurrentSemanticValue = new ReadStringNode(); }
 #line default
         break;
       case 45: // Primary -> OpenRoundBr, Expression, CloseRoundBr
-#line 87 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 87 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                              { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
       case 46: // Tail -> Dot, IntVar
-#line 90 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 90 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                  { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 47: // Tail -> Dot, VarName
-#line 91 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 91 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                   { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 48: // Tail -> OpenSquareBr, Expression, CloseSquareBr
-#line 92 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 92 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                             { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 49: // Tail -> OpenRoundBr, ExpressionList, CloseRoundBr
-#line 93 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 93 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                               { CurrentSemanticValue = new FunctionCallNode((ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 50: // ExpressionList -> Expression
-#line 96 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 96 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                            { CurrentSemanticValue = new ExpressionNodeListNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 51: // ExpressionList -> ExpressionList, CommaSym, Expression
-#line 97 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 97 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                   { ((ExpressionNodeListNode)ValueStack[ValueStack.Depth-3]).Add((ExpressionNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
 #line default
         break;
       case 52: // Assignment -> VarName, AssignOp, Expression, SemicolonSym
-#line 100 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 100 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                      { CurrentSemanticValue = new AssignmentNode((StringNode)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 53: // Print -> PrintKey, ExpressionList
-#line 103 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 103 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                { CurrentSemanticValue = new PrintNode((ExpressionNodeListNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 54: // Return -> ReturnKey, Expression, SemicolonSym
-#line 106 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 106 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                           { CurrentSemanticValue = new ReturnNode((ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 55: // Return -> ReturnKey, SemicolonSym
-#line 107 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 107 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                { CurrentSemanticValue = new ReturnNode(null); }
 #line default
         break;
       case 56: // If -> IfKey, Expression, ThenKey, Body, EndKey
-#line 110 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 110 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                          { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-4], (StatementNodeListNode)ValueStack[ValueStack.Depth-2], null); }
 #line default
         break;
       case 57: // If -> IfKey, Expression, ThenKey, Body, ElseKey, Body, EndKey
-#line 111 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 111 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                        { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-6], (StatementNodeListNode)ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 58: // Loop -> WhileKey, Expression, LoopBody
-#line 114 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 114 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                    { CurrentSemanticValue = new LoopNode((ExpressionNode)ValueStack[ValueStack.Depth-2], (StatementNodeListNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 59: // Loop -> ForKey, VarName, InKey, TypeIndicator, LoopBody
-#line 115 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 115 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                   { CurrentSemanticValue = new ForLoopNode((TypeIndicator)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2], (StatementNodeListNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 60: // LoopBody -> LoopKey, Body, EndKey
-#line 118 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 118 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                               { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
       case 61: // TypeIndicator -> IntKey
-#line 121 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 121 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                       { CurrentSemanticValue = TypeIndicator.Int; }
 #line default
         break;
       case 62: // TypeIndicator -> RealKey
-#line 122 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 122 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                        { CurrentSemanticValue = TypeIndicator.Real; }
 #line default
         break;
       case 63: // TypeIndicator -> BoolKey
-#line 123 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 123 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                        { CurrentSemanticValue = TypeIndicator.Bool; }
 #line default
         break;
       case 64: // TypeIndicator -> StringKey
-#line 124 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 124 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                          { CurrentSemanticValue = TypeIndicator.String; }
 #line default
         break;
       case 65: // TypeIndicator -> EmptyKey
-#line 125 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 125 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                         { CurrentSemanticValue = TypeIndicator.Empty; }
 #line default
         break;
       case 66: // TypeIndicator -> OpenSquareBr, CloseSquareBr
-#line 126 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 126 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                           { CurrentSemanticValue = TypeIndicator.Vector; }
 #line default
         break;
       case 67: // TypeIndicator -> OpenCurlBr, CloseCurlBr
-#line 127 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 127 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                       { CurrentSemanticValue = TypeIndicator.Tuple; }
 #line default
         break;
       case 68: // TypeIndicator -> FuncKey
-#line 128 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 128 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                        { CurrentSemanticValue = TypeIndicator.Function; }
 #line default
         break;
       case 69: // TypeIndicator -> Expression, DotDot, Expression
-#line 129 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 129 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                             { CurrentSemanticValue = TypeIndicator.Range(ValueStack[ValueStack.Depth-3], ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 70: // Literal -> IntVar
-#line 132 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 132 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                 { CurrentSemanticValue = new LiteralNode(int.Parse(((StringNode)ValueStack[ValueStack.Depth-1]).GetString())); }
 #line default
         break;
       case 71: // Literal -> RealVar
-#line 133 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 133 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                   { CurrentSemanticValue = new LiteralNode(double.Parse(((StringNode)ValueStack[ValueStack.Depth-1]).GetString())); }
 #line default
         break;
       case 72: // Literal -> TrueKey
-#line 134 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 134 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                   { CurrentSemanticValue = new LiteralNode(true); }
 #line default
         break;
       case 73: // Literal -> FalseKey
-#line 135 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 135 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                    { CurrentSemanticValue = new LiteralNode(false); }
 #line default
         break;
       case 74: // Literal -> StringVar
-#line 136 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 136 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                     { CurrentSemanticValue = new LiteralNode(((StringNode)ValueStack[ValueStack.Depth-1]).GetString()); }
 #line default
         break;
       case 75: // Literal -> ArrayLiteral
-#line 137 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 137 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                        { CurrentSemanticValue = (ArrayLiteralNode)ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 76: // Literal -> TupleLiteral
-#line 138 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 138 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                        { CurrentSemanticValue = (TupleLiteralNode)ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 77: // Literal -> FunctionLiteral
-#line 139 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 139 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                           { CurrentSemanticValue = (FunctionLiteralNode)ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
       case 78: // ArrayLiteral -> OpenSquareBr, ExpressionList, CloseSquareBr
-#line 142 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 142 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                         { CurrentSemanticValue = new ArrayLiteralNode((ExpressionNodeListNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 79: // TupleLiteral -> OpenCurlBr, TupleContent, CloseCurlBr
-#line 145 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 145 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                   { CurrentSemanticValue = new TupleLiteralNode((TupleElementNodeListNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 80: // TupleContent -> OpenSquareBr, TupleElementList, CloseSquareBr
-#line 148 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 148 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                           { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
       case 81: // TupleContent -> /* empty */
-#line 149 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 149 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                           { CurrentSemanticValue = new TupleElementNodeListNode(); }
 #line default
         break;
       case 82: // TupleElementList -> TupleElement
-#line 152 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 152 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                { CurrentSemanticValue = new TupleElementNodeListNode((TupleElementNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 83: // TupleElementList -> TupleElementList, CommaSym, TupleElement
-#line 153 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 153 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                         { ((TupleElementNodeListNode)ValueStack[ValueStack.Depth-3]).Add((TupleElementNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
 #line default
         break;
       case 84: // TupleElement -> OpenSquareBr, VarName, AssignOp, Expression, CloseSquareBr
-#line 156 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 156 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                                      { CurrentSemanticValue = new TupleElementNode((StringNode)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 85: // FunctionLiteral -> FuncKey, Parameters, FunBody
-#line 159 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 159 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                             { CurrentSemanticValue = new FunctionLiteralNode((StringNodeListNode)ValueStack[ValueStack.Depth-2], (StatementNodeListNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 86: // Parameters -> OpenRoundBr, VarNameList, CloseRoundBr
-#line 162 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 162 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                                  { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
       case 87: // Parameters -> /* empty */
-#line 163 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 163 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                         { CurrentSemanticValue = new StringNodeListNode(); }
 #line default
         break;
       case 88: // VarNameList -> VarName
-#line 166 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 166 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                      { CurrentSemanticValue = new StringNodeListNode((StringNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 89: // VarNameList -> VarNameList, CommaSym, VarName
-#line 167 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 167 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                          { ((StringNodeListNode)ValueStack[ValueStack.Depth-3]).Add((StringNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
 #line default
         break;
       case 90: // FunBody -> IsKey, Body, EndKey
-#line 170 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 170 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                            { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
       case 91: // FunBody -> ArrowKey, Expression
-#line 171 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 171 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                              { CurrentSemanticValue = new FunctionBodyNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 92: // Body -> OpenCurlBr, DeclarationList, CloseCurlBr
-#line 174 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 174 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                              { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
       case 93: // Body -> OpenCurlBr, StatementList, CloseCurlBr
-#line 175 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 175 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                            { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
       case 94: // Body -> OpenCurlBr, ExpressionList, CloseCurlBr
-#line 176 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 176 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                             { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
       case 95: // DeclarationList -> Declaration
-#line 179 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 179 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                              { CurrentSemanticValue = new DeclarationNodeListNode((DeclarationNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 96: // DeclarationList -> DeclarationList, Declaration
-#line 180 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 180 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                             { ((DeclarationNodeListNode)ValueStack[ValueStack.Depth-2]).Add((DeclarationNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
       case 97: // StatementList -> Statement
-#line 183 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 183 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                          { CurrentSemanticValue = new StatementNodeListNode((StatementNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
       case 98: // StatementList -> StatementList, Statement
-#line 184 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 184 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                       { ((StatementNodeListNode)ValueStack[ValueStack.Depth-2]).Add((StatementNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
@@ -834,7 +834,7 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         return CharToString((char)terminal);
   }
 
-#line 188 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+#line 188 "C:\Users\zhuko\Desktop\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
  #line default
 }
 }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//just some comment so github can upload it
+//just some comment so github can work with it
 namespace LexicalAnalyzer
 {
     public abstract class AstNode { }
@@ -28,6 +28,8 @@ namespace LexicalAnalyzer
         }
     }
 
+
+
     // Declaration node representing variable declarations
     public class DeclarationNode : AstNode
     {
@@ -40,6 +42,9 @@ namespace LexicalAnalyzer
             AssignedExpression = assignedExpression;
         }
     }
+
+    // Expression node representing expressions
+    public abstract class ExpressionNode : AstNode { }
 
     // VariableDefinitionNode representing variable definitions
     public class VariableDefinitionNode : AstNode
@@ -63,9 +68,6 @@ namespace LexicalAnalyzer
             }
         }
     }
-
-    // Expression node representing expressions
-    public abstract class ExpressionNode : AstNode { }
 
     // Binary expression node representing binary operations
     public class BinaryExpressionNode : ExpressionNode
@@ -321,7 +323,6 @@ public class FunctionCallNode : ExpressionNode
     {
         // idk just set it empty
     }
-
 }
 
 // For loop node
