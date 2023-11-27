@@ -1,3 +1,14 @@
+
+// ==========================================================================
+//  GPPG error listing for yacc source file <C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y - 27.11.2023 15:36:05>
+// ==========================================================================
+//  Version:  1.5.2
+//  Machine:  ROSTISLAVPC
+//  DateTime: 27.11.2023 15:48:38
+//  UserName: zhuko
+// ==========================================================================
+
+
 %namespace LexicalAnalyzer
 %output=RealTreeParser.cs 
 //%partial 
@@ -20,6 +31,9 @@
 %start Program
 
 %%
+// Warning: NonTerminal symbol "VariableDefinition" is unreachable
+// Warning: NonTerminal symbol "VariableDefinitionList" is unreachable
+// -------------------------------------------------------------------
 
 Program: Statement SemicolonSym { $$ = new ProgramNode((StatementNode)$1); }
        | Program Statement SemicolonSym { $$ = ((ProgramNode)$1).AddStatement((StatementNode)$2); }
@@ -93,7 +107,7 @@ Tail: Dot IntVar { $$ = new AccessNode((ExpressionNode)$2); }
     | OpenRoundBr ExpressionList CloseRoundBr { $$ = new FunctionCallNode((ExpressionNode)$2); }
     ;
 
-ExpressionList: Expression { $$ = new ExpressionNodeListNode((ExpressionNode)$1); } /*Поменять в соответствии с созданием листа в C#*/
+ExpressionList: Expression { $$ = new ExpressionNodeListNode((ExpressionNode)$1); } /*ÐÐ¾Ð¼ÐµÐ½ÑÑÑ Ð² ÑÐ¾Ð¾ÑÐ²ÐµÑÑÑÐ²Ð¸Ð¸ Ñ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸ÐµÐ¼ Ð»Ð¸ÑÑÐ° Ð² C#*/
              | ExpressionList CommaSym Expression { ((ExpressionNodeListNode)$1).Add((ExpressionNode)$3); $$ = $1; }
              ;
 
@@ -185,4 +199,5 @@ StatementList: Statement { $$ = new StatementNodeListNode((StatementNode)$1); }
             ;
 
 
-%%
+%%// ==========================================================================
+

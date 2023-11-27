@@ -11,21 +11,20 @@ namespace LexicalAnalyzer
     // Program node representing the entire program
     public class ProgramNode : AstNode
     {
-        public List<DeclarationNode> Declarations { get; } = new List<DeclarationNode>();
+        public List<StatementNode> Statements { get; } = new List<StatementNode>();
 
         public ProgramNode()
         {
         }
-        
-        public ProgramNode AddDeclaration(DeclarationNode declaration)
+
+        public ProgramNode AddStatement(StatementNode statement)
         {
-            Declarations.Add(declaration);
+            Statements.Add(statement);
             return this;
         }
-        public ProgramNode(DeclarationNode declaration)
+        public ProgramNode(StatementNode statement)
         {
-            
-            AddDeclaration(declaration);
+            AddStatement(statement);
         }
     }
 
@@ -35,10 +34,33 @@ namespace LexicalAnalyzer
         public string VariableName { get; }
         public ExpressionNode AssignedExpression { get; }
 
-        public DeclarationNode(string variableName, ExpressionNode assignedExpression)
+        public DeclarationNode(StringNode variableName, ExpressionNode assignedExpression)
         {
-            VariableName = variableName;
+            VariableName = variableName.GetString();
             AssignedExpression = assignedExpression;
+        }
+    }
+
+    // VariableDefinitionNode representing variable definitions
+    public class VariableDefinitionNode : AstNode
+    {
+        public string VariableName { get; }
+        public ExpressionNode AssignedExpression { get; }
+
+        public VariableDefinitionNode(StringNode variableName)
+        {
+            VariableName = variableName.GetString();
+        }
+        public VariableDefinitionNode(AstNode variableName, AstNode assignedExpression)
+        {
+            if (variableName is StringNode stringNode)
+            {
+                VariableName = stringNode.GetString();
+            }
+            if (assignedExpression is ExpressionNode expressionNode)
+            {
+                AssignedExpression = expressionNode;
+            }
         }
     }
 
@@ -120,9 +142,9 @@ namespace LexicalAnalyzer
         public string VariableName { get; }
         public ExpressionNode AssignedExpression { get; }
 
-        public AssignmentNode(string variableName, ExpressionNode assignedExpression)
+        public AssignmentNode(StringNode variableName, ExpressionNode assignedExpression)
         {
-            VariableName = variableName;
+            VariableName = variableName.GetString();
             AssignedExpression = assignedExpression;
         }
     }
@@ -132,9 +154,9 @@ namespace LexicalAnalyzer
     {
         public List<ExpressionNode> Expressions { get; }
 
-        public PrintNode(List<ExpressionNode> expressions)
+        public PrintNode(ExpressionNodeListNode expressions)
         {
-            Expressions = expressions;
+            Expressions = expressions.GetList();
         }
     }
 
@@ -164,11 +186,11 @@ namespace LexicalAnalyzer
             return falseBranch;
         }
 
-        public IfNode(ExpressionNode condition, List<StatementNode> trueBranch, List<StatementNode> falseBranch)
+        public IfNode(ExpressionNode condition, StatementNodeListNode trueBranch, StatementNodeListNode falseBranch)
         {
             Condition = condition ?? throw new ArgumentNullException(nameof(condition));
-            TrueBranch = trueBranch ?? throw new ArgumentNullException(nameof(trueBranch));
-            this.falseBranch = falseBranch;
+            TrueBranch = trueBranch.GetList() ?? throw new ArgumentNullException(nameof(trueBranch));
+            this.falseBranch = falseBranch.GetList();
         }
     }
 
@@ -178,10 +200,10 @@ namespace LexicalAnalyzer
         public ExpressionNode Condition { get; }
         public List<StatementNode> LoopBody { get; }
 
-        public LoopNode(ExpressionNode condition, List<StatementNode> loopBody)
+        public LoopNode(ExpressionNode condition, StatementNodeListNode loopBody)
         {
             Condition = condition;
-            LoopBody = loopBody;
+            LoopBody = loopBody.GetList();
         }
     }
 
@@ -189,12 +211,18 @@ namespace LexicalAnalyzer
     public class AccessNode : ExpressionNode
     {
         public ExpressionNode Target { get; }
-        //public AccessTailNode Tail { get; }
+        public AccessTailNode Tail { get; }
+
+        public AccessNode(ExpressionNode target, AccessTailNode tail)
+        {
+            Target = target;
+            Tail = tail;
+        }
 
         public AccessNode(ExpressionNode target)
         {
             Target = target;
-            //Tail = tail;
+            Tail = null; // or set a default AccessTailNode as needed
         }
     }
 
@@ -228,9 +256,9 @@ namespace LexicalAnalyzer
     {
         public List<ExpressionNode> Arguments { get; }
 
-        public FunctionCallAccessNode(List<ExpressionNode> arguments)
+        public FunctionCallAccessNode(ExpressionNodeListNode arguments)
         {
-            Arguments = arguments;
+            Arguments = arguments.GetList();
         }
     }
 }
@@ -252,9 +280,9 @@ public class VariableNode : ExpressionNode
 {
     public string VariableName { get; }
 
-    public VariableNode(string variableName)
+    public VariableNode(StringNode variableName)
     {
-        VariableName = variableName;
+        VariableName = variableName.GetString();
     }
 }
 
@@ -282,11 +310,18 @@ public class FunctionCallNode : ExpressionNode
     public ExpressionNode Function { get; }
     public List<ExpressionNode> Arguments { get; }
 
-    public FunctionCallNode(ExpressionNode function, List<ExpressionNode> arguments)
+    public FunctionCallNode(ExpressionNode function, ExpressionNodeListNode arguments)
     {
         Function = function;
-        Arguments = arguments;
+        Arguments = arguments.GetList();
     }
+
+    public FunctionCallNode(ExpressionNode function)
+        : this(function, new ExpressionNodeListNode())
+    {
+        // idk just set it empty
+    }
+
 }
 
 // For loop node
@@ -297,17 +332,23 @@ public class ForLoopNode : StatementNode
     public ExpressionNode Collection { get; }
     public List<StatementNode> LoopBody { get; }
 
-    public ForLoopNode(string variableName, TypeIndicator variableType, ExpressionNode collection, List<StatementNode> loopBody)
+    public ForLoopNode(string variableName, TypeIndicator variableType, ExpressionNode collection, StatementNodeListNode loopBody)
     {
         VariableName = variableName;
         VariableType = variableType;
         Collection = collection;
-        LoopBody = loopBody;
+        LoopBody = loopBody.GetList();
+    }
+
+    public ForLoopNode(TypeIndicator type, ExpressionNode loopCondition, StatementNodeListNode loopBody)
+        : this(null, type, loopCondition, loopBody)
+    {
+        // same as FunctionCallNode
     }
 }
 
 // Type indicator enumeration
-public enum TypeIndicator
+public enum TypeIndicatorEnum
 {
     Int,
     Real,
@@ -325,9 +366,9 @@ public class ArrayLiteralNode : ExpressionNode
 {
     public List<ExpressionNode> Elements { get; }
 
-    public ArrayLiteralNode(List<ExpressionNode> elements)
+    public ArrayLiteralNode(ExpressionNodeListNode elements)
     {
-        Elements = elements;
+        Elements = elements.GetList();
     }
 }
 
@@ -336,9 +377,9 @@ public class TupleLiteralNode : ExpressionNode
 {
     public List<TupleElementNode> Elements { get; }
 
-    public TupleLiteralNode(List<TupleElementNode> elements)
+    public TupleLiteralNode(TupleElementNodeListNode elements)
     {
-        Elements = elements;
+        Elements = elements.GetList();
     }
 }
 
@@ -348,9 +389,9 @@ public class TupleElementNode : AstNode
     public string VariableName { get; }
     public ExpressionNode Value { get; }
 
-    public TupleElementNode(string variableName, ExpressionNode value)
+    public TupleElementNode(StringNode variableName, ExpressionNode value)
     {
-        VariableName = variableName;
+        VariableName = variableName.GetString();
         Value = value;
     }
 }
@@ -358,13 +399,13 @@ public class TupleElementNode : AstNode
 // Function literal node
 public class FunctionLiteralNode : ExpressionNode
 {
-    public List<string> Parameters { get; }
+    public List<StringNode> Parameters { get; }
     public List<StatementNode> Body { get; }
 
-    public FunctionLiteralNode(List<string> parameters, List<StatementNode> body)
+    public FunctionLiteralNode(StringNodeListNode parameters, StatementNodeListNode body)
     {
-        Parameters = parameters;
-        Body = body;
+        Parameters = parameters.GetList();
+        Body = body.GetList();
     }
 }
 
@@ -379,4 +420,36 @@ public class FunctionBodyNode : AstNode
     }
 }
 
+public class TypeIndicator : AstNode
+{
+    // костыльно, но что поделать
+    private TypeIndicatorEnum Value { get; }
+    private AstNode StartValue { get; }
+    private AstNode EndValue { get; }
 
+    private TypeIndicator(TypeIndicatorEnum value)
+    {
+        Value = value;
+    }
+
+    private TypeIndicator(TypeIndicatorEnum value, AstNode startValue, AstNode endValue)
+    {
+        Value = value;
+        StartValue = startValue;
+        EndValue = endValue;
+    }
+
+    public static TypeIndicator Int => new TypeIndicator(TypeIndicatorEnum.Int);
+    public static TypeIndicator Real => new TypeIndicator(TypeIndicatorEnum.Real);
+    public static TypeIndicator Bool => new TypeIndicator(TypeIndicatorEnum.Bool);
+    public static TypeIndicator String => new TypeIndicator(TypeIndicatorEnum.String);
+    public static TypeIndicator Empty => new TypeIndicator(TypeIndicatorEnum.Empty);
+    public static TypeIndicator Vector => new TypeIndicator(TypeIndicatorEnum.Vector);
+    public static TypeIndicator Tuple => new TypeIndicator(TypeIndicatorEnum.Tuple);
+    public static TypeIndicator Function => new TypeIndicator(TypeIndicatorEnum.Function);
+
+    public static TypeIndicator Range(AstNode startValue, AstNode endValue)
+    {
+        return new TypeIndicator(TypeIndicatorEnum.Range, startValue, endValue);
+    }
+}

@@ -3,10 +3,12 @@
 // (see accompanying GPPGcopyright.rtf)
 
 // GPPG version 1.5.2
-// DateTime: 26/11/2023 16:42:54
-// Input file <.\Grammar.y - 26/11/2023 15:44:54>
+// Machine:  ROSTISLAVPC
+// DateTime: 27.11.2023 15:48:38
+// UserName: zhuko
+// Input file <C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y - 27.11.2023 15:36:05>
 
-// options: lines report
+// options: lines
 
 using System;
 using System.Collections.Generic;
@@ -35,281 +37,290 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
 #pragma warning disable 649
   private static Dictionary<int, string> aliases;
 #pragma warning restore 649
-  private static Rule[] rules = new Rule[94];
-  private static State[] states = new State[168];
+  private static Rule[] rules = new Rule[99];
+  private static State[] states = new State[171];
   private static string[] nonTerms = new string[] {
-      "Program", "$accept", "Declaration", "Expression", "Relation", "Factor", 
-      "Term", "Unary", "Primary", "TypeIndicator", "Literal", "Tail", "ExpressionList", 
-      "Statement", "Assignment", "Print", "Return", "If", "Loop", "Body", "LoopBody", 
-      "ArrayLiteral", "TupleLiteral", "FunctionLiteral", "TupleContent", "TupleElementList", 
-      "TupleElement", "Parameters", "FunBody", "VarNameList", "DeclarationList", 
-      "StatementList", };
+      "Program", "$accept", "Statement", "Declaration", "Assignment", "Print", 
+      "Return", "If", "Loop", "Expression", "VariableDefinitionList", "VariableDefinition", 
+      "Relation", "Factor", "Term", "Unary", "Primary", "TypeIndicator", "Literal", 
+      "Tail", "ExpressionList", "Body", "LoopBody", "ArrayLiteral", "TupleLiteral", 
+      "FunctionLiteral", "TupleContent", "TupleElementList", "TupleElement", 
+      "Parameters", "FunBody", "VarNameList", "DeclarationList", "StatementList", 
+      };
 
   static Parser() {
-    states[0] = new State(new int[]{10,4,3,-4},new int[]{-1,1,-3,167});
-    states[1] = new State(new int[]{3,2,10,4},new int[]{-3,3});
+    states[0] = new State(new int[]{10,6,60,95,27,100,28,103,29,108,33,117,34,123,3,-4},new int[]{-1,1,-3,169,-4,5,-5,94,-6,99,-7,102,-8,107,-9,116});
+    states[1] = new State(new int[]{3,2,10,6,60,95,27,100,28,103,29,108,33,117,34,123},new int[]{-3,3,-4,5,-5,94,-6,99,-7,102,-8,107,-9,116});
     states[2] = new State(-1);
-    states[3] = new State(-3);
-    states[4] = new State(new int[]{60,5});
-    states[5] = new State(new int[]{11,6,3,-5,10,-5,5,-5});
-    states[6] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-4,7,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[7] = new State(new int[]{46,8});
-    states[8] = new State(-6);
-    states[9] = new State(new int[]{15,10,14,163,16,165,46,-10,58,-10,9,-10,45,-10,5,-10,60,-10,27,-10,28,-10,29,-10,33,-10,34,-10,7,-10,30,-10,36,-10,25,-10,26,-10,23,-10,24,-10,17,-10,18,-10,19,-10,20,-10,21,-10,22,-10});
-    states[10] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-5,11,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[11] = new State(-7);
-    states[12] = new State(new int[]{17,13,18,153,19,155,20,157,21,159,22,161,15,-11,14,-11,16,-11,46,-11,58,-11,9,-11,45,-11,5,-11,60,-11,27,-11,28,-11,29,-11,33,-11,34,-11,7,-11,30,-11,36,-11,25,-11,26,-11,23,-11,24,-11});
-    states[13] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-6,14,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[14] = new State(-12);
-    states[15] = new State(new int[]{23,16,24,151,17,-18,18,-18,19,-18,20,-18,21,-18,22,-18,15,-18,14,-18,16,-18,46,-18,58,-18,9,-18,45,-18,5,-18,60,-18,27,-18,28,-18,29,-18,33,-18,34,-18,7,-18,30,-18,36,-18,25,-18,26,-18});
-    states[16] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-7,17,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[17] = new State(-19);
-    states[18] = new State(new int[]{25,19,26,149,23,-21,24,-21,17,-21,18,-21,19,-21,20,-21,21,-21,22,-21,15,-21,14,-21,16,-21,46,-21,58,-21,9,-21,45,-21,5,-21,60,-21,27,-21,28,-21,29,-21,33,-21,34,-21,7,-21,30,-21,36,-21});
-    states[19] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-8,20,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[20] = new State(-22);
-    states[21] = new State(new int[]{43,22,25,-24,26,-24,23,-24,24,-24,17,-24,18,-24,19,-24,20,-24,21,-24,22,-24,15,-24,14,-24,16,-24,46,-24,58,-24,9,-24,45,-24,5,-24,60,-24,27,-24,28,-24,29,-24,33,-24,34,-24,7,-24,30,-24,36,-24});
-    states[22] = new State(new int[]{38,24,39,25,40,26,41,27,42,28,8,29,4,126,37,128,60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60},new int[]{-10,23,-4,135,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[23] = new State(-28);
-    states[24] = new State(-56);
-    states[25] = new State(-57);
-    states[26] = new State(-58);
-    states[27] = new State(-59);
-    states[28] = new State(-60);
-    states[29] = new State(new int[]{9,30,60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-13,31,-4,63,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[30] = new State(-61);
-    states[31] = new State(new int[]{9,32,45,33});
-    states[32] = new State(-73);
-    states[33] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-4,34,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[34] = new State(-41);
-    states[35] = new State(new int[]{57,37,8,40,6,143,43,-30,25,-30,26,-30,23,-30,24,-30,17,-30,18,-30,19,-30,20,-30,21,-30,22,-30,15,-30,14,-30,16,-30,46,-30,58,-30,9,-30,45,-30,5,-30,60,-30,27,-30,28,-30,29,-30,33,-30,34,-30,7,-30,30,-30,36,-30},new int[]{-12,36});
-    states[36] = new State(-31);
-    states[37] = new State(new int[]{61,38,60,39});
-    states[38] = new State(-36);
-    states[39] = new State(-37);
-    states[40] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-4,41,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[41] = new State(new int[]{9,42});
-    states[42] = new State(-38);
-    states[43] = new State(-32);
-    states[44] = new State(-33);
-    states[45] = new State(-34);
-    states[46] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-4,47,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[47] = new State(new int[]{7,48});
-    states[48] = new State(-35);
-    states[49] = new State(new int[]{60,35,54,43,55,44,56,45,6,46},new int[]{-9,50});
-    states[50] = new State(-25);
-    states[51] = new State(new int[]{60,35,54,43,55,44,56,45,6,46},new int[]{-9,52});
-    states[52] = new State(-26);
-    states[53] = new State(new int[]{60,35,54,43,55,44,56,45,6,46},new int[]{-9,54});
-    states[54] = new State(-27);
-    states[55] = new State(-29);
-    states[56] = new State(-65);
-    states[57] = new State(-66);
-    states[58] = new State(-67);
-    states[59] = new State(-68);
-    states[60] = new State(-69);
-    states[61] = new State(-70);
-    states[62] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-13,31,-4,63,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[63] = new State(-40);
-    states[64] = new State(-71);
-    states[65] = new State(new int[]{8,68,5,-76},new int[]{-25,66});
-    states[66] = new State(new int[]{5,67});
-    states[67] = new State(-74);
-    states[68] = new State(new int[]{8,73},new int[]{-26,69,-27,148});
-    states[69] = new State(new int[]{9,70,45,71});
-    states[70] = new State(-75);
-    states[71] = new State(new int[]{8,73},new int[]{-27,72});
-    states[72] = new State(-78);
-    states[73] = new State(new int[]{60,74});
-    states[74] = new State(new int[]{11,75});
-    states[75] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-4,76,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[76] = new State(new int[]{9,77});
-    states[77] = new State(-79);
-    states[78] = new State(-72);
-    states[79] = new State(new int[]{6,129,43,-82,44,-82},new int[]{-28,80});
-    states[80] = new State(new int[]{43,82,44,146},new int[]{-29,81});
-    states[81] = new State(-80);
-    states[82] = new State(new int[]{4,85},new int[]{-20,83});
-    states[83] = new State(new int[]{32,84});
-    states[84] = new State(-85);
-    states[85] = new State(new int[]{10,4,60,142,27,98,28,101,29,106,33,115,34,121,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-31,86,-32,89,-13,138,-3,140,-14,141,-15,92,-16,97,-17,100,-18,105,-19,114,-4,63,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[86] = new State(new int[]{5,87,10,4},new int[]{-3,88});
-    states[87] = new State(-87);
-    states[88] = new State(-91);
-    states[89] = new State(new int[]{5,90,60,93,27,98,28,101,29,106,33,115,34,121},new int[]{-14,91,-15,92,-16,97,-17,100,-18,105,-19,114});
-    states[90] = new State(-88);
-    states[91] = new State(-93);
-    states[92] = new State(-42);
-    states[93] = new State(new int[]{11,94});
-    states[94] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-4,95,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[95] = new State(new int[]{46,96});
-    states[96] = new State(-47);
-    states[97] = new State(-43);
-    states[98] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-13,99,-4,63,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[99] = new State(new int[]{45,33,5,-48,60,-48,27,-48,28,-48,29,-48,33,-48,34,-48});
-    states[100] = new State(-44);
-    states[101] = new State(new int[]{46,104,60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-4,102,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[102] = new State(new int[]{46,103});
-    states[103] = new State(-49);
-    states[104] = new State(-50);
-    states[105] = new State(-45);
-    states[106] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-4,107,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[107] = new State(new int[]{30,108});
-    states[108] = new State(new int[]{4,85},new int[]{-20,109});
-    states[109] = new State(new int[]{32,110,31,111});
-    states[110] = new State(-51);
-    states[111] = new State(new int[]{4,85},new int[]{-20,112});
-    states[112] = new State(new int[]{32,113});
-    states[113] = new State(-52);
-    states[114] = new State(-46);
-    states[115] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-4,116,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[116] = new State(new int[]{36,118},new int[]{-21,117});
-    states[117] = new State(-53);
-    states[118] = new State(new int[]{4,85},new int[]{-20,119});
-    states[119] = new State(new int[]{32,120});
-    states[120] = new State(-55);
-    states[121] = new State(new int[]{60,122});
-    states[122] = new State(new int[]{35,123});
-    states[123] = new State(new int[]{38,24,39,25,40,26,41,27,42,28,8,29,4,126,37,128,60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60},new int[]{-10,124,-4,135,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[124] = new State(new int[]{36,118},new int[]{-21,125});
-    states[125] = new State(-54);
-    states[126] = new State(new int[]{5,127,8,68},new int[]{-25,66});
-    states[127] = new State(-62);
-    states[128] = new State(new int[]{6,129,46,-63,58,-63,9,-63,45,-63,5,-63,60,-63,27,-63,28,-63,29,-63,33,-63,34,-63,7,-63,30,-63,36,-63,25,-63,26,-63,23,-63,24,-63,17,-63,18,-63,19,-63,20,-63,21,-63,22,-63,15,-63,14,-63,16,-63,43,-82,44,-82},new int[]{-28,80});
-    states[129] = new State(new int[]{60,134},new int[]{-30,130});
-    states[130] = new State(new int[]{7,131,45,132});
-    states[131] = new State(-81);
-    states[132] = new State(new int[]{60,133});
-    states[133] = new State(-84);
-    states[134] = new State(-83);
-    states[135] = new State(new int[]{58,136});
-    states[136] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-4,137,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[137] = new State(-64);
-    states[138] = new State(new int[]{5,139,45,33});
-    states[139] = new State(-89);
-    states[140] = new State(-90);
-    states[141] = new State(-92);
-    states[142] = new State(new int[]{11,94,57,37,8,40,6,143,43,-30,25,-30,26,-30,23,-30,24,-30,17,-30,18,-30,19,-30,20,-30,21,-30,22,-30,15,-30,14,-30,16,-30,5,-30,45,-30},new int[]{-12,36});
-    states[143] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-13,144,-4,63,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[144] = new State(new int[]{7,145,45,33});
-    states[145] = new State(-39);
-    states[146] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-4,147,-5,9,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[147] = new State(-86);
-    states[148] = new State(-77);
-    states[149] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-8,150,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[150] = new State(-23);
-    states[151] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-7,152,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[152] = new State(-20);
-    states[153] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-6,154,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[154] = new State(-13);
-    states[155] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-6,156,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[156] = new State(-14);
-    states[157] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-6,158,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[158] = new State(-15);
-    states[159] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-6,160,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[160] = new State(-16);
-    states[161] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-6,162,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[162] = new State(-17);
-    states[163] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-5,164,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[164] = new State(-8);
-    states[165] = new State(new int[]{60,35,54,43,55,44,56,45,6,46,23,49,24,51,59,53,61,56,62,57,12,58,13,59,63,60,8,62,4,65,37,79},new int[]{-5,166,-6,12,-7,15,-8,18,-9,21,-11,55,-22,61,-23,64,-24,78});
-    states[166] = new State(-9);
-    states[167] = new State(-2);
+    states[3] = new State(new int[]{46,4});
+    states[4] = new State(-3);
+    states[5] = new State(-5);
+    states[6] = new State(new int[]{60,7});
+    states[7] = new State(new int[]{11,8,46,-11,5,-11,10,-11,60,-11,27,-11,28,-11,29,-11,33,-11,34,-11});
+    states[8] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-10,9,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[9] = new State(new int[]{46,10});
+    states[10] = new State(-12);
+    states[11] = new State(new int[]{15,12,14,165,16,167,46,-20,58,-20,9,-20,45,-20,5,-20,10,-20,60,-20,27,-20,28,-20,29,-20,33,-20,34,-20,7,-20,30,-20,36,-20,25,-20,26,-20,23,-20,24,-20,17,-20,18,-20,19,-20,20,-20,21,-20,22,-20});
+    states[12] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-13,13,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[13] = new State(-17);
+    states[14] = new State(new int[]{17,15,18,155,19,157,20,159,21,161,22,163,15,-21,14,-21,16,-21,46,-21,58,-21,9,-21,45,-21,5,-21,10,-21,60,-21,27,-21,28,-21,29,-21,33,-21,34,-21,7,-21,30,-21,36,-21,25,-21,26,-21,23,-21,24,-21});
+    states[15] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-14,16,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[16] = new State(-22);
+    states[17] = new State(new int[]{23,18,24,153,17,-28,18,-28,19,-28,20,-28,21,-28,22,-28,15,-28,14,-28,16,-28,46,-28,58,-28,9,-28,45,-28,5,-28,10,-28,60,-28,27,-28,28,-28,29,-28,33,-28,34,-28,7,-28,30,-28,36,-28,25,-28,26,-28});
+    states[18] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-15,19,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[19] = new State(-29);
+    states[20] = new State(new int[]{25,21,26,151,23,-31,24,-31,17,-31,18,-31,19,-31,20,-31,21,-31,22,-31,15,-31,14,-31,16,-31,46,-31,58,-31,9,-31,45,-31,5,-31,10,-31,60,-31,27,-31,28,-31,29,-31,33,-31,34,-31,7,-31,30,-31,36,-31});
+    states[21] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-16,22,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[22] = new State(-32);
+    states[23] = new State(new int[]{43,24,25,-34,26,-34,23,-34,24,-34,17,-34,18,-34,19,-34,20,-34,21,-34,22,-34,15,-34,14,-34,16,-34,46,-34,58,-34,9,-34,45,-34,5,-34,10,-34,60,-34,27,-34,28,-34,29,-34,33,-34,34,-34,7,-34,30,-34,36,-34});
+    states[24] = new State(new int[]{38,26,39,27,40,28,41,29,42,30,8,31,4,128,37,130,60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62},new int[]{-18,25,-10,137,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[25] = new State(-38);
+    states[26] = new State(-61);
+    states[27] = new State(-62);
+    states[28] = new State(-63);
+    states[29] = new State(-64);
+    states[30] = new State(-65);
+    states[31] = new State(new int[]{9,32,60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-21,33,-10,65,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[32] = new State(-66);
+    states[33] = new State(new int[]{9,34,45,35});
+    states[34] = new State(-78);
+    states[35] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-10,36,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[36] = new State(-51);
+    states[37] = new State(new int[]{57,39,8,42,6,145,43,-40,25,-40,26,-40,23,-40,24,-40,17,-40,18,-40,19,-40,20,-40,21,-40,22,-40,15,-40,14,-40,16,-40,46,-40,58,-40,9,-40,45,-40,5,-40,10,-40,60,-40,27,-40,28,-40,29,-40,33,-40,34,-40,7,-40,30,-40,36,-40},new int[]{-20,38});
+    states[38] = new State(-41);
+    states[39] = new State(new int[]{61,40,60,41});
+    states[40] = new State(-46);
+    states[41] = new State(-47);
+    states[42] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-10,43,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[43] = new State(new int[]{9,44});
+    states[44] = new State(-48);
+    states[45] = new State(-42);
+    states[46] = new State(-43);
+    states[47] = new State(-44);
+    states[48] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-10,49,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[49] = new State(new int[]{7,50});
+    states[50] = new State(-45);
+    states[51] = new State(new int[]{60,37,54,45,55,46,56,47,6,48},new int[]{-17,52});
+    states[52] = new State(-35);
+    states[53] = new State(new int[]{60,37,54,45,55,46,56,47,6,48},new int[]{-17,54});
+    states[54] = new State(-36);
+    states[55] = new State(new int[]{60,37,54,45,55,46,56,47,6,48},new int[]{-17,56});
+    states[56] = new State(-37);
+    states[57] = new State(-39);
+    states[58] = new State(-70);
+    states[59] = new State(-71);
+    states[60] = new State(-72);
+    states[61] = new State(-73);
+    states[62] = new State(-74);
+    states[63] = new State(-75);
+    states[64] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-21,33,-10,65,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[65] = new State(-50);
+    states[66] = new State(-76);
+    states[67] = new State(new int[]{8,70,5,-81},new int[]{-27,68});
+    states[68] = new State(new int[]{5,69});
+    states[69] = new State(-79);
+    states[70] = new State(new int[]{8,75},new int[]{-28,71,-29,150});
+    states[71] = new State(new int[]{9,72,45,73});
+    states[72] = new State(-80);
+    states[73] = new State(new int[]{8,75},new int[]{-29,74});
+    states[74] = new State(-83);
+    states[75] = new State(new int[]{60,76});
+    states[76] = new State(new int[]{11,77});
+    states[77] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-10,78,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[78] = new State(new int[]{9,79});
+    states[79] = new State(-84);
+    states[80] = new State(-77);
+    states[81] = new State(new int[]{6,131,43,-87,44,-87},new int[]{-30,82});
+    states[82] = new State(new int[]{43,84,44,148},new int[]{-31,83});
+    states[83] = new State(-85);
+    states[84] = new State(new int[]{4,87},new int[]{-22,85});
+    states[85] = new State(new int[]{32,86});
+    states[86] = new State(-90);
+    states[87] = new State(new int[]{10,6,60,144,27,100,28,103,29,108,33,117,34,123,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-33,88,-34,91,-21,140,-4,142,-3,143,-5,94,-6,99,-7,102,-8,107,-9,116,-10,65,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[88] = new State(new int[]{5,89,10,6},new int[]{-4,90});
+    states[89] = new State(-92);
+    states[90] = new State(-96);
+    states[91] = new State(new int[]{5,92,10,6,60,95,27,100,28,103,29,108,33,117,34,123},new int[]{-3,93,-4,5,-5,94,-6,99,-7,102,-8,107,-9,116});
+    states[92] = new State(-93);
+    states[93] = new State(-98);
+    states[94] = new State(-6);
+    states[95] = new State(new int[]{11,96});
+    states[96] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-10,97,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[97] = new State(new int[]{46,98});
+    states[98] = new State(-52);
+    states[99] = new State(-7);
+    states[100] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-21,101,-10,65,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[101] = new State(new int[]{45,35,46,-53,5,-53,10,-53,60,-53,27,-53,28,-53,29,-53,33,-53,34,-53});
+    states[102] = new State(-8);
+    states[103] = new State(new int[]{46,106,60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-10,104,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[104] = new State(new int[]{46,105});
+    states[105] = new State(-54);
+    states[106] = new State(-55);
+    states[107] = new State(-9);
+    states[108] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-10,109,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[109] = new State(new int[]{30,110});
+    states[110] = new State(new int[]{4,87},new int[]{-22,111});
+    states[111] = new State(new int[]{32,112,31,113});
+    states[112] = new State(-56);
+    states[113] = new State(new int[]{4,87},new int[]{-22,114});
+    states[114] = new State(new int[]{32,115});
+    states[115] = new State(-57);
+    states[116] = new State(-10);
+    states[117] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-10,118,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[118] = new State(new int[]{36,120},new int[]{-23,119});
+    states[119] = new State(-58);
+    states[120] = new State(new int[]{4,87},new int[]{-22,121});
+    states[121] = new State(new int[]{32,122});
+    states[122] = new State(-60);
+    states[123] = new State(new int[]{60,124});
+    states[124] = new State(new int[]{35,125});
+    states[125] = new State(new int[]{38,26,39,27,40,28,41,29,42,30,8,31,4,128,37,130,60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62},new int[]{-18,126,-10,137,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[126] = new State(new int[]{36,120},new int[]{-23,127});
+    states[127] = new State(-59);
+    states[128] = new State(new int[]{5,129,8,70},new int[]{-27,68});
+    states[129] = new State(-67);
+    states[130] = new State(new int[]{6,131,46,-68,58,-68,9,-68,45,-68,5,-68,10,-68,60,-68,27,-68,28,-68,29,-68,33,-68,34,-68,7,-68,30,-68,36,-68,25,-68,26,-68,23,-68,24,-68,17,-68,18,-68,19,-68,20,-68,21,-68,22,-68,15,-68,14,-68,16,-68,43,-87,44,-87},new int[]{-30,82});
+    states[131] = new State(new int[]{60,136},new int[]{-32,132});
+    states[132] = new State(new int[]{7,133,45,134});
+    states[133] = new State(-86);
+    states[134] = new State(new int[]{60,135});
+    states[135] = new State(-89);
+    states[136] = new State(-88);
+    states[137] = new State(new int[]{58,138});
+    states[138] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-10,139,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[139] = new State(-69);
+    states[140] = new State(new int[]{5,141,45,35});
+    states[141] = new State(-94);
+    states[142] = new State(-5);
+    states[143] = new State(-97);
+    states[144] = new State(new int[]{11,96,57,39,8,42,6,145,43,-40,25,-40,26,-40,23,-40,24,-40,17,-40,18,-40,19,-40,20,-40,21,-40,22,-40,15,-40,14,-40,16,-40,5,-40,45,-40},new int[]{-20,38});
+    states[145] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-21,146,-10,65,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[146] = new State(new int[]{7,147,45,35});
+    states[147] = new State(-49);
+    states[148] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-10,149,-13,11,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[149] = new State(-91);
+    states[150] = new State(-82);
+    states[151] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-16,152,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[152] = new State(-33);
+    states[153] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-15,154,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[154] = new State(-30);
+    states[155] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-14,156,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[156] = new State(-23);
+    states[157] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-14,158,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[158] = new State(-24);
+    states[159] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-14,160,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[160] = new State(-25);
+    states[161] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-14,162,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[162] = new State(-26);
+    states[163] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-14,164,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[164] = new State(-27);
+    states[165] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-13,166,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[166] = new State(-18);
+    states[167] = new State(new int[]{60,37,54,45,55,46,56,47,6,48,23,51,24,53,59,55,61,58,62,59,12,60,13,61,63,62,8,64,4,67,37,81},new int[]{-13,168,-14,14,-15,17,-16,20,-17,23,-19,57,-24,63,-25,66,-26,80});
+    states[168] = new State(-19);
+    states[169] = new State(new int[]{46,170});
+    states[170] = new State(-2);
 
     for (int sNo = 0; sNo < states.Length; sNo++) states[sNo].number = sNo;
 
     rules[1] = new Rule(-2, new int[]{-1,3});
-    rules[2] = new Rule(-1, new int[]{-3});
-    rules[3] = new Rule(-1, new int[]{-1,-3});
+    rules[2] = new Rule(-1, new int[]{-3,46});
+    rules[3] = new Rule(-1, new int[]{-1,-3,46});
     rules[4] = new Rule(-1, new int[]{});
-    rules[5] = new Rule(-3, new int[]{10,60});
-    rules[6] = new Rule(-3, new int[]{10,60,11,-4,46});
-    rules[7] = new Rule(-4, new int[]{-5,15,-5});
-    rules[8] = new Rule(-4, new int[]{-5,14,-5});
-    rules[9] = new Rule(-4, new int[]{-5,16,-5});
-    rules[10] = new Rule(-4, new int[]{-5});
-    rules[11] = new Rule(-5, new int[]{-6});
-    rules[12] = new Rule(-5, new int[]{-6,17,-6});
-    rules[13] = new Rule(-5, new int[]{-6,18,-6});
-    rules[14] = new Rule(-5, new int[]{-6,19,-6});
-    rules[15] = new Rule(-5, new int[]{-6,20,-6});
-    rules[16] = new Rule(-5, new int[]{-6,21,-6});
-    rules[17] = new Rule(-5, new int[]{-6,22,-6});
-    rules[18] = new Rule(-6, new int[]{-7});
-    rules[19] = new Rule(-6, new int[]{-7,23,-7});
-    rules[20] = new Rule(-6, new int[]{-7,24,-7});
-    rules[21] = new Rule(-7, new int[]{-8});
-    rules[22] = new Rule(-7, new int[]{-8,25,-8});
-    rules[23] = new Rule(-7, new int[]{-8,26,-8});
-    rules[24] = new Rule(-8, new int[]{-9});
-    rules[25] = new Rule(-8, new int[]{23,-9});
-    rules[26] = new Rule(-8, new int[]{24,-9});
-    rules[27] = new Rule(-8, new int[]{59,-9});
-    rules[28] = new Rule(-8, new int[]{-9,43,-10});
-    rules[29] = new Rule(-8, new int[]{-11});
-    rules[30] = new Rule(-9, new int[]{60});
-    rules[31] = new Rule(-9, new int[]{60,-12});
-    rules[32] = new Rule(-9, new int[]{54});
-    rules[33] = new Rule(-9, new int[]{55});
-    rules[34] = new Rule(-9, new int[]{56});
-    rules[35] = new Rule(-9, new int[]{6,-4,7});
-    rules[36] = new Rule(-12, new int[]{57,61});
-    rules[37] = new Rule(-12, new int[]{57,60});
-    rules[38] = new Rule(-12, new int[]{8,-4,9});
-    rules[39] = new Rule(-12, new int[]{6,-13,7});
-    rules[40] = new Rule(-13, new int[]{-4});
-    rules[41] = new Rule(-13, new int[]{-13,45,-4});
-    rules[42] = new Rule(-14, new int[]{-15});
-    rules[43] = new Rule(-14, new int[]{-16});
-    rules[44] = new Rule(-14, new int[]{-17});
-    rules[45] = new Rule(-14, new int[]{-18});
-    rules[46] = new Rule(-14, new int[]{-19});
-    rules[47] = new Rule(-15, new int[]{60,11,-4,46});
-    rules[48] = new Rule(-16, new int[]{27,-13});
-    rules[49] = new Rule(-17, new int[]{28,-4,46});
-    rules[50] = new Rule(-17, new int[]{28,46});
-    rules[51] = new Rule(-18, new int[]{29,-4,30,-20,32});
-    rules[52] = new Rule(-18, new int[]{29,-4,30,-20,31,-20,32});
-    rules[53] = new Rule(-19, new int[]{33,-4,-21});
-    rules[54] = new Rule(-19, new int[]{34,60,35,-10,-21});
-    rules[55] = new Rule(-21, new int[]{36,-20,32});
-    rules[56] = new Rule(-10, new int[]{38});
-    rules[57] = new Rule(-10, new int[]{39});
-    rules[58] = new Rule(-10, new int[]{40});
-    rules[59] = new Rule(-10, new int[]{41});
-    rules[60] = new Rule(-10, new int[]{42});
-    rules[61] = new Rule(-10, new int[]{8,9});
-    rules[62] = new Rule(-10, new int[]{4,5});
-    rules[63] = new Rule(-10, new int[]{37});
-    rules[64] = new Rule(-10, new int[]{-4,58,-4});
-    rules[65] = new Rule(-11, new int[]{61});
-    rules[66] = new Rule(-11, new int[]{62});
-    rules[67] = new Rule(-11, new int[]{12});
-    rules[68] = new Rule(-11, new int[]{13});
-    rules[69] = new Rule(-11, new int[]{63});
-    rules[70] = new Rule(-11, new int[]{-22});
-    rules[71] = new Rule(-11, new int[]{-23});
-    rules[72] = new Rule(-11, new int[]{-24});
-    rules[73] = new Rule(-22, new int[]{8,-13,9});
-    rules[74] = new Rule(-23, new int[]{4,-25,5});
-    rules[75] = new Rule(-25, new int[]{8,-26,9});
-    rules[76] = new Rule(-25, new int[]{});
-    rules[77] = new Rule(-26, new int[]{-27});
-    rules[78] = new Rule(-26, new int[]{-26,45,-27});
-    rules[79] = new Rule(-27, new int[]{8,60,11,-4,9});
-    rules[80] = new Rule(-24, new int[]{37,-28,-29});
-    rules[81] = new Rule(-28, new int[]{6,-30,7});
-    rules[82] = new Rule(-28, new int[]{});
-    rules[83] = new Rule(-30, new int[]{60});
-    rules[84] = new Rule(-30, new int[]{-30,45,60});
-    rules[85] = new Rule(-29, new int[]{43,-20,32});
-    rules[86] = new Rule(-29, new int[]{44,-4});
-    rules[87] = new Rule(-20, new int[]{4,-31,5});
-    rules[88] = new Rule(-20, new int[]{4,-32,5});
-    rules[89] = new Rule(-20, new int[]{4,-13,5});
-    rules[90] = new Rule(-31, new int[]{-3});
-    rules[91] = new Rule(-31, new int[]{-31,-3});
-    rules[92] = new Rule(-32, new int[]{-14});
-    rules[93] = new Rule(-32, new int[]{-32,-14});
+    rules[5] = new Rule(-3, new int[]{-4});
+    rules[6] = new Rule(-3, new int[]{-5});
+    rules[7] = new Rule(-3, new int[]{-6});
+    rules[8] = new Rule(-3, new int[]{-7});
+    rules[9] = new Rule(-3, new int[]{-8});
+    rules[10] = new Rule(-3, new int[]{-9});
+    rules[11] = new Rule(-4, new int[]{10,60});
+    rules[12] = new Rule(-4, new int[]{10,60,11,-10,46});
+    rules[13] = new Rule(-11, new int[]{-12});
+    rules[14] = new Rule(-11, new int[]{-11,45,-12});
+    rules[15] = new Rule(-12, new int[]{60});
+    rules[16] = new Rule(-12, new int[]{60,11,-10});
+    rules[17] = new Rule(-10, new int[]{-13,15,-13});
+    rules[18] = new Rule(-10, new int[]{-13,14,-13});
+    rules[19] = new Rule(-10, new int[]{-13,16,-13});
+    rules[20] = new Rule(-10, new int[]{-13});
+    rules[21] = new Rule(-13, new int[]{-14});
+    rules[22] = new Rule(-13, new int[]{-14,17,-14});
+    rules[23] = new Rule(-13, new int[]{-14,18,-14});
+    rules[24] = new Rule(-13, new int[]{-14,19,-14});
+    rules[25] = new Rule(-13, new int[]{-14,20,-14});
+    rules[26] = new Rule(-13, new int[]{-14,21,-14});
+    rules[27] = new Rule(-13, new int[]{-14,22,-14});
+    rules[28] = new Rule(-14, new int[]{-15});
+    rules[29] = new Rule(-14, new int[]{-15,23,-15});
+    rules[30] = new Rule(-14, new int[]{-15,24,-15});
+    rules[31] = new Rule(-15, new int[]{-16});
+    rules[32] = new Rule(-15, new int[]{-16,25,-16});
+    rules[33] = new Rule(-15, new int[]{-16,26,-16});
+    rules[34] = new Rule(-16, new int[]{-17});
+    rules[35] = new Rule(-16, new int[]{23,-17});
+    rules[36] = new Rule(-16, new int[]{24,-17});
+    rules[37] = new Rule(-16, new int[]{59,-17});
+    rules[38] = new Rule(-16, new int[]{-17,43,-18});
+    rules[39] = new Rule(-16, new int[]{-19});
+    rules[40] = new Rule(-17, new int[]{60});
+    rules[41] = new Rule(-17, new int[]{60,-20});
+    rules[42] = new Rule(-17, new int[]{54});
+    rules[43] = new Rule(-17, new int[]{55});
+    rules[44] = new Rule(-17, new int[]{56});
+    rules[45] = new Rule(-17, new int[]{6,-10,7});
+    rules[46] = new Rule(-20, new int[]{57,61});
+    rules[47] = new Rule(-20, new int[]{57,60});
+    rules[48] = new Rule(-20, new int[]{8,-10,9});
+    rules[49] = new Rule(-20, new int[]{6,-21,7});
+    rules[50] = new Rule(-21, new int[]{-10});
+    rules[51] = new Rule(-21, new int[]{-21,45,-10});
+    rules[52] = new Rule(-5, new int[]{60,11,-10,46});
+    rules[53] = new Rule(-6, new int[]{27,-21});
+    rules[54] = new Rule(-7, new int[]{28,-10,46});
+    rules[55] = new Rule(-7, new int[]{28,46});
+    rules[56] = new Rule(-8, new int[]{29,-10,30,-22,32});
+    rules[57] = new Rule(-8, new int[]{29,-10,30,-22,31,-22,32});
+    rules[58] = new Rule(-9, new int[]{33,-10,-23});
+    rules[59] = new Rule(-9, new int[]{34,60,35,-18,-23});
+    rules[60] = new Rule(-23, new int[]{36,-22,32});
+    rules[61] = new Rule(-18, new int[]{38});
+    rules[62] = new Rule(-18, new int[]{39});
+    rules[63] = new Rule(-18, new int[]{40});
+    rules[64] = new Rule(-18, new int[]{41});
+    rules[65] = new Rule(-18, new int[]{42});
+    rules[66] = new Rule(-18, new int[]{8,9});
+    rules[67] = new Rule(-18, new int[]{4,5});
+    rules[68] = new Rule(-18, new int[]{37});
+    rules[69] = new Rule(-18, new int[]{-10,58,-10});
+    rules[70] = new Rule(-19, new int[]{61});
+    rules[71] = new Rule(-19, new int[]{62});
+    rules[72] = new Rule(-19, new int[]{12});
+    rules[73] = new Rule(-19, new int[]{13});
+    rules[74] = new Rule(-19, new int[]{63});
+    rules[75] = new Rule(-19, new int[]{-24});
+    rules[76] = new Rule(-19, new int[]{-25});
+    rules[77] = new Rule(-19, new int[]{-26});
+    rules[78] = new Rule(-24, new int[]{8,-21,9});
+    rules[79] = new Rule(-25, new int[]{4,-27,5});
+    rules[80] = new Rule(-27, new int[]{8,-28,9});
+    rules[81] = new Rule(-27, new int[]{});
+    rules[82] = new Rule(-28, new int[]{-29});
+    rules[83] = new Rule(-28, new int[]{-28,45,-29});
+    rules[84] = new Rule(-29, new int[]{8,60,11,-10,9});
+    rules[85] = new Rule(-26, new int[]{37,-30,-31});
+    rules[86] = new Rule(-30, new int[]{6,-32,7});
+    rules[87] = new Rule(-30, new int[]{});
+    rules[88] = new Rule(-32, new int[]{60});
+    rules[89] = new Rule(-32, new int[]{-32,45,60});
+    rules[90] = new Rule(-31, new int[]{43,-22,32});
+    rules[91] = new Rule(-31, new int[]{44,-10});
+    rules[92] = new Rule(-22, new int[]{4,-33,5});
+    rules[93] = new Rule(-22, new int[]{4,-34,5});
+    rules[94] = new Rule(-22, new int[]{4,-21,5});
+    rules[95] = new Rule(-33, new int[]{-4});
+    rules[96] = new Rule(-33, new int[]{-33,-4});
+    rules[97] = new Rule(-34, new int[]{-3});
+    rules[98] = new Rule(-34, new int[]{-34,-3});
   }
 
   protected override void Initialize() {
@@ -324,464 +335,489 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
 #pragma warning disable 162, 1522
     switch (action)
     {
-      case 2: // Program -> Declaration
-#line 24 ".\Grammar.y"
-                     { CurrentSemanticValue = new ProgramNode((DeclarationNode)ValueStack[ValueStack.Depth-1]); }
+      case 2: // Program -> Statement, SemicolonSym
+#line 24 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                { CurrentSemanticValue = new ProgramNode((StatementNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
-      case 3: // Program -> Program, Declaration
-#line 25 ".\Grammar.y"
-                             { CurrentSemanticValue = ((ProgramNode)ValueStack[ValueStack.Depth-2]).AddDeclaration((DeclarationNode)ValueStack[ValueStack.Depth-1]); }
+      case 3: // Program -> Program, Statement, SemicolonSym
+#line 25 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                        { CurrentSemanticValue = ((ProgramNode)ValueStack[ValueStack.Depth-3]).AddStatement((StatementNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
       case 4: // Program -> /* empty */
-#line 26 ".\Grammar.y"
+#line 26 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                      { CurrentSemanticValue = new ProgramNode(); }
 #line default
         break;
-      case 5: // Declaration -> VarKey, VarName
-#line 29 ".\Grammar.y"
-                            { CurrentSemanticValue = new DeclarationNode((string)ValueStack[ValueStack.Depth-1], null); }
+      case 5: // Statement -> Declaration
+#line 29 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                       { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 6: // Declaration -> VarKey, VarName, AssignOp, Expression, SemicolonSym
-#line 30 ".\Grammar.y"
-                                                            { CurrentSemanticValue = new DeclarationNode((string)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
+      case 6: // Statement -> Assignment
+#line 30 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                   { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 7: // Expression -> Relation, OrOp, Relation
-#line 33 ".\Grammar.y"
-                                   { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Or, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 8: // Expression -> Relation, AndOp, Relation
-#line 34 ".\Grammar.y"
-                                    { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.And, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 9: // Expression -> Relation, XorOp, Relation
-#line 35 ".\Grammar.y"
-                                    { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Xor, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 10: // Expression -> Relation
-#line 36 ".\Grammar.y"
-                      { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
-#line default
-        break;
-      case 11: // Relation -> Factor
-#line 39 ".\Grammar.y"
-                 { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
-#line default
-        break;
-      case 12: // Relation -> Factor, LessRel, Factor
-#line 40 ".\Grammar.y"
-                                { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Less, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 13: // Relation -> Factor, MoreRel, Factor
-#line 41 ".\Grammar.y"
-                                { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.More, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 14: // Relation -> Factor, LessEqRel, Factor
-#line 42 ".\Grammar.y"
-                                  { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.LessOrEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 15: // Relation -> Factor, MoreEqRel, Factor
-#line 43 ".\Grammar.y"
-                                  { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.MoreOrEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 16: // Relation -> Factor, EqualRel, Factor
-#line 44 ".\Grammar.y"
-                                 { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Equal, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 17: // Relation -> Factor, NotEqRel, Factor
-#line 45 ".\Grammar.y"
-                                 { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.NotEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 18: // Factor -> Term
-#line 48 ".\Grammar.y"
-             { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
-#line default
-        break;
-      case 19: // Factor -> Term, Plus, Term
-#line 49 ".\Grammar.y"
-                       { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Add, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 20: // Factor -> Term, Minus, Term
-#line 50 ".\Grammar.y"
-                        { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Subtract, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 21: // Term -> Unary
-#line 53 ".\Grammar.y"
-            { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
-#line default
-        break;
-      case 22: // Term -> Unary, Multiplication, Unary
-#line 54 ".\Grammar.y"
-                                 { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Multiply, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 23: // Term -> Unary, Division, Unary
-#line 55 ".\Grammar.y"
-                           { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Divide, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 24: // Unary -> Primary
-#line 58 ".\Grammar.y"
+      case 7: // Statement -> Print
+#line 31 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 25: // Unary -> Plus, Primary
-#line 59 ".\Grammar.y"
-                    { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Plus, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 26: // Unary -> Minus, Primary
-#line 60 ".\Grammar.y"
-                     { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Minus, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 27: // Unary -> Not, Primary
-#line 61 ".\Grammar.y"
-                   { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Not, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 28: // Unary -> Primary, IsKey, TypeIndicator
-#line 62 ".\Grammar.y"
-                                   { CurrentSemanticValue = new TypeConversionNode(ValueStack[ValueStack.Depth-3], ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 29: // Unary -> Literal
-#line 63 ".\Grammar.y"
-               { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
-#line default
-        break;
-      case 30: // Primary -> VarName
-#line 66 ".\Grammar.y"
-                 { CurrentSemanticValue = new VariableNode(ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 31: // Primary -> VarName, Tail
-#line 67 ".\Grammar.y"
-                      { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-2], (AccessTailNode)ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 32: // Primary -> ReadInt
-#line 68 ".\Grammar.y"
-                 { CurrentSemanticValue = new ReadIntNode(); }
-#line default
-        break;
-      case 33: // Primary -> ReadReal
-#line 69 ".\Grammar.y"
-                  { CurrentSemanticValue = new ReadRealNode(); }
-#line default
-        break;
-      case 34: // Primary -> ReadString
-#line 70 ".\Grammar.y"
-                    { CurrentSemanticValue = new ReadStringNode(); }
-#line default
-        break;
-      case 35: // Primary -> OpenRoundBr, Expression, CloseRoundBr
-#line 71 ".\Grammar.y"
-                                             { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
-#line default
-        break;
-      case 36: // Tail -> Dot, IntVar
-#line 74 ".\Grammar.y"
-                 { CurrentSemanticValue = new AccessNode(ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 37: // Tail -> Dot, VarName
-#line 75 ".\Grammar.y"
-                  { CurrentSemanticValue = new AccessNode(ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 38: // Tail -> OpenSquareBr, Expression, CloseSquareBr
-#line 76 ".\Grammar.y"
-                                            { CurrentSemanticValue = new AccessNode(ValueStack[ValueStack.Depth-2]); }
-#line default
-        break;
-      case 39: // Tail -> OpenRoundBr, ExpressionList, CloseRoundBr
-#line 77 ".\Grammar.y"
-                                              { CurrentSemanticValue = new FunctionCallNode(ValueStack[ValueStack.Depth-2]); }
-#line default
-        break;
-      case 40: // ExpressionList -> Expression
-#line 80 ".\Grammar.y"
-                           { CurrentSemanticValue = new List<ExpressionNode> { (ExpressionNode)ValueStack[ValueStack.Depth-1] }; }
-#line default
-        break;
-      case 41: // ExpressionList -> ExpressionList, CommaSym, Expression
-#line 81 ".\Grammar.y"
-                                                  { ValueStack[ValueStack.Depth-3].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
-#line default
-        break;
-      case 42: // Statement -> Assignment
-#line 84 ".\Grammar.y"
-                      { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
-#line default
-        break;
-      case 43: // Statement -> Print
-#line 85 ".\Grammar.y"
-                 { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
-#line default
-        break;
-      case 44: // Statement -> Return
-#line 86 ".\Grammar.y"
-                  { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
-#line default
-        break;
-      case 45: // Statement -> If
-#line 87 ".\Grammar.y"
-              { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
-#line default
-        break;
-      case 46: // Statement -> Loop
-#line 88 ".\Grammar.y"
+      case 8: // Statement -> Return
+#line 32 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                 { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 47: // Assignment -> VarName, AssignOp, Expression, SemicolonSym
-#line 91 ".\Grammar.y"
-                                                     { CurrentSemanticValue = new AssignmentNode((string)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
+      case 9: // Statement -> If
+#line 33 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+            { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 48: // Print -> PrintKey, ExpressionList
-#line 94 ".\Grammar.y"
-                               { CurrentSemanticValue = new PrintNode(ValueStack[ValueStack.Depth-1]); }
+      case 10: // Statement -> Loop
+#line 34 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+              { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 49: // Return -> ReturnKey, Expression, SemicolonSym
-#line 97 ".\Grammar.y"
-                                          { CurrentSemanticValue = new ReturnNode((ExpressionNode)ValueStack[ValueStack.Depth-2]); }
+      case 11: // Declaration -> VarKey, VarName
+#line 37 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                            { CurrentSemanticValue = new DeclarationNode((StringNode)ValueStack[ValueStack.Depth-1], null); }
 #line default
         break;
-      case 50: // Return -> ReturnKey, SemicolonSym
-#line 98 ".\Grammar.y"
-                               { CurrentSemanticValue = new ReturnNode(null); }
+      case 12: // Declaration -> VarKey, VarName, AssignOp, Expression, SemicolonSym
+#line 38 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                            { CurrentSemanticValue = new DeclarationNode((StringNode)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
 #line default
         break;
-      case 51: // If -> IfKey, Expression, ThenKey, Body, EndKey
-#line 101 ".\Grammar.y"
-                                         { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2], null); }
+      case 13: // VariableDefinitionList -> VariableDefinition
+#line 41 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                           { CurrentSemanticValue = new List<VariableDefinitionNode> { ValueStack[ValueStack.Depth-1] }; }
 #line default
         break;
-      case 52: // If -> IfKey, Expression, ThenKey, Body, ElseKey, Body, EndKey
-#line 102 ".\Grammar.y"
-                                                       { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-6], ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2]); }
+      case 14: // VariableDefinitionList -> VariableDefinitionList, CommaSym, VariableDefinition
+#line 42 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                                         { ValueStack[ValueStack.Depth-3].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
 #line default
         break;
-      case 53: // Loop -> WhileKey, Expression, LoopBody
-#line 105 ".\Grammar.y"
-                                   { CurrentSemanticValue = new LoopNode((ExpressionNode)ValueStack[ValueStack.Depth-2], ValueStack[ValueStack.Depth-1]); }
+      case 15: // VariableDefinition -> VarName
+#line 45 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                            { CurrentSemanticValue = new VariableDefinitionNode(ValueStack[ValueStack.Depth-1], null); }
 #line default
         break;
-      case 54: // Loop -> ForKey, VarName, InKey, TypeIndicator, LoopBody
-#line 106 ".\Grammar.y"
-                                                  { CurrentSemanticValue = new ForLoopNode(ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2], ValueStack[ValueStack.Depth-1]); }
+      case 16: // VariableDefinition -> VarName, AssignOp, Expression
+#line 46 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                              { CurrentSemanticValue = new VariableDefinitionNode(ValueStack[ValueStack.Depth-3], ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 55: // LoopBody -> LoopKey, Body, EndKey
-#line 109 ".\Grammar.y"
-                              { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+      case 17: // Expression -> Relation, OrOp, Relation
+#line 49 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                   { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Or, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 56: // TypeIndicator -> IntKey
-#line 112 ".\Grammar.y"
-                      { CurrentSemanticValue = TypeIndicator.Int; }
+      case 18: // Expression -> Relation, AndOp, Relation
+#line 50 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                    { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.And, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 57: // TypeIndicator -> RealKey
-#line 113 ".\Grammar.y"
-                       { CurrentSemanticValue = TypeIndicator.Real; }
+      case 19: // Expression -> Relation, XorOp, Relation
+#line 51 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                    { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Xor, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 58: // TypeIndicator -> BoolKey
-#line 114 ".\Grammar.y"
-                       { CurrentSemanticValue = TypeIndicator.Bool; }
+      case 20: // Expression -> Relation
+#line 52 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                      { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 59: // TypeIndicator -> StringKey
-#line 115 ".\Grammar.y"
-                         { CurrentSemanticValue = TypeIndicator.String; }
+      case 21: // Relation -> Factor
+#line 55 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                 { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 60: // TypeIndicator -> EmptyKey
-#line 116 ".\Grammar.y"
-                        { CurrentSemanticValue = TypeIndicator.Empty; }
+      case 22: // Relation -> Factor, LessRel, Factor
+#line 56 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Less, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 61: // TypeIndicator -> OpenSquareBr, CloseSquareBr
-#line 117 ".\Grammar.y"
-                                          { CurrentSemanticValue = TypeIndicator.Vector; }
+      case 23: // Relation -> Factor, MoreRel, Factor
+#line 57 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.More, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 62: // TypeIndicator -> OpenCurlBr, CloseCurlBr
-#line 118 ".\Grammar.y"
-                                      { CurrentSemanticValue = TypeIndicator.Tuple; }
+      case 24: // Relation -> Factor, LessEqRel, Factor
+#line 58 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                  { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.LessOrEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 63: // TypeIndicator -> FuncKey
-#line 119 ".\Grammar.y"
-                       { CurrentSemanticValue = TypeIndicator.Function; }
+      case 25: // Relation -> Factor, MoreEqRel, Factor
+#line 59 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                  { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.MoreOrEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 64: // TypeIndicator -> Expression, DotDot, Expression
-#line 120 ".\Grammar.y"
-                                            { CurrentSemanticValue = TypeIndicator.Range(ValueStack[ValueStack.Depth-3], ValueStack[ValueStack.Depth-1]); }
+      case 26: // Relation -> Factor, EqualRel, Factor
+#line 60 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                 { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Equal, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 65: // Literal -> IntVar
-#line 123 ".\Grammar.y"
-                { CurrentSemanticValue = new LiteralNode(int.Parse(ValueStack[ValueStack.Depth-1])); }
+      case 27: // Relation -> Factor, NotEqRel, Factor
+#line 61 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                 { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.NotEqual, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 66: // Literal -> RealVar
-#line 124 ".\Grammar.y"
-                  { CurrentSemanticValue = new LiteralNode(double.Parse(ValueStack[ValueStack.Depth-1])); }
+      case 28: // Factor -> Term
+#line 64 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+             { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 67: // Literal -> TrueKey
-#line 125 ".\Grammar.y"
-                  { CurrentSemanticValue = new LiteralNode(true); }
+      case 29: // Factor -> Term, Plus, Term
+#line 65 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                       { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Add, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 68: // Literal -> FalseKey
-#line 126 ".\Grammar.y"
-                   { CurrentSemanticValue = new LiteralNode(false); }
+      case 30: // Factor -> Term, Minus, Term
+#line 66 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                        { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Subtract, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 69: // Literal -> StringVar
-#line 127 ".\Grammar.y"
-                    { CurrentSemanticValue = new LiteralNode(ValueStack[ValueStack.Depth-1]); }
+      case 31: // Term -> Unary
+#line 69 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+            { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 70: // Literal -> ArrayLiteral
-#line 128 ".\Grammar.y"
-                       { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
+      case 32: // Term -> Unary, Multiplication, Unary
+#line 70 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                 { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Multiply, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 71: // Literal -> TupleLiteral
-#line 129 ".\Grammar.y"
-                       { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
+      case 33: // Term -> Unary, Division, Unary
+#line 71 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                           { CurrentSemanticValue = new BinaryExpressionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], BinaryOperator.Divide, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 72: // Literal -> FunctionLiteral
-#line 130 ".\Grammar.y"
-                          { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
+      case 34: // Unary -> Primary
+#line 74 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+               { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 73: // ArrayLiteral -> OpenSquareBr, ExpressionList, CloseSquareBr
-#line 133 ".\Grammar.y"
-                                                        { CurrentSemanticValue = new ArrayLiteralNode(ValueStack[ValueStack.Depth-2]); }
+      case 35: // Unary -> Plus, Primary
+#line 75 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                    { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Plus, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 74: // TupleLiteral -> OpenCurlBr, TupleContent, CloseCurlBr
-#line 136 ".\Grammar.y"
-                                                  { CurrentSemanticValue = new TupleLiteralNode(ValueStack[ValueStack.Depth-2]); }
+      case 36: // Unary -> Minus, Primary
+#line 76 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                     { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Minus, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 75: // TupleContent -> OpenSquareBr, TupleElementList, CloseSquareBr
-#line 139 ".\Grammar.y"
-                                                          { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+      case 37: // Unary -> Not, Primary
+#line 77 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                   { CurrentSemanticValue = new UnaryExpressionNode(UnaryOperator.Not, (ExpressionNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 76: // TupleContent -> /* empty */
-#line 140 ".\Grammar.y"
-                          { CurrentSemanticValue = new List<TupleElementNode>(); }
+      case 38: // Unary -> Primary, IsKey, TypeIndicator
+#line 78 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                   { CurrentSemanticValue = new TypeConversionNode((ExpressionNode)ValueStack[ValueStack.Depth-3], (TypeIndicator)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 77: // TupleElementList -> TupleElement
-#line 143 ".\Grammar.y"
-                               { CurrentSemanticValue = new List<TupleElementNode> { ValueStack[ValueStack.Depth-1] }; }
+      case 39: // Unary -> Literal
+#line 79 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+               { CurrentSemanticValue = ValueStack[ValueStack.Depth-1]; }
 #line default
         break;
-      case 78: // TupleElementList -> TupleElementList, CommaSym, TupleElement
-#line 144 ".\Grammar.y"
-                                                        { ValueStack[ValueStack.Depth-3].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
+      case 40: // Primary -> VarName
+#line 82 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                 { CurrentSemanticValue = new VariableNode((StringNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 79: // TupleElement -> OpenSquareBr, VarName, AssignOp, Expression, CloseSquareBr
-#line 147 ".\Grammar.y"
-                                                                     { CurrentSemanticValue = new TupleElementNode(ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2]); }
+      case 41: // Primary -> VarName, Tail
+#line 83 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                      { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-2], (AccessTailNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 80: // FunctionLiteral -> FuncKey, Parameters, FunBody
-#line 150 ".\Grammar.y"
-                                            { CurrentSemanticValue = new FunctionLiteralNode(ValueStack[ValueStack.Depth-2], ValueStack[ValueStack.Depth-1]); }
+      case 42: // Primary -> ReadInt
+#line 84 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                 { CurrentSemanticValue = new ReadIntNode(); }
 #line default
         break;
-      case 81: // Parameters -> OpenRoundBr, VarNameList, CloseRoundBr
-#line 153 ".\Grammar.y"
-                                                 { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+      case 43: // Primary -> ReadReal
+#line 85 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                  { CurrentSemanticValue = new ReadRealNode(); }
 #line default
         break;
-      case 82: // Parameters -> /* empty */
-#line 154 ".\Grammar.y"
-                        { CurrentSemanticValue = new List<string>(); }
+      case 44: // Primary -> ReadString
+#line 86 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                    { CurrentSemanticValue = new ReadStringNode(); }
 #line default
         break;
-      case 83: // VarNameList -> VarName
-#line 157 ".\Grammar.y"
-                     { CurrentSemanticValue = new List<string> { ValueStack[ValueStack.Depth-1] }; }
-#line default
-        break;
-      case 84: // VarNameList -> VarNameList, CommaSym, VarName
-#line 158 ".\Grammar.y"
-                                         { ValueStack[ValueStack.Depth-3].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
-#line default
-        break;
-      case 85: // FunBody -> IsKey, Body, EndKey
-#line 161 ".\Grammar.y"
-                           { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
-#line default
-        break;
-      case 86: // FunBody -> ArrowKey, Expression
-#line 162 ".\Grammar.y"
-                             { CurrentSemanticValue = new FunctionBodyNode(ValueStack[ValueStack.Depth-1]); }
-#line default
-        break;
-      case 87: // Body -> OpenCurlBr, DeclarationList, CloseCurlBr
-#line 165 ".\Grammar.y"
+      case 45: // Primary -> OpenRoundBr, Expression, CloseRoundBr
+#line 87 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                              { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
-      case 88: // Body -> OpenCurlBr, StatementList, CloseCurlBr
-#line 166 ".\Grammar.y"
+      case 46: // Tail -> Dot, IntVar
+#line 90 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                 { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
+#line default
+        break;
+      case 47: // Tail -> Dot, VarName
+#line 91 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                  { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
+#line default
+        break;
+      case 48: // Tail -> OpenSquareBr, Expression, CloseSquareBr
+#line 92 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                            { CurrentSemanticValue = new AccessNode((ExpressionNode)ValueStack[ValueStack.Depth-2]); }
+#line default
+        break;
+      case 49: // Tail -> OpenRoundBr, ExpressionList, CloseRoundBr
+#line 93 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                              { CurrentSemanticValue = new FunctionCallNode((ExpressionNode)ValueStack[ValueStack.Depth-2]); }
+#line default
+        break;
+      case 50: // ExpressionList -> Expression
+#line 96 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                           { CurrentSemanticValue = new ExpressionNodeListNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
+#line default
+        break;
+      case 51: // ExpressionList -> ExpressionList, CommaSym, Expression
+#line 97 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                  { ((ExpressionNodeListNode)ValueStack[ValueStack.Depth-3]).Add((ExpressionNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
+#line default
+        break;
+      case 52: // Assignment -> VarName, AssignOp, Expression, SemicolonSym
+#line 100 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                     { CurrentSemanticValue = new AssignmentNode((StringNode)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
+#line default
+        break;
+      case 53: // Print -> PrintKey, ExpressionList
+#line 103 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                               { CurrentSemanticValue = new PrintNode((ExpressionNodeListNode)ValueStack[ValueStack.Depth-1]); }
+#line default
+        break;
+      case 54: // Return -> ReturnKey, Expression, SemicolonSym
+#line 106 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                          { CurrentSemanticValue = new ReturnNode((ExpressionNode)ValueStack[ValueStack.Depth-2]); }
+#line default
+        break;
+      case 55: // Return -> ReturnKey, SemicolonSym
+#line 107 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                               { CurrentSemanticValue = new ReturnNode(null); }
+#line default
+        break;
+      case 56: // If -> IfKey, Expression, ThenKey, Body, EndKey
+#line 110 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                         { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-4], (StatementNodeListNode)ValueStack[ValueStack.Depth-2], null); }
+#line default
+        break;
+      case 57: // If -> IfKey, Expression, ThenKey, Body, ElseKey, Body, EndKey
+#line 111 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                       { CurrentSemanticValue = new IfNode((ExpressionNode)ValueStack[ValueStack.Depth-6], (StatementNodeListNode)ValueStack[ValueStack.Depth-4], ValueStack[ValueStack.Depth-2]); }
+#line default
+        break;
+      case 58: // Loop -> WhileKey, Expression, LoopBody
+#line 114 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                   { CurrentSemanticValue = new LoopNode((ExpressionNode)ValueStack[ValueStack.Depth-2], (StatementNodeListNode)ValueStack[ValueStack.Depth-1]); }
+#line default
+        break;
+      case 59: // Loop -> ForKey, VarName, InKey, TypeIndicator, LoopBody
+#line 115 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                  { CurrentSemanticValue = new ForLoopNode((TypeIndicator)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2], (StatementNodeListNode)ValueStack[ValueStack.Depth-1]); }
+#line default
+        break;
+      case 60: // LoopBody -> LoopKey, Body, EndKey
+#line 118 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                              { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+#line default
+        break;
+      case 61: // TypeIndicator -> IntKey
+#line 121 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                      { CurrentSemanticValue = TypeIndicator.Int; }
+#line default
+        break;
+      case 62: // TypeIndicator -> RealKey
+#line 122 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                       { CurrentSemanticValue = TypeIndicator.Real; }
+#line default
+        break;
+      case 63: // TypeIndicator -> BoolKey
+#line 123 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                       { CurrentSemanticValue = TypeIndicator.Bool; }
+#line default
+        break;
+      case 64: // TypeIndicator -> StringKey
+#line 124 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                         { CurrentSemanticValue = TypeIndicator.String; }
+#line default
+        break;
+      case 65: // TypeIndicator -> EmptyKey
+#line 125 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                        { CurrentSemanticValue = TypeIndicator.Empty; }
+#line default
+        break;
+      case 66: // TypeIndicator -> OpenSquareBr, CloseSquareBr
+#line 126 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                          { CurrentSemanticValue = TypeIndicator.Vector; }
+#line default
+        break;
+      case 67: // TypeIndicator -> OpenCurlBr, CloseCurlBr
+#line 127 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                      { CurrentSemanticValue = TypeIndicator.Tuple; }
+#line default
+        break;
+      case 68: // TypeIndicator -> FuncKey
+#line 128 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                       { CurrentSemanticValue = TypeIndicator.Function; }
+#line default
+        break;
+      case 69: // TypeIndicator -> Expression, DotDot, Expression
+#line 129 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                            { CurrentSemanticValue = TypeIndicator.Range(ValueStack[ValueStack.Depth-3], ValueStack[ValueStack.Depth-1]); }
+#line default
+        break;
+      case 70: // Literal -> IntVar
+#line 132 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                { CurrentSemanticValue = new LiteralNode(int.Parse(((StringNode)ValueStack[ValueStack.Depth-1]).GetString())); }
+#line default
+        break;
+      case 71: // Literal -> RealVar
+#line 133 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                  { CurrentSemanticValue = new LiteralNode(double.Parse(((StringNode)ValueStack[ValueStack.Depth-1]).GetString())); }
+#line default
+        break;
+      case 72: // Literal -> TrueKey
+#line 134 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                  { CurrentSemanticValue = new LiteralNode(true); }
+#line default
+        break;
+      case 73: // Literal -> FalseKey
+#line 135 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                   { CurrentSemanticValue = new LiteralNode(false); }
+#line default
+        break;
+      case 74: // Literal -> StringVar
+#line 136 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                    { CurrentSemanticValue = new LiteralNode(((StringNode)ValueStack[ValueStack.Depth-1]).GetString()); }
+#line default
+        break;
+      case 75: // Literal -> ArrayLiteral
+#line 137 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                       { CurrentSemanticValue = (ArrayLiteralNode)ValueStack[ValueStack.Depth-1]; }
+#line default
+        break;
+      case 76: // Literal -> TupleLiteral
+#line 138 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                       { CurrentSemanticValue = (TupleLiteralNode)ValueStack[ValueStack.Depth-1]; }
+#line default
+        break;
+      case 77: // Literal -> FunctionLiteral
+#line 139 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                          { CurrentSemanticValue = (FunctionLiteralNode)ValueStack[ValueStack.Depth-1]; }
+#line default
+        break;
+      case 78: // ArrayLiteral -> OpenSquareBr, ExpressionList, CloseSquareBr
+#line 142 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                        { CurrentSemanticValue = new ArrayLiteralNode((ExpressionNodeListNode)ValueStack[ValueStack.Depth-2]); }
+#line default
+        break;
+      case 79: // TupleLiteral -> OpenCurlBr, TupleContent, CloseCurlBr
+#line 145 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                  { CurrentSemanticValue = new TupleLiteralNode((TupleElementNodeListNode)ValueStack[ValueStack.Depth-2]); }
+#line default
+        break;
+      case 80: // TupleContent -> OpenSquareBr, TupleElementList, CloseSquareBr
+#line 148 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                          { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+#line default
+        break;
+      case 81: // TupleContent -> /* empty */
+#line 149 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                          { CurrentSemanticValue = new TupleElementNodeListNode(); }
+#line default
+        break;
+      case 82: // TupleElementList -> TupleElement
+#line 152 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                               { CurrentSemanticValue = new TupleElementNodeListNode((TupleElementNode)ValueStack[ValueStack.Depth-1]); }
+#line default
+        break;
+      case 83: // TupleElementList -> TupleElementList, CommaSym, TupleElement
+#line 153 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                        { ((TupleElementNodeListNode)ValueStack[ValueStack.Depth-3]).Add((TupleElementNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
+#line default
+        break;
+      case 84: // TupleElement -> OpenSquareBr, VarName, AssignOp, Expression, CloseSquareBr
+#line 156 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                                     { CurrentSemanticValue = new TupleElementNode((StringNode)ValueStack[ValueStack.Depth-4], (ExpressionNode)ValueStack[ValueStack.Depth-2]); }
+#line default
+        break;
+      case 85: // FunctionLiteral -> FuncKey, Parameters, FunBody
+#line 159 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                            { CurrentSemanticValue = new FunctionLiteralNode((StringNodeListNode)ValueStack[ValueStack.Depth-2], (StatementNodeListNode)ValueStack[ValueStack.Depth-1]); }
+#line default
+        break;
+      case 86: // Parameters -> OpenRoundBr, VarNameList, CloseRoundBr
+#line 162 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                                 { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+#line default
+        break;
+      case 87: // Parameters -> /* empty */
+#line 163 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                        { CurrentSemanticValue = new StringNodeListNode(); }
+#line default
+        break;
+      case 88: // VarNameList -> VarName
+#line 166 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                     { CurrentSemanticValue = new StringNodeListNode((StringNode)ValueStack[ValueStack.Depth-1]); }
+#line default
+        break;
+      case 89: // VarNameList -> VarNameList, CommaSym, VarName
+#line 167 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                         { ((StringNodeListNode)ValueStack[ValueStack.Depth-3]).Add((StringNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-3]; }
+#line default
+        break;
+      case 90: // FunBody -> IsKey, Body, EndKey
+#line 170 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                           { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+#line default
+        break;
+      case 91: // FunBody -> ArrowKey, Expression
+#line 171 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                             { CurrentSemanticValue = new FunctionBodyNode((ExpressionNode)ValueStack[ValueStack.Depth-1]); }
+#line default
+        break;
+      case 92: // Body -> OpenCurlBr, DeclarationList, CloseCurlBr
+#line 174 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                             { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+#line default
+        break;
+      case 93: // Body -> OpenCurlBr, StatementList, CloseCurlBr
+#line 175 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                            { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
-      case 89: // Body -> OpenCurlBr, ExpressionList, CloseCurlBr
-#line 167 ".\Grammar.y"
+      case 94: // Body -> OpenCurlBr, ExpressionList, CloseCurlBr
+#line 176 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
                                             { CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
-      case 90: // DeclarationList -> Declaration
-#line 170 ".\Grammar.y"
-                             { CurrentSemanticValue = new List<DeclarationNode> { ValueStack[ValueStack.Depth-1] }; }
+      case 95: // DeclarationList -> Declaration
+#line 179 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                             { CurrentSemanticValue = new DeclarationNodeListNode((DeclarationNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 91: // DeclarationList -> DeclarationList, Declaration
-#line 171 ".\Grammar.y"
-                                            { ValueStack[ValueStack.Depth-2].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+      case 96: // DeclarationList -> DeclarationList, Declaration
+#line 180 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                            { ((DeclarationNodeListNode)ValueStack[ValueStack.Depth-2]).Add((DeclarationNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
-      case 92: // StatementList -> Statement
-#line 174 ".\Grammar.y"
-                         { CurrentSemanticValue = new List<StatementNode> { ValueStack[ValueStack.Depth-1] }; }
+      case 97: // StatementList -> Statement
+#line 183 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                         { CurrentSemanticValue = new StatementNodeListNode((StatementNode)ValueStack[ValueStack.Depth-1]); }
 #line default
         break;
-      case 93: // StatementList -> StatementList, Statement
-#line 175 ".\Grammar.y"
-                                      { ValueStack[ValueStack.Depth-2].Add(ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
+      case 98: // StatementList -> StatementList, Statement
+#line 184 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
+                                      { ((StatementNodeListNode)ValueStack[ValueStack.Depth-2]).Add((StatementNode)ValueStack[ValueStack.Depth-1]); CurrentSemanticValue = ValueStack[ValueStack.Depth-2]; }
 #line default
         break;
     }
@@ -798,7 +834,7 @@ public class Parser: ShiftReduceParser<AstNode, LexLocation>
         return CharToString((char)terminal);
   }
 
-#line 179 ".\Grammar.y"
+#line 188 "C:\Users\zhuko\Desktop\InnoCompiler-main\InnoCompiler-main\LexicalAnalyzer\Grammar.y"
  #line default
 }
 }
