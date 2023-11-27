@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+//just some comment so github can work with it
 namespace LexicalAnalyzer
 {
     public abstract class AstNode { }
@@ -11,23 +11,24 @@ namespace LexicalAnalyzer
     // Program node representing the entire program
     public class ProgramNode : AstNode
     {
-        public List<DeclarationNode> Declarations { get; } = new List<DeclarationNode>();
+        public List<StatementNode> Statements { get; } = new List<StatementNode>();
 
         public ProgramNode()
         {
         }
-        
-        public ProgramNode AddDeclaration(DeclarationNode declaration)
+
+        public ProgramNode AddStatement(StatementNode statement)
         {
-            Declarations.Add(declaration);
+            Statements.Add(statement);
             return this;
         }
-        public ProgramNode(DeclarationNode declaration)
+        public ProgramNode(StatementNode statement)
         {
-            
-            AddDeclaration(declaration);
+            AddStatement(statement);
         }
     }
+
+
 
     // Declaration node representing variable declarations
     public class DeclarationNode : AstNode
@@ -44,6 +45,29 @@ namespace LexicalAnalyzer
 
     // Expression node representing expressions
     public abstract class ExpressionNode : AstNode { }
+
+    // VariableDefinitionNode representing variable definitions
+    public class VariableDefinitionNode : AstNode
+    {
+        public string VariableName { get; }
+        public ExpressionNode AssignedExpression { get; }
+
+        public VariableDefinitionNode(StringNode variableName)
+        {
+            VariableName = variableName.GetString();
+        }
+        public VariableDefinitionNode(AstNode variableName, AstNode assignedExpression)
+        {
+            if (variableName is StringNode stringNode)
+            {
+                VariableName = stringNode.GetString();
+            }
+            if (assignedExpression is ExpressionNode expressionNode)
+            {
+                AssignedExpression = expressionNode;
+            }
+        }
+    }
 
     // Binary expression node representing binary operations
     public class BinaryExpressionNode : ExpressionNode
@@ -189,12 +213,18 @@ namespace LexicalAnalyzer
     public class AccessNode : ExpressionNode
     {
         public ExpressionNode Target { get; }
-        //public AccessTailNode Tail { get; }
+        public AccessTailNode Tail { get; }
+
+        public AccessNode(ExpressionNode target, AccessTailNode tail)
+        {
+            Target = target;
+            Tail = tail;
+        }
 
         public AccessNode(ExpressionNode target)
         {
             Target = target;
-            //Tail = tail;
+            Tail = null; // or set a default AccessTailNode as needed
         }
     }
 
@@ -287,6 +317,12 @@ public class FunctionCallNode : ExpressionNode
         Function = function;
         Arguments = arguments.GetList();
     }
+
+    public FunctionCallNode(ExpressionNode function)
+        : this(function, new ExpressionNodeListNode())
+    {
+        // idk just set it empty
+    }
 }
 
 // For loop node
@@ -304,10 +340,16 @@ public class ForLoopNode : StatementNode
         Collection = collection;
         LoopBody = loopBody.GetList();
     }
+
+    public ForLoopNode(TypeIndicator type, ExpressionNode loopCondition, StatementNodeListNode loopBody)
+        : this(null, type, loopCondition, loopBody)
+    {
+        // same as FunctionCallNode
+    }
 }
 
 // Type indicator enumeration
-public enum TypeIndicator
+public enum TypeIndicatorEnum
 {
     Int,
     Real,
@@ -379,4 +421,36 @@ public class FunctionBodyNode : AstNode
     }
 }
 
+public class TypeIndicator : AstNode
+{
+    // костыльно, но что поделать
+    private TypeIndicatorEnum Value { get; }
+    private AstNode StartValue { get; }
+    private AstNode EndValue { get; }
 
+    private TypeIndicator(TypeIndicatorEnum value)
+    {
+        Value = value;
+    }
+
+    private TypeIndicator(TypeIndicatorEnum value, AstNode startValue, AstNode endValue)
+    {
+        Value = value;
+        StartValue = startValue;
+        EndValue = endValue;
+    }
+
+    public static TypeIndicator Int => new TypeIndicator(TypeIndicatorEnum.Int);
+    public static TypeIndicator Real => new TypeIndicator(TypeIndicatorEnum.Real);
+    public static TypeIndicator Bool => new TypeIndicator(TypeIndicatorEnum.Bool);
+    public static TypeIndicator String => new TypeIndicator(TypeIndicatorEnum.String);
+    public static TypeIndicator Empty => new TypeIndicator(TypeIndicatorEnum.Empty);
+    public static TypeIndicator Vector => new TypeIndicator(TypeIndicatorEnum.Vector);
+    public static TypeIndicator Tuple => new TypeIndicator(TypeIndicatorEnum.Tuple);
+    public static TypeIndicator Function => new TypeIndicator(TypeIndicatorEnum.Function);
+
+    public static TypeIndicator Range(AstNode startValue, AstNode endValue)
+    {
+        return new TypeIndicator(TypeIndicatorEnum.Range, startValue, endValue);
+    }
+}
