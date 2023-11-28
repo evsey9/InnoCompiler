@@ -21,8 +21,8 @@
 
 %%
 
-Program: Statement { $$ = new ProgramNode((StatementNode)$1); }
-       | Program Statement { $$ = ((ProgramNode)$1).AddStatement((StatementNode)$2); }
+Program: Statement SemicolonSym { $$ = new ProgramNode((StatementNode)$1); }
+       | Program Statement SemicolonSym { $$ = ((ProgramNode)$1).AddStatement((StatementNode)$2); }
        | /* empty */ { $$ = new ProgramNode(); }
        ;
 
@@ -35,7 +35,7 @@ Statement: Declaration { $$ = $1; }
        ;
 
 Declaration: VarKey VarName { $$ = new DeclarationNode((StringNode)$2, null); }
-          | VarKey VarName AssignOp Expression SemicolonSym { $$ = new DeclarationNode((StringNode)$2, (ExpressionNode)$4); }
+          | VarKey VarName AssignOp Expression { $$ = new DeclarationNode((StringNode)$2, (ExpressionNode)$4); }
           ;
 
 VariableDefinitionList: VariableDefinition { $$ = new VariableDefinitionNodeListNode((VariableDefinitionNode)$1); }
@@ -97,14 +97,14 @@ ExpressionList: Expression { $$ = new ExpressionNodeListNode((ExpressionNode)$1)
              | ExpressionList CommaSym Expression { ((ExpressionNodeListNode)$1).Add((ExpressionNode)$3); $$ = $1; }
              ;
 
-Assignment: VarName AssignOp Expression SemicolonSym { $$ = new AssignmentNode((StringNode)$1, (ExpressionNode)$3); }
+Assignment: VarName AssignOp Expression { $$ = new AssignmentNode((StringNode)$1, (ExpressionNode)$3); }
           ;
 
 Print: PrintKey ExpressionList { $$ = new PrintNode((ExpressionNodeListNode)$2); }
      ;
 
-Return: ReturnKey Expression SemicolonSym { $$ = new ReturnNode((ExpressionNode)$2); }
-      | ReturnKey SemicolonSym { $$ = new ReturnNode(null); }
+Return: ReturnKey Expression { $$ = new ReturnNode((ExpressionNode)$2); }
+      | ReturnKey { $$ = new ReturnNode(null); }
       ;
 
 If: IfKey Expression ThenKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, null); }

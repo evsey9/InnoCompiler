@@ -78,6 +78,7 @@ and 10-6
             
             query = @"
 var testStr := 'hello everynyan!';
+print testStr;
 var testIntOne := 1;
 var testIntTwo := 3;
 var result := testIntOne + testIntTwo;
