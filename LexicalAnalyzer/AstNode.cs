@@ -28,10 +28,11 @@ namespace LexicalAnalyzer
         }
     }
 
-
+    // Statement node representing a statement in the program
+    public abstract class StatementNode : AstNode { }
 
     // Declaration node representing variable declarations
-    public class DeclarationNode : AstNode
+    public class DeclarationNode : StatementNode
     {
         public string VariableName { get; }
         public ExpressionNode AssignedExpression { get; }
@@ -134,9 +135,6 @@ namespace LexicalAnalyzer
         Not,
         TypeConversion
     }
-
-    // Statement node representing a statement in the program
-    public abstract class StatementNode : AstNode { }
 
     // Assignment statement node
     public class AssignmentNode : StatementNode
