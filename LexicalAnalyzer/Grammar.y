@@ -1,6 +1,6 @@
 %namespace LexicalAnalyzer
 %output=RealTreeParser.cs 
-//%partial 
+%partial 
 //%sharetokens
 
 //%visibility internal
@@ -35,11 +35,11 @@ Statement: Declaration { $$ = $1; }
        ;
 
 Declaration: VarKey VarName { $$ = new DeclarationNode((StringNode)$2, null); }
-          | VarKey VarName AssignOp Expression SemicolonSym { $$ = new DeclarationNode((StringNode)$2, (ExpressionNode)$4); }
+          | VarKey VarName AssignOp Expression { $$ = new DeclarationNode((StringNode)$2, (ExpressionNode)$4); }
           ;
 
-VariableDefinitionList: VariableDefinition { $$ = new List<VariableDefinitionNode> { $1 }; }
-                    | VariableDefinitionList CommaSym VariableDefinition { $1.Add($3); $$ = $1; }
+VariableDefinitionList: VariableDefinition { $$ = new VariableDefinitionNodeListNode((VariableDefinitionNode)$1); }
+                    | VariableDefinitionList CommaSym VariableDefinition { ((VariableDefinitionNodeListNode)$1).Add((VariableDefinitionNode)$3); $$ = $1; }
                     ;
 
 VariableDefinition: VarName { $$ = new VariableDefinitionNode($1, null); }
@@ -97,18 +97,18 @@ ExpressionList: Expression { $$ = new ExpressionNodeListNode((ExpressionNode)$1)
              | ExpressionList CommaSym Expression { ((ExpressionNodeListNode)$1).Add((ExpressionNode)$3); $$ = $1; }
              ;
 
-Assignment: VarName AssignOp Expression SemicolonSym { $$ = new AssignmentNode((StringNode)$1, (ExpressionNode)$3); }
+Assignment: VarName AssignOp Expression { $$ = new AssignmentNode((StringNode)$1, (ExpressionNode)$3); }
           ;
 
 Print: PrintKey ExpressionList { $$ = new PrintNode((ExpressionNodeListNode)$2); }
      ;
 
-Return: ReturnKey Expression SemicolonSym { $$ = new ReturnNode((ExpressionNode)$2); }
-      | ReturnKey SemicolonSym { $$ = new ReturnNode(null); }
+Return: ReturnKey Expression { $$ = new ReturnNode((ExpressionNode)$2); }
+      | ReturnKey { $$ = new ReturnNode(null); }
       ;
 
 If: IfKey Expression ThenKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, null); }
-   | IfKey Expression ThenKey Body ElseKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, $6); }
+   | IfKey Expression ThenKey Body ElseKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (StatementNodeListNode)$4, (StatementNodeListNode)$6); }
    ;
 
 Loop: WhileKey Expression LoopBody { $$ = new LoopNode((ExpressionNode)$2, (StatementNodeListNode)$3); }

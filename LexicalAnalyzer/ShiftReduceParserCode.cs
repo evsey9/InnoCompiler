@@ -11,6 +11,8 @@
 // Copyright (c) Wayne Kelly, QUT 2005-2010
 // (see accompanying GPPGcopyright.rtf)
 
+#define TRACE_ACTIONS
+
 using System;
 using System.Text;
 using System.Globalization;

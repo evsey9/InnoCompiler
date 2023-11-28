@@ -81,7 +81,7 @@ namespace LexicalAnalyzer
 	            //Condition in order to hide Space, Tab and New line symbols
 	            //if (token.TokenType == Tokens.SpaceSym || token.TokenType == Tokens.TabSym ||
 	            //    token.TokenType == Tokens.NewLineSym)
-	            //    continue;
+              //    continue;
 	            Console.WriteLine(string.Format("TokenType: {0}, Value: {1}, Line: {2}, Column: {3}", token.TokenType, token.Value, token.Line, token.Column));
             }
             newTokenizer.PrepareTokens(query);
@@ -90,7 +90,6 @@ namespace LexicalAnalyzer
 
             Console.WriteLine("");
             Console.WriteLine($"Process complete. Parse successful: {parseResult}");
-
             //Console.ReadLine();
         }
     }
@@ -104,33 +103,33 @@ namespace LexicalAnalyzer
 //var testIntTwo := 3;
 //var result := testIntOne + testIntTwo;
 
-//var myVar := 3.1; //дробные не работают, при запуске он переходит в grammar.y и выдает System.FormatException: "Input string was not in a correct format."
+//var myVar := 3.1; //РґСЂРѕР±РЅС‹Рµ РЅРµ СЂР°Р±РѕС‚Р°СЋС‚, РїСЂРё Р·Р°РїСѓСЃРєРµ РѕРЅ РїРµСЂРµС…РѕРґРёС‚ РІ grammar.y Рё РІС‹РґР°РµС‚ System.FormatException: "Input string was not in a correct format."
 
 //var t := [1]; //array
 //var newArray := myArray + [4, 5, 6];
-//t[0] := [2]; //не может в такое потому что у него нет того что слева от равно в возможных конструкциях (как бы есть в tail, но не может его юзнуть)
+//t[0] := [2]; //РЅРµ РјРѕР¶РµС‚ РІ С‚Р°РєРѕРµ РїРѕС‚РѕРјСѓ С‡С‚Рѕ Сѓ РЅРµРіРѕ РЅРµС‚ С‚РѕРіРѕ С‡С‚Рѕ СЃР»РµРІР° РѕС‚ СЂР°РІРЅРѕ РІ РІРѕР·РјРѕР¶РЅС‹С… РєРѕРЅСЃС‚СЂСѓРєС†РёСЏС… (РєР°Рє Р±С‹ РµСЃС‚СЊ РІ tail, РЅРѕ РЅРµ РјРѕР¶РµС‚ РµРіРѕ СЋР·РЅСѓС‚СЊ)
 
 //t:= { [[a:= 1],[b:= 2]]}; //tuple
-//var x := t.b; //подобная конструкция не работает потому что у него нет конструкций типа что-то.что-то (как бы есть в tail, но не может его юзнуть)
+//var x := t.b; //РїРѕРґРѕР±РЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС†РёСЏ РЅРµ СЂР°Р±РѕС‚Р°РµС‚ РїРѕС‚РѕРјСѓ С‡С‚Рѕ Сѓ РЅРµРіРѕ РЅРµС‚ РєРѕРЅСЃС‚СЂСѓРєС†РёР№ С‚РёРїР° С‡С‚Рѕ-С‚Рѕ.С‡С‚Рѕ-С‚Рѕ (РєР°Рє Р±С‹ РµСЃС‚СЊ РІ tail, РЅРѕ РЅРµ РјРѕР¶РµС‚ РµРіРѕ СЋР·РЅСѓС‚СЊ)
 
 //if myVar > 2 then
 //    { myVar:= 2}
 //else
 //{ myVar:= 4}
-//end //хз почему не работает, он спокойно доходит до еофа, если ставить ; после стейтментов, то не проходит дальше них
+//end //С…Р· РїРѕС‡РµРјСѓ РЅРµ СЂР°Р±РѕС‚Р°РµС‚, РѕРЅ СЃРїРѕРєРѕР№РЅРѕ РґРѕС…РѕРґРёС‚ РґРѕ РµРѕС„Р°, РµСЃР»Рё СЃС‚Р°РІРёС‚СЊ ; РїРѕСЃР»Рµ СЃС‚РµР№С‚РјРµРЅС‚РѕРІ, С‚Рѕ РЅРµ РїСЂРѕС…РѕРґРёС‚ РґР°Р»СЊС€Рµ РЅРёС…
 
 //while m > 2 loop
 //    {m := m - 1}
-//end // та же дичь что и с ифом
+//end // С‚Р° Р¶Рµ РґРёС‡СЊ С‡С‚Рѕ Рё СЃ РёС„РѕРј
 
 //for myvar in Int loop
 //    { m:= m + 1}
-//end // там где Real почему-то должен быть TypeIndicator и происходит почти та же ошибка что и с дробными числами только написано System.InvalidCastException: "Unable to cast object of type 'LexicalAnalyzer.StringNode' to type 'TypeIndicator'."
+//end // С‚Р°Рј РіРґРµ Real РїРѕС‡РµРјСѓ-С‚Рѕ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ TypeIndicator Рё РїСЂРѕРёСЃС…РѕРґРёС‚ РїРѕС‡С‚Рё С‚Р° Р¶Рµ РѕС€РёР±РєР° С‡С‚Рѕ Рё СЃ РґСЂРѕР±РЅС‹РјРё С‡РёСЃР»Р°РјРё С‚РѕР»СЊРєРѕ РЅР°РїРёСЃР°РЅРѕ System.InvalidCastException: "Unable to cast object of type 'LexicalAnalyzer.StringNode' to type 'TypeIndicator'."
 
 //func (x) is
 //{ m:= m + 1}
-//end // составлено согласно граммару, но он не воспринимает все что после func и дропает
+//end // СЃРѕСЃС‚Р°РІР»РµРЅРѕ СЃРѕРіР»Р°СЃРЅРѕ РіСЂР°РјРјР°СЂСѓ, РЅРѕ РѕРЅ РЅРµ РІРѕСЃРїСЂРёРЅРёРјР°РµС‚ РІСЃРµ С‡С‚Рѕ РїРѕСЃР»Рµ func Рё РґСЂРѕРїР°РµС‚
 
-//func (x) => x := x + 1; /то же что и выше
+//func (x) => x := x + 1; /С‚Рѕ Р¶Рµ С‡С‚Рѕ Рё РІС‹С€Рµ
 
-//вроде подбиырал чтобы проверить большинство из граммара
+//РІСЂРѕРґРµ РїРѕРґР±РёС‹СЂР°Р» С‡С‚РѕР±С‹ РїСЂРѕРІРµСЂРёС‚СЊ Р±РѕР»СЊС€РёРЅСЃС‚РІРѕ РёР· РіСЂР°РјРјР°СЂР°
