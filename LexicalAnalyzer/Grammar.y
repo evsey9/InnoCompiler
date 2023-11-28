@@ -21,8 +21,8 @@
 
 %%
 
-Program: Statement SemicolonSym { $$ = new ProgramNode((StatementNode)$1); }
-       | Program Statement SemicolonSym { $$ = ((ProgramNode)$1).AddStatement((StatementNode)$2); }
+Program: Statement { $$ = new ProgramNode((StatementNode)$1); }
+       | Program Statement { $$ = ((ProgramNode)$1).AddStatement((StatementNode)$2); }
        | /* empty */ { $$ = new ProgramNode(); }
        ;
 

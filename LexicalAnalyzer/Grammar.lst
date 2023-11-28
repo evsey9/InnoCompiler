@@ -1,9 +1,9 @@
 
 // ==========================================================================
-//  GPPG error listing for yacc source file <.\Grammar.y - 28/11/2023 01:32:40>
+//  GPPG error listing for yacc source file <.\Grammar.y - 28/11/2023 06:19:54>
 // ==========================================================================
 //  Version:  1.5.2
-//  DateTime: 28/11/2023 01:42:12
+//  DateTime: 28/11/2023 06:20:18
 // ==========================================================================
 
 
@@ -33,8 +33,8 @@
 // Warning: NonTerminal symbol "VariableDefinition" is unreachable
 // -------------------------------------------------------------------
 
-Program: Statement SemicolonSym { $$ = new ProgramNode((StatementNode)$1); }
-       | Program Statement SemicolonSym { $$ = ((ProgramNode)$1).AddStatement((StatementNode)$2); }
+Program: Statement { $$ = new ProgramNode((StatementNode)$1); }
+       | Program Statement { $$ = ((ProgramNode)$1).AddStatement((StatementNode)$2); }
        | /* empty */ { $$ = new ProgramNode(); }
        ;
 
