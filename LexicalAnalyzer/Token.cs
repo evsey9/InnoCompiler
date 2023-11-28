@@ -2,30 +2,33 @@ namespace LexicalAnalyzer
 {
     public class Token
     {
-        public Token(TokenType tokenType)
+        public Token(Tokens tokenType)
         {
             TokenType = tokenType;
             Value = string.Empty;
         }
 
-        public Token(TokenType tokenType, string value)
+        public Token(Tokens tokenType, string value)
         {
             TokenType = tokenType;
             Value = value;
         }
 
-        public Token(TokenType tokenType, string value, int line, int column)
+        public Token(Tokens tokenType, string value, int line, int column, LexLocation location)
         {
             TokenType = tokenType;
             Value = value;
             Line = line;
             Column = column;
+            Location = location;
         }
 
-        public TokenType TokenType { get; set; }
+        public Tokens TokenType { get; set; }
         public string Value { get; set; }
         public int Line { get; set; }
         public int Column { get; set; }
+        
+        public LexLocation Location { get; set; }
 
         public Token Clone()
         {

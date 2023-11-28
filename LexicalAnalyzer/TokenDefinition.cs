@@ -7,10 +7,10 @@ namespace LexicalAnalyzer
     public class TokenDefinition
     {
         private Regex _regex;
-        private readonly TokenType _returnsToken;
+        private readonly Tokens _returnsToken;
         private readonly int _precedence;
 
-        public TokenDefinition(TokenType returnsToken, string regexPattern, int precedence)
+        public TokenDefinition(Tokens returnsToken, string regexPattern, int precedence)
         {
             _regex = new Regex(regexPattern, RegexOptions.IgnoreCase|RegexOptions.Compiled);
             _returnsToken = returnsToken;
@@ -28,7 +28,8 @@ namespace LexicalAnalyzer
                     EndIndex = matches[i].Index + matches[i].Length,
                     TokenType = _returnsToken,
                     Value = matches[i].Value,
-                    Precedence = _precedence
+                    Precedence = _precedence,
+                    Length = matches[i].Length
                 };
             }
         }
@@ -36,16 +37,18 @@ namespace LexicalAnalyzer
     
     public class TokenMatch
     {
-        public TokenType TokenType { get; set; }
+        public Tokens TokenType { get; set; }
         public string Value { get; set; }
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
         public int Precedence { get; set; }
         public int StartLine { get; set; } 
         public int StartColumn { get; set; }
+        
+        public int Length { get; set; }
     }
-
 }
+
 
 
 

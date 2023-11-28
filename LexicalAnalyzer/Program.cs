@@ -62,19 +62,43 @@ and 10-6
             foreach (var token in tokenSequence)
             {
 	            //Condition in order to hide Space, Tab and New line symbols
-	            if (token.TokenType == TokenType.SpaceSym || token.TokenType == TokenType.TabSym ||
-	                token.TokenType == TokenType.NewLineSym)
-		            continue;
+	            //if (token.TokenType == Tokens.SpaceSym || token.TokenType == Tokens.TabSym ||
+	            //    token.TokenType == Tokens.NewLineSym)
+		        //    continue;
 	            Console.WriteLine(string.Format("TokenType: {0}, Value: {1}, Line: {2}, Column: {3}", token.TokenType, token.Value, token.Line, token.Column));
             }
                 
 
             Console.WriteLine("");
             Console.WriteLine("Process complete");
-			
-            ITokenizer Tokenizer = new PrecedenceBasedRegexTokenizer();
-            //var parser = new Parser();
-            //parser.Parse();
+            Console.WriteLine("Starting to parse!");
+            //ITokenizer Tokenizer = new PrecedenceBasedRegexTokenizer();
+            
+            
+            
+            query = @"
+var testStr = 'hello everynyan!';
+var testIntOne = 1;
+var testIntTwo = 3;
+var result = testIntOne + testIntTwo;
+";
+            
+            PrecedenceBasedRegexTokenizer newTokenizer = new PrecedenceBasedRegexTokenizer();
+            tokenSequence = tokenizer.Tokenize(query).ToList();
+            foreach (var token in tokenSequence)
+            {
+	            //Condition in order to hide Space, Tab and New line symbols
+	            //if (token.TokenType == Tokens.SpaceSym || token.TokenType == Tokens.TabSym ||
+	            //    token.TokenType == Tokens.NewLineSym)
+	            //    continue;
+	            Console.WriteLine(string.Format("TokenType: {0}, Value: {1}, Line: {2}, Column: {3}", token.TokenType, token.Value, token.Line, token.Column));
+            }
+            newTokenizer.PrepareTokens(query);
+            var parser = new Parser(newTokenizer);
+            bool parseResult = parser.Parse();
+
+            Console.WriteLine("");
+            Console.WriteLine($"Process complete. Parse successful: {parseResult}");
 
             //Console.ReadLine();
         }
