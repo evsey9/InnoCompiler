@@ -77,10 +77,10 @@ and 10-6
             
             
             query = @"
-var testStr = 'hello everynyan!';
-var testIntOne = 1;
-var testIntTwo = 3;
-var result = testIntOne + testIntTwo;
+var testStr := 'hello everynyan!';
+var testIntOne := 1;
+var testIntTwo := 3;
+var result := testIntOne + testIntTwo;
 ";
             
             PrecedenceBasedRegexTokenizer newTokenizer = new PrecedenceBasedRegexTokenizer();
