@@ -1,4 +1,4 @@
-﻿using LexicalAnalyzer;
+using LexicalAnalyzer;
 using System;
 using System.Collections.Generic;
 using System.Linq;

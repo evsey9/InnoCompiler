@@ -67,7 +67,6 @@ namespace LexicalAnalyzer
             //  Console.WriteLine("Process complete");
             //  Console.WriteLine("Starting to parse!");
             //ITokenizer Tokenizer = new PrecedenceBasedRegexTokenizer();
-
             string queryConditionTest = @"var a := 4;
 if a > 5 then
 var b := 2 * a;
