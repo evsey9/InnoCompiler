@@ -36,6 +36,7 @@ namespace LexicalAnalyzer
              _tokenDefinitions.Add(new TokenDefinition(Tokens.AndOp, "and\\s", 3));
              _tokenDefinitions.Add(new TokenDefinition(Tokens.OrOp, "or\\s", 3));
              _tokenDefinitions.Add(new TokenDefinition(Tokens.XorOp, "xor\\s", 3));
+             _tokenDefinitions.Add(new TokenDefinition(Tokens.Not, "not\\s", 3));
 
             //Relation
              _tokenDefinitions.Add(new TokenDefinition(Tokens.LessRel, "<", 3));
@@ -73,7 +74,7 @@ namespace LexicalAnalyzer
 
             // FunBody
              _tokenDefinitions.Add(new TokenDefinition(Tokens.IsKey, "is\\s", 3));
-             _tokenDefinitions.Add(new TokenDefinition(Tokens.ArrowKey, "=>", 3));
+             _tokenDefinitions.Add(new TokenDefinition(Tokens.ArrowKey, "=>", 2));
              
              
              // Declaration
@@ -93,6 +94,9 @@ namespace LexicalAnalyzer
              _tokenDefinitions.Add(new TokenDefinition(Tokens.SpaceSym, "\\s", 4));
              _tokenDefinitions.Add(new TokenDefinition(Tokens.NewLineSym, "\\n", 2));
              _tokenDefinitions.Add(new TokenDefinition(Tokens.TabSym, "\\t", 3));
+             
+             _tokenDefinitions.Add(new TokenDefinition(Tokens.Dot, "\\.", 3));
+             _tokenDefinitions.Add(new TokenDefinition(Tokens.DotDot, "\\.\\.", 2));
 
         }
 
@@ -196,7 +200,7 @@ namespace LexicalAnalyzer
             // CODE HERE
             switch (curToken.TokenType)
             {
-                case Tokens.error:
+                /*case Tokens.error:
                     break;
                 case Tokens.EOF:
                     break;
@@ -287,11 +291,11 @@ namespace LexicalAnalyzer
                 case Tokens.SemicolonSym:
                     break;
                 case Tokens.ColonSym:
-                    break;
+                    break;*/
                 case Tokens.SequenceTerminator:
                     return (int)Tokens.EOF;
                     break;
-                case Tokens.OneLineComment:
+                /*case Tokens.OneLineComment:
                     break;
                 case Tokens.SpaceSym:
                     break;
@@ -312,7 +316,7 @@ namespace LexicalAnalyzer
                 case Tokens.DotDot:
                     break;
                 case Tokens.Not:
-                    break;
+                    break;*/
                 case Tokens.VarName:
                     yylval = new StringNode(curToken.Value);
                     break;
@@ -325,8 +329,6 @@ namespace LexicalAnalyzer
                 case Tokens.StringVar:
                     yylval = new StringNode(curToken.Value.Substring(1, curToken.Value.Length - 2));
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
             // CODE END
             _tokenIndex += 1;

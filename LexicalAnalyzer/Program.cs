@@ -28,69 +28,136 @@ namespace LexicalAnalyzer
             Console.WriteLine("");
 
             //            string query = @"
-//      func main()
-//            {
-//                var str := 'Hello world';
-//            real a := 9..3;
-//            int may := 12 * 15 + a - 17;
+            //      func main()
+            //            {
+            //                var str := 'Hello world';
+            //            real a := 9..3;
+            //            int may := 12 * 15 + a - 17;
 
-//        // Array Declaration and Assignment
-//        array:= [1, 8, 12.5, ''];
+            //        // Array Declaration and Assignment
+            //        array:= [1, 8, 12.5, ''];
 
-//            // If Statement
-//            if (12 > 16) and(num <= a or hello) then
-//        // While Loop
-//        while (13 > 16) loop
-//            num = num + 1;
-//            end
-//        end
-//       }";
+            //            // If Statement
+            //            if (12 > 16) and(num <= a or hello) then
+            //        // While Loop
+            //        while (13 > 16) loop
+            //            num = num + 1;
+            //            end
+            //        end
+            //       }";
 
-//            Console.WriteLine("");
-//            Console.WriteLine("The query:");
-//            Console.WriteLine(query);
-//            Console.WriteLine("");
-//            Console.WriteLine("Tokens generated:");
+            //            Console.WriteLine("");
+            //            Console.WriteLine("The query:");
+            //            Console.WriteLine(query);
+            //            Console.WriteLine("");
+            //            Console.WriteLine("Tokens generated:");
 
             //var tokenSequence = tokenizer.Tokenize(query).ToList();
-          //  foreach (var token in tokenSequence)
-          //  {
-	         //   //Condition in order to hide Space, Tab and New line symbols
-	         //   //if (token.TokenType == Tokens.SpaceSym || token.TokenType == Tokens.TabSym ||
-	         //   //    token.TokenType == Tokens.NewLineSym)
-		        ////    continue;
-	         //   Console.WriteLine(string.Format("TokenType: {0}, Value: {1}, Line: {2}, Column: {3}", token.TokenType, token.Value, token.Line, token.Column));
-          //  }
-                
+            //  foreach (var token in tokenSequence)
+            //  {
+            //   //Condition in order to hide Space, Tab and New line symbols
+            //   //if (token.TokenType == Tokens.SpaceSym || token.TokenType == Tokens.TabSym ||
+            //   //    token.TokenType == Tokens.NewLineSym)
+            ////    continue;
+            //   Console.WriteLine(string.Format("TokenType: {0}, Value: {1}, Line: {2}, Column: {3}", token.TokenType, token.Value, token.Line, token.Column));
+            //  }
 
-          //  Console.WriteLine("");
-          //  Console.WriteLine("Process complete");
-          //  Console.WriteLine("Starting to parse!");
+
+            //  Console.WriteLine("");
+            //  Console.WriteLine("Process complete");
+            //  Console.WriteLine("Starting to parse!");
             //ITokenizer Tokenizer = new PrecedenceBasedRegexTokenizer();
-            
-            
-            
-            string query = @"
 
+            string queryConditionTest = @"var a := 4;
+if a > 5 then
+var b := 2 * a;
+print b;
+else
+var b := 100 * a;
+print b;
+end ";
+
+
+            string queryArrayAssignmentTest = @"var a := 3;
+var b := 5 + 3;
+var c := a * b;
+var tup := { a:= 1, b:= 2};
+print a;
+print b;
+print c;
+var t := [1] ;
+var myArray := [1, 2, 3];
+var newArray := myArray + [4, 5, 6];
+t[1] := tup;
+t[2] := [3, 4];
+t[3] := [4, 5, 6];
+print t;
+print newArray;
 ";
+            string queryTupleTest = @"var t:= { a:= 1, b:= 2};
+var x := t.1;
+var y := t.b;
+print x;
+print t.b;
+";
+            string queryTupleTest2 = @"var t := { a:= 1, b:= 2};
+var t2 := {1, t};
+print t2.1;
+var z := t2.2;
+print z.b;
+";
+
+            string querySimple = @"var a := 3;
+var b := 5 + 3;
+var c := a * b;
+print a;
+print b;
+print c;
+";
+			
+			string queryWhileLoopTest = @"while m > 2 loop
+    m := m - 1;
+end
+";
+			
+			string queryForLoopTest = @"for myvar in 12..(32 + 64) loop
+    m:= m + 1;
+end
+";
+
+			string queryFuncLambdaTest = @"var a := func (x) => x + 1;";
+            
+            string queryFuncTest = @"var a := func (x) is
+  m := m + 1;
+  m := m * 3;
+  print m;
+  return m;
+end ;
+";
+
+            string query = queryArrayAssignmentTest;
             
             PrecedenceBasedRegexTokenizer newTokenizer = new PrecedenceBasedRegexTokenizer();
             var tokenSequence = tokenizer.Tokenize(query).ToList();
             foreach (var token in tokenSequence)
             {
 	            //Condition in order to hide Space, Tab and New line symbols
-	            //if (token.TokenType == Tokens.SpaceSym || token.TokenType == Tokens.TabSym ||
-	            //    token.TokenType == Tokens.NewLineSym)
-              //    continue;
+	            if (token.TokenType == Tokens.SpaceSym || token.TokenType == Tokens.TabSym ||
+	                token.TokenType == Tokens.NewLineSym)
+                    continue;
 	            Console.WriteLine(string.Format("TokenType: {0}, Value: {1}, Line: {2}, Column: {3}", token.TokenType, token.Value, token.Line, token.Column));
             }
             newTokenizer.PrepareTokens(query);
             var parser = new Parser(newTokenizer);
             bool parseResult = parser.Parse();
-
             Console.WriteLine("");
             Console.WriteLine($"Process complete. Parse successful: {parseResult}");
-            //Console.ReadLine();
+            Console.WriteLine($"Starting interpretation.");
+            
+            var firstNode = parser.CurrentSemanticValue;
+            var callStack = new CallStack();
+            var interpretResult = firstNode.InterpretNode(ref callStack);
+            Console.WriteLine();
         }
     }
 }
