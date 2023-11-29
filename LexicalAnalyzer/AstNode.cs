@@ -1,4 +1,4 @@
-﻿using LexicalAnalyzer;
+using LexicalAnalyzer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,7 +120,7 @@ namespace LexicalAnalyzer
 
         public override AstNode InterpretNode(ref CallStack stack)
         {
-            if (VariableReference != null)
+            /*if (VariableReference != null)
             {
                 var resultNode = VariableReference.InterpretNode(ref stack);
                 if (resultNode is ErrorNode node)
@@ -129,7 +129,7 @@ namespace LexicalAnalyzer
                 }
 
                 VariableReference = (AccessNode)resultNode;
-            }
+            }*/
 
             if (AssignedExpression != null)
             {
@@ -992,18 +992,21 @@ namespace LexicalAnalyzer
                     return node;
                 }
                 Tail = (AccessTailNode)resultNode;
-                var varName = ((VariableNode)Target).VariableName;
+                var varName = "";
+                if (Target is VariableNode varNodeTarget)
+                    varName = varNodeTarget.VariableName;
+                
                 switch (Tail)
                 {
                     case BracketAccessNode bracketAccessNode:
-                        if (stack.GetVariable(varName) is ArrayLiteralNode targetArray)
+                        if (Target is ArrayLiteralNode targetArray)
                         {
                             return targetArray.Get(((IntegerLiteralNode)bracketAccessNode.Index).Value);
                         }
                         return new ErrorNode("Variable with square brackets access is not an array!");
                         break;
                     case DotAccessNode dotAccessNode:
-                        if (stack.GetVariable(varName) is TupleLiteralNode targetTuple)
+                        if (Target is TupleLiteralNode targetTuple)
                         {
                             if (dotAccessNode.UseMemberName) 
                             {
@@ -1252,13 +1255,14 @@ public class ArrayLiteralNode : ExpressionNode
     public static ArrayLiteralNode operator +(ArrayLiteralNode a, ArrayLiteralNode b)
     {
         Dictionary<int, ExpressionNode> newElements = new Dictionary<int, ExpressionNode>();
+        int countFirst = a.Elements.Count;
         foreach (var key in a.Elements.Keys)
         {
             newElements[key] = a.Elements[key];
         }
         foreach (var key in b.Elements.Keys)
         {
-            newElements[key] = b.Elements[key];
+            newElements[key + countFirst] = b.Elements[key];
         }
         return new ArrayLiteralNode(newElements);
     }
@@ -1277,6 +1281,18 @@ public class ArrayLiteralNode : ExpressionNode
         }
         Elements = newElements;
         return this;
+    }
+
+    public override string ToString()
+    {
+        string curStr = "[";
+        foreach (var item in Elements)
+        {
+            curStr += item.Value;
+            curStr += ", ";
+        }
+        curStr = curStr.Substring(0, curStr.Length - 2) + "]";
+        return curStr;
     }
 }
 
