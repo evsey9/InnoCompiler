@@ -21,15 +21,18 @@
 
 %%
 
-Program: Statement SemicolonSym { $$ = new ProgramNode((StatementNode)$1); }
-       | Program Statement SemicolonSym { $$ = ((ProgramNode)$1).AddStatement((StatementNode)$2); }
+StatementSeparator: NewLineSym | SemicolonSym
+;
+
+Program: Statement { $$ = new ProgramNode((StatementNode)$1); }
+       | Program Statement { $$ = ((ProgramNode)$1).AddStatement((StatementNode)$2); }
        | /* empty */ { $$ = new ProgramNode(); }
        ;
 
-Statement: Declaration { $$ = $1; } 
-       |Assignment { $$ = $1; }
-       | Print { $$ = $1; }
-       | Return { $$ = $1; }
+Statement: Declaration StatementSeparator { $$ = $1; } 
+       |Assignment StatementSeparator { $$ = $1; }
+       | Print StatementSeparator { $$ = $1; }
+       | Return StatementSeparator { $$ = $1; }
        | If { $$ = $1; }
        | Loop { $$ = $1; }
        ;
@@ -37,14 +40,6 @@ Statement: Declaration { $$ = $1; }
 Declaration: VarKey VarName { $$ = new DeclarationNode((StringNode)$2, null); }
           | VarKey VarName AssignOp Expression { $$ = new DeclarationNode((StringNode)$2, (ExpressionNode)$4); }
           ;
-
-VariableDefinitionList: VariableDefinition { $$ = new VariableDefinitionNodeListNode((VariableDefinitionNode)$1); }
-                    | VariableDefinitionList CommaSym VariableDefinition { ((VariableDefinitionNodeListNode)$1).Add((VariableDefinitionNode)$3); $$ = $1; }
-                    ;
-
-VariableDefinition: VarName { $$ = new VariableDefinitionNode($1, null); }
-                | VarName AssignOp Expression { $$ = new VariableDefinitionNode($1, $3); }
-                ;
 
 Expression: Relation OrOp Relation { $$ = new BinaryExpressionNode((ExpressionNode)$1, BinaryOperator.Or, (ExpressionNode)$3); }
           | Relation AndOp Relation { $$ = new BinaryExpressionNode((ExpressionNode)$1, BinaryOperator.And, (ExpressionNode)$3); }
@@ -80,16 +75,16 @@ Unary: Primary { $$ = $1; }
      ;
 
 Primary: VarName { $$ = new VariableNode((StringNode)$1); }
-       | VarName Tail { $$ = new AccessNode((ExpressionNode)$1, (AccessTailNode)$2); }
+       | VarName Tail { $$ = new AccessNode(new VariableNode((StringNode)$1), (AccessTailNode)$2); }
        | ReadInt { $$ = new ReadIntNode(); }
        | ReadReal { $$ = new ReadRealNode(); }
        | ReadString { $$ = new ReadStringNode(); }
        | OpenRoundBr Expression CloseRoundBr { $$ = $2; }
        ;
 
-Tail: Dot IntVar { $$ = new AccessNode((ExpressionNode)$2); }
-    | Dot VarName { $$ = new AccessNode((ExpressionNode)$2); }
-    | OpenSquareBr Expression CloseSquareBr { $$ = new AccessNode((ExpressionNode)$2); }
+Tail: Dot IntVar { $$ = new DotAccessNode(new IntegerLiteralNode(int.Parse(((StringNode)$2).GetString()))); }
+    | Dot VarName { $$ = new DotAccessNode(new VariableNode((StringNode)$2)); }
+    | OpenSquareBr Expression CloseSquareBr { $$ = new BracketAccessNode((ExpressionNode)$2); }
     | OpenRoundBr ExpressionList CloseRoundBr { $$ = new FunctionCallNode((ExpressionNode)$2); }
     ;
 
@@ -98,6 +93,7 @@ ExpressionList: Expression { $$ = new ExpressionNodeListNode((ExpressionNode)$1)
              ;
 
 Assignment: VarName AssignOp Expression { $$ = new AssignmentNode((StringNode)$1, (ExpressionNode)$3); }
+          | VarName Tail AssignOp Expression { $$ = new ArrayAssignmentNode(new AccessNode(new VariableNode((StringNode)$1), (AccessTailNode)$2), (ExpressionNode)$4); }
           ;
 
 Print: PrintKey ExpressionList { $$ = new PrintNode((ExpressionNodeListNode)$2); }
@@ -112,7 +108,7 @@ If: IfKey Expression ThenKey Body EndKey { $$ = new IfNode((ExpressionNode)$2, (
    ;
 
 Loop: WhileKey Expression LoopBody { $$ = new LoopNode((ExpressionNode)$2, (StatementNodeListNode)$3); }
-    | ForKey VarName InKey TypeIndicator LoopBody { $$ = new ForLoopNode((TypeIndicator)$2, (ExpressionNode)$4, (StatementNodeListNode)$5); }
+    | ForKey VarName InKey TypeIndicator LoopBody { $$ = new ForLoopNode((StringNode)$2, (TypeIndicator)$4, (StatementNodeListNode)$5); }
     ;
 
 LoopBody: LoopKey Body EndKey { $$ = $2; }
@@ -129,11 +125,11 @@ TypeIndicator: IntKey { $$ = TypeIndicator.Int; }
              | Expression DotDot Expression { $$ = TypeIndicator.Range($1, $3); }
              ;
 
-Literal: IntVar { $$ = new LiteralNode(int.Parse(((StringNode)$1).GetString())); }
-        | RealVar { $$ = new LiteralNode(double.Parse(((StringNode)$1).GetString())); }
-        | TrueKey { $$ = new LiteralNode(true); }
-        | FalseKey { $$ = new LiteralNode(false); }
-        | StringVar { $$ = new LiteralNode(((StringNode)$1).GetString()); }
+Literal: IntVar { $$ = new IntegerLiteralNode(int.Parse(((StringNode)$1).GetString())); }
+        | RealVar { $$ = new RealLiteralNode(double.Parse(((StringNode)$1).GetString())); }
+        | TrueKey { $$ = new BooleanLiteralNode(true); }
+        | FalseKey { $$ = new BooleanLiteralNode(false); }
+        | StringVar { $$ = new StringLiteralNode(((StringNode)$1).GetString()); }
         | ArrayLiteral { $$ = (ArrayLiteralNode)$1; }
         | TupleLiteral { $$ = (TupleLiteralNode)$1; }
         | FunctionLiteral { $$ = (FunctionLiteralNode)$1; }
@@ -145,7 +141,7 @@ ArrayLiteral: OpenSquareBr ExpressionList CloseSquareBr { $$ = new ArrayLiteralN
 TupleLiteral: OpenCurlBr TupleContent CloseCurlBr { $$ = new TupleLiteralNode((TupleElementNodeListNode)$2); }
             ;
 
-TupleContent: OpenSquareBr TupleElementList CloseSquareBr { $$ = $2; }
+TupleContent: TupleElementList { $$ = $1; }
             | /* empty */ { $$ = new TupleElementNodeListNode(); }
             ;
 
@@ -153,10 +149,11 @@ TupleElementList: TupleElement { $$ = new TupleElementNodeListNode((TupleElement
                | TupleElementList CommaSym TupleElement { ((TupleElementNodeListNode)$1).Add((TupleElementNode)$3); $$ = $1; }
                ;
 
-TupleElement: OpenSquareBr VarName AssignOp Expression CloseSquareBr { $$ = new TupleElementNode((StringNode)$2, (ExpressionNode)$4); }
+TupleElement: VarName AssignOp Expression { $$ = new TupleElementNode((StringNode)$1, (ExpressionNode)$3); }
+            | Expression { $$ = new TupleElementNode((ExpressionNode)$1); }
             ;
 
-FunctionLiteral: FuncKey Parameters FunBody { $$ = new FunctionLiteralNode((StringNodeListNode)$2, (StatementNodeListNode)$3); }
+FunctionLiteral: FuncKey Parameters FunBody { $$ = new FunctionLiteralNode((StringNodeListNode)$2, (FunctionLiteralBodyNode)$3); }
               ;
 
 Parameters: OpenRoundBr VarNameList CloseRoundBr { $$ = $2; }
@@ -167,22 +164,14 @@ VarNameList: VarName { $$ = new StringNodeListNode((StringNode)$1); }
           | VarNameList CommaSym VarName { ((StringNodeListNode)$1).Add((StringNode)$3); $$ = $1; }
           ;
 
-FunBody: IsKey Body EndKey { $$ = $2; }
-       | ArrowKey Expression { $$ = new FunctionBodyNode((ExpressionNode)$2); }
+FunBody: IsKey Body EndKey { $$ = new FunctionLiteralBodyNode((StatementNodeListNode)$2); }
+       | ArrowKey Expression { $$ = new FunctionLiteralBodyNode((ExpressionNode)$2); }
        ;
 
-Body: OpenCurlBr DeclarationList CloseCurlBr { $$ = $2; }
-    | OpenCurlBr StatementList CloseCurlBr { $$ = $2; }
-    | OpenCurlBr ExpressionList CloseCurlBr { $$ = $2; }
-    ;
-
-DeclarationList: Declaration { $$ = new DeclarationNodeListNode((DeclarationNode)$1); }
-              | DeclarationList Declaration { ((DeclarationNodeListNode)$1).Add((DeclarationNode)$2); $$ = $1; }
-              ;
+Body: StatementList { $$ = $1; } ;
 
 StatementList: Statement { $$ = new StatementNodeListNode((StatementNode)$1); }
             | StatementList Statement { ((StatementNodeListNode)$1).Add((StatementNode)$2); $$ = $1; }
             ;
-
 
 %%

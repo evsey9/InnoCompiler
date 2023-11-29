@@ -68,28 +68,68 @@ namespace LexicalAnalyzer
           //  Console.WriteLine("Starting to parse!");
             //ITokenizer Tokenizer = new PrecedenceBasedRegexTokenizer();
             
-            
-            
-            string query = @"
-
+			
+			string queryArrayAssignmentTest = @"var a := 3;
+var b := 5 + 3;
+var c := a * b;
+print a;
+print b;
+print c;
+var t := [1] ;
+var newArray := myArray + [4, 5, 6];
+t[0] := [2];
+print t[0];
 ";
+			string querySimple = @"var a := 3;
+var b := 5 + 3;
+var c := a * b;
+print a;
+print b;
+print c;
+";
+			
+			string queryWhileLoopTest = @"while m > 2 loop
+    m := m - 1;
+end
+";
+			
+			string queryForLoopTest = @"for myvar in 12..(32 + 64) loop
+    m:= m + 1;
+end
+";
+
+			string queryFuncLambdaTest = @"var a := func (x) => x + 1;";
+            
+            string queryFuncTest = @"var a := func (x) is
+  m := m + 1;
+  m := m * 3;
+  print m;
+  return m;
+end ;
+";
+
+            string query = querySimple;
             
             PrecedenceBasedRegexTokenizer newTokenizer = new PrecedenceBasedRegexTokenizer();
             var tokenSequence = tokenizer.Tokenize(query).ToList();
             foreach (var token in tokenSequence)
             {
 	            //Condition in order to hide Space, Tab and New line symbols
-	            //if (token.TokenType == Tokens.SpaceSym || token.TokenType == Tokens.TabSym ||
-	            //    token.TokenType == Tokens.NewLineSym)
-              //    continue;
+	            if (token.TokenType == Tokens.SpaceSym || token.TokenType == Tokens.TabSym ||
+	                token.TokenType == Tokens.NewLineSym)
+                    continue;
 	            Console.WriteLine(string.Format("TokenType: {0}, Value: {1}, Line: {2}, Column: {3}", token.TokenType, token.Value, token.Line, token.Column));
             }
             newTokenizer.PrepareTokens(query);
             var parser = new Parser(newTokenizer);
             bool parseResult = parser.Parse();
-
             Console.WriteLine("");
             Console.WriteLine($"Process complete. Parse successful: {parseResult}");
+            Console.WriteLine($"Starting interpretation.");
+            
+            var firstNode = parser.CurrentSemanticValue;
+            var callStack = new CallStack();
+            firstNode.InterpretNode(ref callStack);
             //Console.ReadLine();
         }
     }

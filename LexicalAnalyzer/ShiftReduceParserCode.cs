@@ -74,7 +74,7 @@ namespace LexicalAnalyzer {
         /// The current value of the "$$" symbolic variable in the parser
         /// </summary>
         [SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-        protected TValue CurrentSemanticValue;
+        public TValue CurrentSemanticValue;
 
         /// <summary>
         /// The current value of the "@$" symbolic variable in the parser
@@ -236,6 +236,8 @@ namespace LexicalAnalyzer {
                         LastSpan = scanner.yylloc;
                         NextToken = scanner.yylex();
 #if TRACE_ACTIONS
+                        string tokenval;
+                        
                        Console.Error.WriteLine( "Reading: Next token is {0}", TerminalToString( NextToken ) );
 #endif
                     }
@@ -451,7 +453,7 @@ namespace LexicalAnalyzer {
                         NextToken = scanner.yylex();
                     }
 #if TRACE_ACTIONS
-                        Console.Error.WriteLine("Next token is {0}", TerminalToString(NextToken));
+                        Console.Error.WriteLine("Next token is {0}, value: {1}", TerminalToString(NextToken), scanner.yylval);
 #endif
                     if (NextToken == endOfFileToken)
                         return false;

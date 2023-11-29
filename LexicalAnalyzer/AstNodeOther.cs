@@ -20,6 +20,11 @@ namespace LexicalAnalyzer
         {
             StringValue = newString;
         }
+
+        public override AstNode InterpretNode(ref CallStack stack)
+        {
+            return this;
+        }
     }
 
     public class ListNode<T> : AstNode
@@ -50,6 +55,11 @@ namespace LexicalAnalyzer
         {
             NodeList.Add(node);
         }
+
+        public override AstNode InterpretNode(ref CallStack stack)
+        {
+            return this;
+        }
     }
 
     public class ExpressionNodeListNode : ListNode<ExpressionNode>
@@ -67,6 +77,21 @@ namespace LexicalAnalyzer
         public ExpressionNodeListNode()
         {
             NodeList = new List<ExpressionNode>();
+        }
+        
+        public override AstNode InterpretNode(ref CallStack stack)
+        {
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                AstNode resultNode = NodeList[i].InterpretNode(ref stack);
+                if (resultNode is ErrorNode node)
+                {
+                    return node;
+                }
+                NodeList[i] = (ExpressionNode)resultNode;
+            }
+
+            return this;
         }
     };
 
@@ -86,6 +111,21 @@ namespace LexicalAnalyzer
         {
             NodeList = new List<StringNode>();
         }
+        
+        public override AstNode InterpretNode(ref CallStack stack)
+        {
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                AstNode resultNode = NodeList[i].InterpretNode(ref stack);
+                if (resultNode is ErrorNode node)
+                {
+                    return node;
+                }
+                NodeList[i] = (StringNode)resultNode;
+            }
+
+            return this;
+        }
     };
 
     public class TupleElementNodeListNode : ListNode<TupleElementNode>
@@ -103,6 +143,21 @@ namespace LexicalAnalyzer
         public TupleElementNodeListNode()
         {
             NodeList = new List<TupleElementNode>();
+        }
+        
+        public override AstNode InterpretNode(ref CallStack stack)
+        {
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                AstNode resultNode = NodeList[i].InterpretNode(ref stack);
+                if (resultNode is ErrorNode node)
+                {
+                    return node;
+                }
+                NodeList[i] = (TupleElementNode)resultNode;
+            }
+
+            return this;
         }
     };
     
@@ -122,6 +177,21 @@ namespace LexicalAnalyzer
         {
             NodeList = new List<DeclarationNode>();
         }
+        
+        public override AstNode InterpretNode(ref CallStack stack)
+        {
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                AstNode resultNode = NodeList[i].InterpretNode(ref stack);
+                if (resultNode is ErrorNode node)
+                {
+                    return node;
+                }
+                NodeList[i] = (DeclarationNode)resultNode;
+            }
+
+            return this;
+        }
     };
     
     public class StatementNodeListNode : ListNode<StatementNode>
@@ -140,24 +210,63 @@ namespace LexicalAnalyzer
         {
             NodeList = new List<StatementNode>();
         }
+        
+        public override AstNode InterpretNode(ref CallStack stack)
+        {
+            for (int i = 0; i < NodeList.Count; i++)
+            {
+                AstNode resultNode = NodeList[i].InterpretNode(ref stack);
+                if (resultNode is ErrorNode node)
+                {
+                    return node;
+                }
+                NodeList[i] = (StatementNode)resultNode;
+            }
+
+            return this;
+        }
     };
-    
-    public class VariableDefinitionNodeListNode : ListNode<VariableDefinitionNode>
+
+    public class FunctionLiteralBodyNode : AstNode
     {
-        public VariableDefinitionNodeListNode(List<VariableDefinitionNode> nodeList)
+        public StatementNodeListNode StatementBody;
+        public ExpressionNode ExpressionBody;
+        public bool UsesStatementBody;
+
+        public FunctionLiteralBodyNode(StatementNodeListNode statementBody)
         {
-            NodeList = nodeList;
+            StatementBody = statementBody;
+            UsesStatementBody = true;
         }
-        
-        public VariableDefinitionNodeListNode(VariableDefinitionNode node)
+
+        public FunctionLiteralBodyNode(ExpressionNode expressionBody)
         {
-            NodeList.Add(node);
+            ExpressionBody = expressionBody;
+            UsesStatementBody = false;
         }
-        
-        public VariableDefinitionNodeListNode()
+
+        public override AstNode InterpretNode(ref CallStack stack)
         {
-            NodeList = new List<VariableDefinitionNode>();
+            if (UsesStatementBody)
+            {
+                var resultNode = StatementBody.InterpretNode(ref stack);
+                if (resultNode is ErrorNode node)
+                {
+                    return node;
+                }
+                StatementBody = (StatementNodeListNode)resultNode;
+            }
+            else
+            {
+                var resultNode = ExpressionBody.InterpretNode(ref stack);
+                if (resultNode is ErrorNode node)
+                {
+                    return node;
+                }
+                ExpressionBody = (ExpressionNode)resultNode;
+            }
+            return this;
         }
-    };
+    }
 
 }
