@@ -1,0 +1,5 @@
+﻿var t:= { a:= 1, b:= 2};
+var x := t.1;
+var y := t.b;
+print x;
+print t.b;

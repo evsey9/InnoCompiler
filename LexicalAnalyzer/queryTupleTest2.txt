@@ -1,0 +1,5 @@
+﻿var t := { a:= 1, b:= 2};
+var t2 := {1, t};
+print t2.1;
+var z := t2.2;
+print z.b;

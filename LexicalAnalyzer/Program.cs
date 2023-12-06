@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using LexicalAnalyzer;
@@ -11,18 +12,24 @@ namespace LexicalAnalyzer
         
         public static void Main(string[] args)
         {
-            new Program().Run();
+            new Program().Run(args);
         }
 
-        public void Run()
+        public void Run(string[] args)
         {
             
             ITokenizer Tokenizer = new PrecedenceBasedRegexTokenizer();
-            RunAndPrint(Tokenizer, "Run tokenizer");
+            string filename = "input.txt";
+            if (args.Length > 0)
+            {
+                filename = args[0];
+            }
+            string query = File.ReadAllText(filename);
+            RunAndPrint(Tokenizer, "Run tokenizer", query);
             
         }
         
-        public void RunAndPrint(ITokenizer tokenizer, string startMessage)
+        public void RunAndPrint(ITokenizer tokenizer, string startMessage, string query)
         {
             Console.WriteLine(startMessage);
             Console.WriteLine("");
@@ -134,7 +141,7 @@ end
 end ;
 ";
 
-            string query = queryArrayAssignmentTest;
+            //string query = queryArrayAssignmentTest;
             
             PrecedenceBasedRegexTokenizer newTokenizer = new PrecedenceBasedRegexTokenizer();
             var tokenSequence = tokenizer.Tokenize(query).ToList();
